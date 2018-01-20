@@ -15,7 +15,6 @@ import dagger.multibindings.IntoMap
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-
 @Module
 internal abstract class ViewModelModule {
     @Binds

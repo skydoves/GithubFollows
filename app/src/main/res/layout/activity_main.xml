@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp">
-
-    <include layout="@layout/layout_main_header"/>
+    android:padding="10dp"
+    android:background="@color/background">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/main_recyclerView"

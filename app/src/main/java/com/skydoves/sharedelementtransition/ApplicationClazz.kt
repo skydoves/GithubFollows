@@ -1,6 +1,5 @@
 package com.skydoves.sharedelementtransition
 
-import com.facebook.drawee.backends.pipeline.Fresco
 import com.skydoves.sharedelementtransition.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
@@ -19,8 +18,6 @@ class ApplicationClazz : DaggerApplication() {
                 .application(this)
                 .build()
                 .inject(this)
-
-        Fresco.initialize(this)
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
