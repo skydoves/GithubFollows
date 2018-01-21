@@ -20,6 +20,8 @@ import timber.log.Timber;
 public class ApiResponse<T> {
     private static final Pattern LINK_PATTERN = Pattern
             .compile("<([^>]*)>[\\s]*;[\\s]*rel=\"([a-zA-Z0-9]+)\"");
+    private static final Pattern PAGE_PATTERN = Pattern.compile("\\bpage=(\\d+)");
+    private static final String NEXT_LINK = "next";
     public final int code;
     @Nullable
     public final T body;
@@ -72,6 +74,23 @@ public class ApiResponse<T> {
     }
 
     public boolean isSuccessful() {
-        return code >= 200 && code < 400;
+        return code >= 200 && code < 300;
+    }
+
+    public Integer getNextPage() {
+        String next = links.get(NEXT_LINK);
+        if (next == null) {
+            return null;
+        }
+        Matcher matcher = PAGE_PATTERN.matcher(next);
+        if (!matcher.find() || matcher.groupCount() != 1) {
+            return null;
+        }
+        try {
+            return Integer.parseInt(matcher.group(1));
+        } catch (NumberFormatException ex) {
+            Timber.w("cannot parse next page from %s", next);
+            return null;
+        }
     }
 }
