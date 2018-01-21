@@ -1,9 +1,9 @@
-package com.skydoves.sharedelementtransition.ui.main
+package com.skydoves.githubfollows.ui.activity.main
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.skydoves.sharedelementtransition.api.GithubService
-import com.skydoves.sharedelementtransition.models.Following
+import com.skydoves.githubfollows.api.GithubService
+import com.skydoves.githubfollows.models.Following
 import timber.log.Timber
 import javax.inject.Inject
 

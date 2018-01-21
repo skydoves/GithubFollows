@@ -1,4 +1,4 @@
-package com.skydoves.sharedelementtransition.di;
+package com.skydoves.githubfollows.di;
 
 import android.arch.lifecycle.ViewModel;
 

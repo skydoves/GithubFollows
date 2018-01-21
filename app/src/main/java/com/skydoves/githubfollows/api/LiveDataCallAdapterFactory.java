@@ -1,4 +1,4 @@
-package com.skydoves.sharedelementtransition.api;
+package com.skydoves.githubfollows.api;
 
 /*
  * Copyright (C) 2017 The Android Open Source Project

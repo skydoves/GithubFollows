@@ -1,4 +1,4 @@
-package com.skydoves.sharedelementtransition
+package com.skydoves.githubfollows
 
 import org.junit.Test
 

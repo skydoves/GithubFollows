@@ -1,4 +1,4 @@
-package com.skydoves.sharedelementtransition.models
+package com.skydoves.githubfollows.models
 
 /**
  * Developed by skydoves on 2018-01-20.

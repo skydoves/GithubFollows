@@ -1,12 +1,12 @@
-package com.skydoves.sharedelementtransition.ui.main
+package com.skydoves.githubfollows.ui.activity.main
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.skydoves.sharedelementtransition.R
-import com.skydoves.sharedelementtransition.models.Following
-import com.skydoves.sharedelementtransition.viewmodel.AppViewModelFactory
+import com.skydoves.githubfollows.R
+import com.skydoves.githubfollows.models.Following
+import com.skydoves.githubfollows.viewmodel.AppViewModelFactory
 import dagger.android.AndroidInjection
 import org.jetbrains.anko.toast
 import javax.inject.Inject

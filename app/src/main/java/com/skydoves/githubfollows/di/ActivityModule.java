@@ -1,6 +1,6 @@
-package com.skydoves.sharedelementtransition.di;
+package com.skydoves.githubfollows.di;
 
-import com.skydoves.sharedelementtransition.ui.main.MainActivity;
+import com.skydoves.githubfollows.ui.activity.main.MainActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

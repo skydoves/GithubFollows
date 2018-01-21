@@ -1,7 +1,7 @@
-package com.skydoves.sharedelementtransition.api
+package com.skydoves.githubfollows.api
 
 import android.arch.lifecycle.LiveData
-import com.skydoves.sharedelementtransition.models.Following
+import com.skydoves.githubfollows.models.Following
 import retrofit2.http.GET
 import retrofit2.http.Path
 

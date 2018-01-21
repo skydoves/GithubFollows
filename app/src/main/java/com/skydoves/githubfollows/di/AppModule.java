@@ -1,7 +1,7 @@
-package com.skydoves.sharedelementtransition.di;
+package com.skydoves.githubfollows.di;
 
-import com.skydoves.sharedelementtransition.api.GithubService;
-import com.skydoves.sharedelementtransition.api.LiveDataCallAdapterFactory;
+import com.skydoves.githubfollows.api.GithubService;
+import com.skydoves.githubfollows.api.LiveDataCallAdapterFactory;
 
 import javax.inject.Singleton;
 

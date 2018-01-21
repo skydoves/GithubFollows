@@ -1,6 +1,6 @@
-package com.skydoves.sharedelementtransition
+package com.skydoves.githubfollows
 
-import com.skydoves.sharedelementtransition.di.DaggerAppComponent
+import com.skydoves.githubfollows.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 

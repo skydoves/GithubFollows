@@ -1,4 +1,4 @@
-package com.skydoves.sharedelementtransition.viewmodel;
+package com.skydoves.githubfollows.viewmodel;
 
 import javax.inject.Singleton;
 

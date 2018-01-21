@@ -1,4 +1,4 @@
-package com.skydoves.sharedelementtransition.extension
+package com.skydoves.githubfollows.extension
 
 import android.app.Activity
 import android.os.Build

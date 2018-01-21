@@ -1,4 +1,4 @@
-package com.skydoves.sharedelementtransition.api;
+package com.skydoves.githubfollows.api;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

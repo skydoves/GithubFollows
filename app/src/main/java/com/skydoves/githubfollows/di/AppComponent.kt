@@ -1,4 +1,4 @@
-package com.skydoves.sharedelementtransition.di
+package com.skydoves.githubfollows.di
 
 import android.app.Application
 
@@ -9,7 +9,6 @@ import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
-import dagger.android.support.AndroidSupportInjectionModule
 
 /**
  * Developed by skydoves on 2018-01-20.

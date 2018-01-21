@@ -1,10 +1,10 @@
-package com.skydoves.sharedelementtransition.di
+package com.skydoves.githubfollows.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 
-import com.skydoves.sharedelementtransition.ui.main.MainActivityViewModel
-import com.skydoves.sharedelementtransition.viewmodel.AppViewModelFactory
+import com.skydoves.githubfollows.ui.activity.main.MainActivityViewModel
+import com.skydoves.githubfollows.viewmodel.AppViewModelFactory
 
 import dagger.Binds
 import dagger.Module
