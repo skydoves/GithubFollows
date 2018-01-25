@@ -27,6 +27,11 @@ constructor(private val service: GithubService): ViewModel() {
         Timber.d("Injection MainActivityViewModel")
     }
 
+    fun resetPagination() {
+        isLoading = false
+        isOnLast = false
+    }
+
     fun fetchFollowing(user: String, page: Int) {
         isLoading = true
         service.fetchFollowings(user, page, per_page).observeForever {

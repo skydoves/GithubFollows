@@ -6,6 +6,39 @@
     android:orientation="vertical"
     android:background="@color/background">
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/main_overflow"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_reorder_white_24dp"
+                android:tint="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                style="@style/TextStyle"/>
+
+            <ImageView
+                android:id="@+id/main_search"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="end"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/ic_search_white_24dp"
+                android:tint="@android:color/white" />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/main_recyclerView"
         android:layout_width="match_parent"

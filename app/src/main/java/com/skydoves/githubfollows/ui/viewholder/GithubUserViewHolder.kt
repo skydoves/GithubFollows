@@ -3,7 +3,6 @@ package com.skydoves.githubfollows.ui.viewholder
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.models.Follower
 import kotlinx.android.synthetic.main.item_github_user.view.*
 
@@ -32,7 +31,7 @@ class GithubUserViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(
         itemView.run {
             Glide.with(context)
                     .load(githubUser.avatar_url)
-                    .apply(RequestOptions().circleCrop().placeholder(R.drawable.placeholder))
+                    .apply(RequestOptions().circleCrop().override(100))
                     .into(item_github_user_thumbnail)
             item_github_user_title.text = githubUser.login
         }

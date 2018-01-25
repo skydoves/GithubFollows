@@ -14,12 +14,19 @@ import com.skydoves.githubfollows.ui.viewholder.GithubUserViewHolder
 
 class GithubUserAdapter(val delegate: GithubUserViewHolder.Delegate) : BaseAdapter() {
 
+    private val section_follower = 0
+
     init {
         addSection(ArrayList<Follower>())
     }
 
-    fun addGithubUserList(githubUsers: List<Follower>) {
-        sections[0].addAll(githubUsers)
+    fun addFollowList(followers: List<Follower>) {
+        sections[section_follower].addAll(followers)
+        notifyDataSetChanged()
+    }
+
+    fun clearAll() {
+        sections[section_follower].clear()
         notifyDataSetChanged()
     }
 

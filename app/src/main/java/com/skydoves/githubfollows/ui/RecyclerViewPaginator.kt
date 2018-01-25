@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-class RecyclerViewpaginator(recyclerView: RecyclerView,
+class RecyclerViewPaginator(val recyclerView: RecyclerView,
                             val isLoading: () -> Boolean,
                             val loadMore: (Int) -> Unit,
                             val onLast: () -> Boolean = { true }): RecyclerView.OnScrollListener() {
@@ -38,5 +38,9 @@ class RecyclerViewpaginator(recyclerView: RecyclerView,
         if ((visibleItemCount + firstVisibleItemPosition + threshold) >= totalItemCount) {
             loadMore(++currentPage)
         }
+    }
+
+    fun resetCurrentPage() {
+        this.currentPage = 1
     }
 }
