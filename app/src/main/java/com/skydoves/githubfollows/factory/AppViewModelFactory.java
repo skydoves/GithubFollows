@@ -1,4 +1,4 @@
-package com.skydoves.githubfollows.viewmodel;
+package com.skydoves.githubfollows.factory;
 
 import javax.inject.Singleton;
 

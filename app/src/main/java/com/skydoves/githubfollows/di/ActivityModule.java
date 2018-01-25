@@ -1,6 +1,6 @@
 package com.skydoves.githubfollows.di;
 
-import com.skydoves.githubfollows.ui.activity.main.MainActivity;
+import com.skydoves.githubfollows.view.ui.main.MainActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

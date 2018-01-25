@@ -1,4 +1,4 @@
-package com.skydoves.githubfollows.ui
+package com.skydoves.githubfollows.view
 
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager

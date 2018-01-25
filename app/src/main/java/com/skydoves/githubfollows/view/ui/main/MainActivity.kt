@@ -1,19 +1,18 @@
-package com.skydoves.githubfollows.ui.activity.main
+package com.skydoves.githubfollows.view.ui.main
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.models.Follower
-import com.skydoves.githubfollows.ui.RecyclerViewPaginator
-import com.skydoves.githubfollows.ui.activity.search.SearchActivity
-import com.skydoves.githubfollows.ui.adapter.GithubUserAdapter
-import com.skydoves.githubfollows.ui.viewholder.GithubUserViewHolder
+import com.skydoves.githubfollows.view.RecyclerViewPaginator
+import com.skydoves.githubfollows.view.ui.search.SearchActivity
+import com.skydoves.githubfollows.view.adapter.GithubUserAdapter
+import com.skydoves.githubfollows.view.viewholder.GithubUserViewHolder
 import com.skydoves.githubfollows.utils.PowerMenuUtils
-import com.skydoves.githubfollows.viewmodel.AppViewModelFactory
+import com.skydoves.githubfollows.factory.AppViewModelFactory
 import com.skydoves.powermenu.OnMenuItemClickListener
 import com.skydoves.powermenu.PowerMenu
 import com.skydoves.powermenu.PowerMenuItem

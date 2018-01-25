@@ -1,11 +1,11 @@
-package com.skydoves.githubfollows.ui.adapter
+package com.skydoves.githubfollows.view.adapter
 
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.skydoves.githubfollows.ui.viewholder.BaseViewHolder
+import com.skydoves.githubfollows.view.viewholder.BaseViewHolder
 import java.util.*
 
 /**

@@ -3,8 +3,8 @@ package com.skydoves.githubfollows.di
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 
-import com.skydoves.githubfollows.ui.activity.main.MainActivityViewModel
-import com.skydoves.githubfollows.viewmodel.AppViewModelFactory
+import com.skydoves.githubfollows.view.ui.main.MainActivityViewModel
+import com.skydoves.githubfollows.factory.AppViewModelFactory
 
 import dagger.Binds
 import dagger.Module

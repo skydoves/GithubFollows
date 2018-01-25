@@ -1,4 +1,4 @@
-package com.skydoves.githubfollows.ui.viewholder
+package com.skydoves.githubfollows.view.viewholder
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView

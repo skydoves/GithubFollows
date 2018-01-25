@@ -1,4 +1,4 @@
-package com.skydoves.githubfollows.ui.activity.main
+package com.skydoves.githubfollows.view.ui.main
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel

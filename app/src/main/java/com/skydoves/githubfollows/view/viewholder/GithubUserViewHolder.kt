@@ -1,4 +1,4 @@
-package com.skydoves.githubfollows.ui.viewholder
+package com.skydoves.githubfollows.view.viewholder
 
 import android.view.View
 import com.bumptech.glide.Glide

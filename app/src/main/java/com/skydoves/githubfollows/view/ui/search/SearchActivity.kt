@@ -1,4 +1,4 @@
-package com.skydoves.githubfollows.ui.activity.search
+package com.skydoves.githubfollows.view.ui.search
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
