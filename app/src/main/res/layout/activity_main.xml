@@ -17,10 +17,9 @@
 
             <ImageView
                 android:id="@+id/main_overflow"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/ic_reorder_white_24dp"
-                android:tint="@android:color/white" />
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_reorder_white_24dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -30,12 +29,11 @@
 
             <ImageView
                 android:id="@+id/main_search"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_gravity="end"
                 android:layout_marginRight="16dp"
-                android:src="@drawable/ic_search_white_24dp"
-                android:tint="@android:color/white" />
+                android:src="@drawable/ic_search_white_24dp" />
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 

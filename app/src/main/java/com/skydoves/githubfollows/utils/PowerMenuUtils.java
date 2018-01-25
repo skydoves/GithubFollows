@@ -26,8 +26,8 @@ public class PowerMenuUtils {
                 .setMenuShadow(10f)
                 .setTextColor(Color.WHITE)
                 .setSelectedTextColor(context.getResources().getColor(R.color.colorPrimary))
-                .setMenuColor(context.getResources().getColor(R.color.secondPrimary))
-                .setSelectedMenuColor(context.getResources().getColor(R.color.secondPrimaryDark))
+                .setMenuColor(context.getResources().getColor(R.color.background800))
+                .setSelectedMenuColor(context.getResources().getColor(R.color.background800))
                 .setOnMenuItemClickListener(onMenuItemClickListener)
                 .build();
     }

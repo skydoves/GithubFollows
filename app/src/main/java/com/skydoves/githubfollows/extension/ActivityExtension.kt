@@ -24,7 +24,7 @@ fun Activity.circularRevealed(view: View, x: Int, y: Int) {
         circularReveal.duration = 350
         circularReveal.interpolator = AccelerateInterpolator()
 
-        view.setBackgroundColor(ContextCompat.getColor(this, R.color.background))
+        view.setBackgroundColor(ContextCompat.getColor(this, R.color.background800))
         view.visibility = View.VISIBLE
         circularReveal.start()
     }

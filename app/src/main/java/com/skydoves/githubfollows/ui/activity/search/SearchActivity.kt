@@ -21,7 +21,12 @@ class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+        startCircularRevealed(savedInstanceState)
 
+        search_home.setOnClickListener { onBackPressed() }
+    }
+
+    private fun startCircularRevealed(savedInstanceState: Bundle?) {
         if (savedInstanceState == null && checkIsMaterialVersion()) {
             search_layout.visibility = View.INVISIBLE
 

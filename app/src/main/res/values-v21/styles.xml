@@ -1,0 +1,8 @@
+<resources>
+    <style name="AppTheme.Transparent" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:textCursorDrawable">@android:color/white</item>
+    </style>
+</resources>
