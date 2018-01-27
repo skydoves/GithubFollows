@@ -1,6 +1,7 @@
 package com.skydoves.githubfollows
 
 import com.skydoves.githubfollows.di.DaggerAppComponent
+import com.skydoves.githubfollows.preference.PreferenceComponent_PrefAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import timber.log.Timber
@@ -21,6 +22,8 @@ class ApplicationClazz : DaggerApplication() {
                 .inject(this)
 
         Timber.plant(Timber.DebugTree())
+
+        PreferenceComponent_PrefAppComponent.init(this)
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {

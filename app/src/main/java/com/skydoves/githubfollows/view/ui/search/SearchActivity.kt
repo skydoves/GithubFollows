@@ -2,6 +2,7 @@ package com.skydoves.githubfollows.view.ui.search
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -20,6 +21,7 @@ import com.skydoves.githubfollows.view.adapter.HistoryAdapter
 import com.skydoves.githubfollows.view.viewholder.HistoryViewHolder
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_search.*
+import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 /**
@@ -49,18 +51,6 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
         search_input.setOnEditorActionListener(this)
     }
 
-    private fun observeViewModel() {
-        viewModel.historiesLiveData.observe(this, Observer {
-            it?.let { adapter.updateItemList(it) }
-        })
-    }
-
-    private fun initializeAdapter() {
-        search_recyclerView.layoutManager = LinearLayoutManager(this)
-        search_recyclerView.adapter = adapter
-        viewModel.selectHistories()
-    }
-
     private fun startCircularRevealed(savedInstanceState: Bundle?) {
         if (savedInstanceState == null && checkIsMaterialVersion()) {
             search_layout.visibility = View.INVISIBLE
@@ -77,21 +67,42 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
         }
     }
 
+    private fun observeViewModel() {
+        viewModel.historiesLiveData.observe(this, Observer { it?.let { adapter.updateItemList(it) } })
+        viewModel.githubUserLiveData.observe(this, Observer { it?.let { onChangeUser(it.login) } })
+        viewModel.toastMessage.observe(this, Observer { toast(it.toString()) })
+    }
+
+    private fun initializeAdapter() {
+        search_recyclerView.layoutManager = LinearLayoutManager(this)
+        search_recyclerView.adapter = adapter
+        viewModel.selectHistories()
+    }
+
     override fun onEditorAction(p0: TextView?, actionId: Int, event: KeyEvent?): Boolean {
         val searchKeyword = search_input.text
-        if(actionId == EditorInfo.IME_ACTION_SEARCH && searchKeyword.isNotEmpty()) {
-            viewModel.insertHistory(searchKeyword.toString())
-            return true
+        if(actionId == EditorInfo.IME_ACTION_SEARCH) {
+            searchKeyword?.let {
+                viewModel.fetchGithubUser(it.toString())
+                return true
+            }
         }
         return false
     }
 
     override fun onItemClicked(history: History) {
-
+        onChangeUser(history.search)
     }
 
     override fun onDeleteHistory(history: History) {
         viewModel.deleteHistory(history)
+    }
+
+    private fun onChangeUser(userName: String) {
+        viewModel.putPreferenceUserName(userName)
+        viewModel.insertHistory(userName)
+        setResult(1000, Intent().putExtra(viewModel.getPreferenceUserKeyName(), userName))
+        onBackPressed()
     }
 
     override fun onBackPressed() {
