@@ -2,8 +2,14 @@ package com.skydoves.githubfollows.view.ui.search
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import com.skydoves.githubfollows.api.ApiResponse
+import com.skydoves.githubfollows.api.GithubService
+import com.skydoves.githubfollows.models.GithubUser
+import com.skydoves.githubfollows.preference.PreferenceComponent_PrefAppComponent
+import com.skydoves.githubfollows.preference.Preference_UserProfile
 import com.skydoves.githubfollows.room.History
 import com.skydoves.githubfollows.room.HistoryDao
+import com.skydoves.preferenceroom.InjectPreference
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
@@ -16,12 +22,29 @@ import javax.inject.Inject
  */
 
 class SearchActivityViewModel @Inject
-constructor(private val historyDao: HistoryDao): ViewModel() {
+constructor(private val githubSerbive: GithubService, private val historyDao: HistoryDao): ViewModel() {
 
+    @InjectPreference lateinit var profile: Preference_UserProfile
+
+    val githubUserLiveData: MutableLiveData<GithubUser> = MutableLiveData()
     val historiesLiveData: MutableLiveData<List<History>> = MutableLiveData()
+
+    val toastMessage: MutableLiveData<String> = MutableLiveData()
 
     init {
         Timber.d("Injection SearchActivityViewModel")
+        PreferenceComponent_PrefAppComponent.getInstance().inject(this)
+    }
+
+    fun fetchGithubUser(userName: String) {
+        githubSerbive.fetchGithubUser(userName).observeForever{
+            it?.let {
+                when(it.isSuccessful) {
+                    true -> githubUserLiveData.postValue(it.body)
+                    false -> toastMessage.postValue(it.envelope?.message)
+                }
+            }
+        }
     }
 
     fun insertHistory(search: String) {
@@ -48,5 +71,13 @@ constructor(private val historyDao: HistoryDao): ViewModel() {
                     dao.deleteHistory(history.search)
                     Timber.d("Dao delete history : ${history.search}")
                 }
+    }
+
+    fun putPreferenceUserName(userName: String) {
+        profile.putName(userName)
+    }
+
+    fun getPreferenceUserKeyName(): String {
+        return profile.nameKeyName()
     }
 }

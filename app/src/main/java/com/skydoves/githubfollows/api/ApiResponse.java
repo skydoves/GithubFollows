@@ -4,6 +4,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.ArrayMap;
 
+import com.google.gson.Gson;
+import com.skydoves.githubfollows.models.Envelope;
+
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
@@ -25,23 +28,27 @@ public class ApiResponse<T> {
     public final int code;
     @Nullable
     public final T body;
-    @Nullable
-    public final String errorMessage;
     @NonNull
     public final Map<String, String> links;
+    @NonNull
+    private final Gson gson;
+    @Nullable
+    public final Envelope envelope;
 
     public ApiResponse(Throwable error) {
         code = 500;
         body = null;
-        errorMessage = error.getMessage();
+        gson = new Gson();
         links = Collections.emptyMap();
+        envelope = null;
     }
 
     public ApiResponse(Response<T> response) {
         code = response.code();
+        gson = new Gson();
         if(response.isSuccessful()) {
             body = response.body();
-            errorMessage = null;
+            envelope = null;
         } else {
             String message = null;
             if (response.errorBody() != null) {
@@ -54,7 +61,7 @@ public class ApiResponse<T> {
             if (message == null || message.trim().length() == 0) {
                 message = response.message();
             }
-            errorMessage = message;
+            envelope = gson.fromJson(message, Envelope.class);
             body = null;
         }
         String linkHeader = response.headers().get("link");
