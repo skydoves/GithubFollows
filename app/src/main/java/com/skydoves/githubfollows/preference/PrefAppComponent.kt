@@ -1,5 +1,6 @@
 package com.skydoves.githubfollows.preference
 
+import com.skydoves.githubfollows.view.ui.detail.DetailActivityViewModel
 import com.skydoves.githubfollows.view.ui.main.MainActivityViewModel
 import com.skydoves.githubfollows.view.ui.search.SearchActivityViewModel
 import com.skydoves.preferenceroom.PreferenceComponent
@@ -13,4 +14,5 @@ import com.skydoves.preferenceroom.PreferenceComponent
 interface PrefAppComponent {
     fun inject(target: MainActivityViewModel)
     fun inject(target: SearchActivityViewModel)
+    fun inject(target: DetailActivityViewModel)
 }

@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.item_github_user.view.*
 class GithubUserViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(view) {
 
     interface Delegate {
-        fun onItemClick(githubUser: Follower)
+        fun onItemClick(githubUser: Follower, view: View)
     }
 
     private lateinit var githubUser: Follower
@@ -32,13 +32,13 @@ class GithubUserViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(
             Glide.with(context)
                     .load(githubUser.avatar_url)
                     .apply(RequestOptions().circleCrop().override(100))
-                    .into(item_github_user_thumbnail)
-            item_github_user_title.text = githubUser.login
+                    .into(item_user_avatar)
+            item_user_name.text = githubUser.login
         }
     }
 
     override fun onClick(view: View) {
-        delegate.onItemClick(githubUser)
+        delegate.onItemClick(githubUser, itemView.item_user_avatar)
     }
 
     override fun onLongClick(view: View): Boolean {

@@ -15,13 +15,15 @@
         <activity android:name=".view.ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".view.ui.search.SearchActivity"
-            android:windowSoftInputMode="stateVisible"
-            android:theme="@style/AppTheme.Transparent"/>
+            android:theme="@style/AppTheme.Transparent"
+            android:windowSoftInputMode="stateVisible" />
+        <activity android:name=".view.ui.detail.DetailActivity"/>
     </application>
 
 </manifest>

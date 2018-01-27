@@ -4,14 +4,19 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.view.ViewCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.skydoves.githubfollows.R
+import com.skydoves.githubfollows.extension.checkIsMaterialVersion
 import com.skydoves.githubfollows.factory.AppViewModelFactory
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.utils.PowerMenuUtils
 import com.skydoves.githubfollows.view.RecyclerViewPaginator
 import com.skydoves.githubfollows.view.adapter.GithubUserAdapter
+import com.skydoves.githubfollows.view.ui.detail.DetailActivity
 import com.skydoves.githubfollows.view.ui.search.SearchActivity
 import com.skydoves.githubfollows.view.viewholder.GithubUserViewHolder
 import com.skydoves.powermenu.OnMenuItemClickListener
@@ -19,6 +24,8 @@ import com.skydoves.powermenu.PowerMenu
 import com.skydoves.powermenu.PowerMenuItem
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.toolbar_main.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import javax.inject.Inject
@@ -33,8 +40,8 @@ class MainActivity : AppCompatActivity(), GithubUserViewHolder.Delegate {
     private lateinit var dummy: String
 
     @Inject lateinit var viewModelFactory: AppViewModelFactory
-    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(MainActivityViewModel::class.java) }
 
+    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(MainActivityViewModel::class.java) }
     private val adapter by lazy { GithubUserAdapter(this) }
 
     private lateinit var paginator: RecyclerViewPaginator
@@ -68,10 +75,8 @@ class MainActivity : AppCompatActivity(), GithubUserViewHolder.Delegate {
 
     private fun initializeUI() {
         powerMenu = PowerMenuUtils.getOverflowPowerMenu(this, this, onPowerMenuItemClickListener)
-        main_overflow.setOnClickListener { powerMenu.showAsDropDown(it) }
-        main_search.setOnClickListener {
-            startActivityForResult<SearchActivity>(1000)
-        }
+        toolbar_main_overflow.setOnClickListener { powerMenu.showAsDropDown(it) }
+        toolbar_main_search.setOnClickListener { startActivityForResult<SearchActivity>(1000) }
     }
 
     private fun observeViewModel() {
@@ -83,15 +88,13 @@ class MainActivity : AppCompatActivity(), GithubUserViewHolder.Delegate {
 
     private fun loadMore(page: Int) {
         when(powerMenu.selectedPosition) {
-            -1, 0 -> viewModel.fetchFollowing(dummy, page)
             1 -> viewModel.fetchFollowers(dummy, page)
+            else -> viewModel.fetchFollowing(dummy, page)
         }
     }
 
     private fun updateGithubUserList(followers: List<Follower>?) {
-        followers?.let {
-            adapter.addFollowList(it)
-        } ?: toast("not found user!")
+        followers?.let { adapter.addFollowList(it) }
     }
 
     private fun restPagination() {
@@ -101,8 +104,16 @@ class MainActivity : AppCompatActivity(), GithubUserViewHolder.Delegate {
         loadMore(1)
     }
 
-    override fun onItemClick(follower: Follower) {
-        toast(follower.login)
+    override fun onItemClick(follower: Follower, view: View) {
+        if (checkIsMaterialVersion()) {
+            val intent = Intent(this, DetailActivity::class.java)
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, view,
+                    ViewCompat.getTransitionName(view))
+            intent.putExtra("follower", follower)
+            startActivityForResult(intent, 1000, options.toBundle())
+        } else {
+            startActivityForResult<DetailActivity>(1000, "follower" to follower)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

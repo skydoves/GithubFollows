@@ -21,6 +21,7 @@ import com.skydoves.githubfollows.view.adapter.HistoryAdapter
 import com.skydoves.githubfollows.view.viewholder.HistoryViewHolder
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_search.*
+import kotlinx.android.synthetic.main.toolbar_search.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
@@ -34,7 +35,6 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
     @Inject lateinit var viewModelFactory: AppViewModelFactory
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(SearchActivityViewModel::class.java) }
-
     private val adapter by lazy { HistoryAdapter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,11 +44,10 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
         startCircularRevealed(savedInstanceState)
 
         observeViewModel()
-
         initializeAdapter()
 
-        search_home.setOnClickListener { onBackPressed() }
-        search_input.setOnEditorActionListener(this)
+        toolbar_search_home.setOnClickListener { onBackPressed() }
+        toolbar_search_input.setOnEditorActionListener(this)
     }
 
     private fun startCircularRevealed(savedInstanceState: Bundle?) {
@@ -80,7 +79,7 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
     }
 
     override fun onEditorAction(p0: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-        val searchKeyword = search_input.text
+        val searchKeyword = toolbar_search_input.text
         if(actionId == EditorInfo.IME_ACTION_SEARCH) {
             searchKeyword?.let {
                 viewModel.fetchGithubUser(it.toString())

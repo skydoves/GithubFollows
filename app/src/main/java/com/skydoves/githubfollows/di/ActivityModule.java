@@ -1,5 +1,6 @@
 package com.skydoves.githubfollows.di;
 
+import com.skydoves.githubfollows.view.ui.detail.DetailActivity;
 import com.skydoves.githubfollows.view.ui.main.MainActivity;
 import com.skydoves.githubfollows.view.ui.search.SearchActivity;
 
@@ -18,4 +19,7 @@ public abstract class ActivityModule {
 
     @ContributesAndroidInjector
     abstract SearchActivity contributeSearchActivity();
+
+    @ContributesAndroidInjector
+    abstract DetailActivity contributeDetailActivity();
 }

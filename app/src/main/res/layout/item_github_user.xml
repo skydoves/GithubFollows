@@ -14,15 +14,16 @@
         android:padding="5dp">
 
         <ImageView
-            android:id="@+id/item_github_user_thumbnail"
+            android:id="@+id/item_user_avatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY"
+            android:transitionName="@string/transition_avatar"/>
 
         <TextView
-            android:id="@+id/item_github_user_title"
+            android:id="@+id/item_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -30,6 +31,6 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"
             style="@style/TextStyle"
-            tools:text="Title"/>
+            tools:text="username"/>
     </LinearLayout>
 </FrameLayout>
