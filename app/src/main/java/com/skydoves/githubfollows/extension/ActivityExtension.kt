@@ -21,7 +21,7 @@ fun Activity.circularRevealed(view: View, x: Int, y: Int) {
     if (checkIsMaterialVersion()) {
         val finalRadius = (Math.max(view.width, view.height) * 1.1)
         val circularReveal = ViewAnimationUtils.createCircularReveal(view, x, y, 0f, finalRadius.toFloat())
-        circularReveal.duration = 350
+        circularReveal.duration = 400
         circularReveal.interpolator = AccelerateInterpolator()
 
         view.setBackgroundColor(ContextCompat.getColor(this, R.color.background800))
@@ -36,7 +36,7 @@ fun Activity.circularUnRevealed(mView: View, revealX: Int, revealY: Int) {
         val circularReveal = ViewAnimationUtils.createCircularReveal(
                 mView, revealX, revealY, finalRadius.toFloat(), 0f)
 
-        circularReveal.duration = 300
+        circularReveal.duration = 350
         circularReveal.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
                 mView.visibility = View.INVISIBLE

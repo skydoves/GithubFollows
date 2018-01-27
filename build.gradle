@@ -3,6 +3,7 @@
 buildscript {
     ext.support_library_version = "27.0.2"
     ext.kotlin_version = "1.1.51"
+    ext.arch_version = "1.0.0"
     ext.anko_version = '0.10.1'
     ext.dagger_version = "2.11"
     ext.retrofit_version = "2.3.0"

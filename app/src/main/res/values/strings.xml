@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">GithubFollows</string>
-    <string name="hint_search">Search</string>
+    <string name="hint_search">User Name</string>
 </resources>

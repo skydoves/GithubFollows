@@ -1,6 +1,7 @@
 package com.skydoves.githubfollows.di;
 
 import com.skydoves.githubfollows.view.ui.main.MainActivity;
+import com.skydoves.githubfollows.view.ui.search.SearchActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -14,4 +15,7 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class ActivityModule {
     @ContributesAndroidInjector
     abstract MainActivity contributeMainActivity();
+
+    @ContributesAndroidInjector
+    abstract SearchActivity contributeSearchActivity();
 }

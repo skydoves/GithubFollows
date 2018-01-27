@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -30,6 +31,7 @@
                         android:src="@drawable/ic_arrow_back_white_24dp"/>
 
                     <EditText
+                        android:id="@+id/search_input"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginRight="16dp"
@@ -43,6 +45,11 @@
                 </LinearLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
-    </LinearLayout>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_history"/>
+    </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

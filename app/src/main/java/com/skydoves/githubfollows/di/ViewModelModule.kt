@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 
 import com.skydoves.githubfollows.view.ui.main.MainActivityViewModel
 import com.skydoves.githubfollows.factory.AppViewModelFactory
+import com.skydoves.githubfollows.view.ui.search.SearchActivityViewModel
 
 import dagger.Binds
 import dagger.Module
@@ -21,6 +22,11 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainActivityViewModel::class)
     internal abstract fun bindMainActivityViewModel(mainActivityViewModel: MainActivityViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchActivityViewModel::class)
+    internal abstract fun bindSearchActivityViewModel(searchActivityViewModel: SearchActivityViewModel): ViewModel
 
     @Binds
     internal abstract fun bindViewModelFactory(appViewModelFactory: AppViewModelFactory): ViewModelProvider.Factory
