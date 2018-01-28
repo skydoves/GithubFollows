@@ -18,7 +18,7 @@
         android:id="@+id/main_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp"
+        android:padding="5dp"
         android:clipToPadding="false"
         tools:listitem="@layout/item_github_user"/>
 </LinearLayout>

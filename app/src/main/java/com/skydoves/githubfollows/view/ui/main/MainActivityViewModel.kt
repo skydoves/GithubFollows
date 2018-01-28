@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.skydoves.githubfollows.api.GithubService
 import com.skydoves.githubfollows.models.Follower
+import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.preference.PreferenceComponent_PrefAppComponent
 import com.skydoves.githubfollows.preference.Preference_UserProfile
 import com.skydoves.preferenceroom.InjectPreference
@@ -20,6 +21,7 @@ constructor(private val service: GithubService): ViewModel() {
 
     @InjectPreference lateinit var profile: Preference_UserProfile
 
+    val githubUserLiveData: MutableLiveData<GithubUser> = MutableLiveData()
     val githubUserListLiveData: MutableLiveData<List<Follower>> = MutableLiveData()
     val toastMessage: MutableLiveData<String> = MutableLiveData()
 
@@ -36,6 +38,17 @@ constructor(private val service: GithubService): ViewModel() {
     fun resetPagination() {
         isLoading = false
         isOnLast = false
+    }
+
+    fun fetchGithubUser(user: String) {
+        service.fetchGithubUser(user).observeForever{
+            it?.let {
+                when(it.isSuccessful) {
+                    true -> githubUserLiveData.postValue(it.body)
+                    false -> toastMessage.postValue(it.envelope?.message)
+                }
+            }
+        }
     }
 
     fun fetchFollowing(user: String, page: Int) {

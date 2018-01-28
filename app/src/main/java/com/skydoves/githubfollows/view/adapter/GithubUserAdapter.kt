@@ -3,7 +3,9 @@ package com.skydoves.githubfollows.view.adapter
 import android.view.View
 import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.models.Follower
+import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.view.viewholder.BaseViewHolder
+import com.skydoves.githubfollows.view.viewholder.GithubUserHeaderViewHolder
 import com.skydoves.githubfollows.view.viewholder.GithubUserViewHolder
 
 /**
@@ -11,12 +13,21 @@ import com.skydoves.githubfollows.view.viewholder.GithubUserViewHolder
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-class GithubUserAdapter(val delegate: GithubUserViewHolder.Delegate) : BaseAdapter() {
+class GithubUserAdapter(val delegate_header: GithubUserHeaderViewHolder.Delegate,
+                        val delegate: GithubUserViewHolder.Delegate) : BaseAdapter() {
 
-    private val section_follower = 0
+    private val section_header = 0
+    private val section_follower = 1
 
     init {
+        addSection(ArrayList<GithubUser>())
         addSection(ArrayList<Follower>())
+    }
+
+    fun updateHeader(githubUser: GithubUser) {
+        sections[section_header].clear()
+        sections[section_header].add(githubUser)
+        notifyDataSetChanged()
     }
 
     fun addFollowList(followers: List<Follower>) {
@@ -25,15 +36,22 @@ class GithubUserAdapter(val delegate: GithubUserViewHolder.Delegate) : BaseAdapt
     }
 
     fun clearAll() {
+        sections[section_header].clear()
         sections[section_follower].clear()
         notifyDataSetChanged()
     }
 
     override fun layout(sectionRow: BaseAdapter.SectionRow): Int {
-        return R.layout.item_github_user
+        when(sectionRow.section()) {
+            section_header -> return R.layout.layout_detail_header
+            else -> return R.layout.item_github_user
+        }
     }
 
     override fun viewHolder(layout: Int, view: View): BaseViewHolder {
-        return GithubUserViewHolder(view, delegate)
+        when(layout) {
+            R.layout.layout_detail_header -> return GithubUserHeaderViewHolder(view, delegate_header)
+            else -> return GithubUserViewHolder(view, delegate)
+        }
     }
 }

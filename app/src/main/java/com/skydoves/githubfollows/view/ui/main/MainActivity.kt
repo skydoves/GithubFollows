@@ -13,11 +13,13 @@ import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.extension.checkIsMaterialVersion
 import com.skydoves.githubfollows.factory.AppViewModelFactory
 import com.skydoves.githubfollows.models.Follower
+import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.utils.PowerMenuUtils
 import com.skydoves.githubfollows.view.RecyclerViewPaginator
 import com.skydoves.githubfollows.view.adapter.GithubUserAdapter
 import com.skydoves.githubfollows.view.ui.detail.DetailActivity
 import com.skydoves.githubfollows.view.ui.search.SearchActivity
+import com.skydoves.githubfollows.view.viewholder.GithubUserHeaderViewHolder
 import com.skydoves.githubfollows.view.viewholder.GithubUserViewHolder
 import com.skydoves.powermenu.OnMenuItemClickListener
 import com.skydoves.powermenu.PowerMenu
@@ -25,6 +27,7 @@ import com.skydoves.powermenu.PowerMenuItem
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_main.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import javax.inject.Inject
@@ -34,14 +37,14 @@ import javax.inject.Inject
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-class MainActivity : AppCompatActivity(), GithubUserViewHolder.Delegate {
+class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, GithubUserViewHolder.Delegate {
 
     private lateinit var dummy: String
 
     @Inject lateinit var viewModelFactory: AppViewModelFactory
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(MainActivityViewModel::class.java) }
-    private val adapter by lazy { GithubUserAdapter(this) }
+    private val adapter by lazy { GithubUserAdapter(this, this) }
 
     private lateinit var paginator: RecyclerViewPaginator
     private lateinit var powerMenu: PowerMenu
@@ -82,8 +85,10 @@ class MainActivity : AppCompatActivity(), GithubUserViewHolder.Delegate {
 
     private fun observeViewModel() {
         dummy = viewModel.getPreferenceUserName()
+        viewModel.githubUserLiveData.observe(this, Observer { it?.let { adapter.updateHeader(it) } })
         viewModel.githubUserListLiveData.observe(this, Observer { updateGithubUserList(it) })
         viewModel.toastMessage.observe(this, Observer { toast(it.toString()) })
+        viewModel.fetchGithubUser(dummy)
         loadMore(1)
     }
 
@@ -102,7 +107,12 @@ class MainActivity : AppCompatActivity(), GithubUserViewHolder.Delegate {
         viewModel.resetPagination()
         paginator.resetCurrentPage()
         adapter.clearAll()
+        viewModel.fetchGithubUser(dummy)
         loadMore(1)
+    }
+
+    override fun onCardClicked(githubUser: GithubUser) {
+        startActivity<DetailActivity>("login" to githubUser.login, "avatar_url" to githubUser.avatar_url)
     }
 
     override fun onItemClick(follower: Follower, view: View) {
@@ -110,10 +120,11 @@ class MainActivity : AppCompatActivity(), GithubUserViewHolder.Delegate {
             val intent = Intent(this, DetailActivity::class.java)
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, view,
                     ViewCompat.getTransitionName(view))
-            intent.putExtra("follower", follower)
+            intent.putExtra("login", follower.login)
+            intent.putExtra("avatar_url", follower.avatar_url)
             startActivityForResult(intent, 1000, options.toBundle())
         } else {
-            startActivityForResult<DetailActivity>(1000, "follower" to follower)
+            startActivityForResult<DetailActivity>(1000, "login" to follower.login, "avatar_url" to follower.avatar_url)
         }
     }
 

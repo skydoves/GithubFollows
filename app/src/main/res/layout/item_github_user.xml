@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/background"
-            android:padding="5dp">
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/item_user_avatar"

@@ -18,7 +18,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.factory.AppViewModelFactory
-import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.ItemDetail
 import com.skydoves.githubfollows.utils.GlideApp
@@ -56,16 +55,15 @@ class DetailActivity : AppCompatActivity() {
     private fun initializeListeners() {
         toolbar_home.setOnClickListener { onBackPressed() }
         detail_header_cardView.setOnClickListener {
-            setResult(1000, Intent().putExtra(viewModel.getPreferenceUserKeyName(), getUserFromIntent().login))
+            setResult(1000, Intent().putExtra(viewModel.getPreferenceUserKeyName(), getLoginFromIntent()))
             onBackPressed()
         }
     }
 
     private fun initializeUI() {
-        val follower = getUserFromIntent()
-        toolbar_title.text = follower.login
+        toolbar_title.text = getLoginFromIntent()
         Glide.with(this)
-                .load(follower.avatar_url)
+                .load(getAvatarFromIntent())
                .apply(RequestOptions().circleCrop().dontAnimate())
                 .listener(object: RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
@@ -89,7 +87,7 @@ class DetailActivity : AppCompatActivity() {
     private fun observeViewModel() {
         viewModel.githubUserLiveData.observe(this, Observer { updateUI(it) })
         viewModel.toastMessage.observe(this, Observer { toast(it.toString()) })
-        viewModel.fetchGithubUser(getUserFromIntent().login)
+        viewModel.fetchGithubUser(getLoginFromIntent())
     }
 
     private fun updateUI(githubUser: GithubUser?) {
@@ -133,7 +131,11 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun getUserFromIntent(): Follower {
-        return intent.getParcelableExtra("follower")
+    private fun getLoginFromIntent(): String {
+        return intent.getStringExtra("login")
+    }
+
+    private fun getAvatarFromIntent(): String {
+        return intent.getStringExtra("avatar_url")
     }
 }
