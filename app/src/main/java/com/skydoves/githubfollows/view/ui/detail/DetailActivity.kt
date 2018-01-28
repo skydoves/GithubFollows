@@ -113,8 +113,22 @@ class DetailActivity : AppCompatActivity() {
                     .transition(withCrossFade())
                     .listener(SvgSoftwareLayerSetter())
 
+            detail_body_shimmer.startShimmerAnimation()
             requestBuilder
                     .load("${getString(R.string.ghchart)}${it.login}")
+                    .listener(object: RequestListener<PictureDrawable> {
+                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<PictureDrawable>?, isFirstResource: Boolean): Boolean {
+                            detail_body_shimmer.stopShimmerAnimation()
+                            detail_body_preview.visibility = View.GONE
+                            return false
+                        }
+
+                        override fun onResourceReady(resource: PictureDrawable?, model: Any?, target: Target<PictureDrawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                            detail_body_shimmer.stopShimmerAnimation()
+                            detail_body_preview.visibility = View.GONE
+                            return false
+                        }
+                    })
                     .into(detail_body_contributes)
         }
     }

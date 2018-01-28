@@ -70,4 +70,6 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:$glide_version"
 
     implementation "com.caverock:androidsvg:$androidsvg_version"
+
+    implementation "io.supercharge:shimmerlayout:$shimmer_version"
 }

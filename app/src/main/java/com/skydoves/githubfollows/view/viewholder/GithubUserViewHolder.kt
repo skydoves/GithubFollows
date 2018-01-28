@@ -1,8 +1,14 @@
 package com.skydoves.githubfollows.view.viewholder
 
+import android.graphics.drawable.Drawable
 import android.view.View
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
+import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.models.Follower
 import kotlinx.android.synthetic.main.item_github_user.view.*
 
@@ -29,9 +35,21 @@ class GithubUserViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(
 
     private fun drawUI() {
         itemView.run {
+            item_user_shimmer.startShimmerAnimation()
             Glide.with(context)
                     .load(githubUser.avatar_url)
-                    .apply(RequestOptions().circleCrop().override(100))
+                    .apply(RequestOptions().circleCrop().override(100).placeholder(R.drawable.ic_account))
+                    .listener(object: RequestListener<Drawable> {
+                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                            item_user_shimmer.stopShimmerAnimation()
+                            return false
+                        }
+
+                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                            item_user_shimmer.stopShimmerAnimation()
+                            return false
+                        }
+                    })
                     .into(item_user_avatar)
             item_user_name.text = githubUser.login
         }

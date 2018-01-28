@@ -25,11 +25,24 @@
         android:layout_marginTop="10dp"
         android:text="Contributions"/>
 
-    <ImageView
-        android:id="@+id/detail_body_contributes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:layout_gravity="center_horizontal"/>
+    <io.supercharge.shimmerlayout.ShimmerLayout
+        android:id="@+id/detail_body_shimmer"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
 
+        <LinearLayout
+            android:id="@+id/detail_body_preview"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="8dp"
+            android:background="@color/preview"
+            android:orientation="vertical"/>
+
+        <ImageView
+            android:id="@+id/detail_body_contributes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:layout_gravity="center_horizontal"/>
+    </io.supercharge.shimmerlayout.ShimmerLayout>
 </LinearLayout>
