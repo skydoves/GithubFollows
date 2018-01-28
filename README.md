@@ -1,4 +1,7 @@
 # GithubFollows
+![license](https://img.shields.io/badge/license-MIT%20License-blue.svg)
+[![Build Status](https://travis-ci.org/skydoves/GithubFollows.svg?branch=master)](https://travis-ci.org/skydoves/GithubFollows)<br>
+
 A Simple Github api project with material animations.
 
 ![gif0](https://user-images.githubusercontent.com/24237865/35482542-858083b8-047a-11e8-9eff-0d9417cbcee2.gif) 
