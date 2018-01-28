@@ -2,4 +2,5 @@
     <string name="app_name">GithubFollows</string>
     <string name="hint_search">User Name</string>
     <string name="transition_avatar">transition_avatar</string>
+    <string name="ghchart">https://ghchart.rshah.org/2485be/</string>
 </resources>

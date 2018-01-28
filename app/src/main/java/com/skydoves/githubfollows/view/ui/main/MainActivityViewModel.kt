@@ -73,4 +73,12 @@ constructor(private val service: GithubService): ViewModel() {
     fun getPreferenceUserKeyName(): String {
         return profile.nameKeyName()
     }
+
+    fun getPreferenceMenuPosition(): Int {
+        return profile.menuPosition
+    }
+
+    fun putPreferenceMenuPosition(position: Int) {
+        profile.putMenuPosition(position)
+    }
 }

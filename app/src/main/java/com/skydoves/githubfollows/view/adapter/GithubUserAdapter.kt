@@ -3,7 +3,6 @@ package com.skydoves.githubfollows.view.adapter
 import android.view.View
 import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.models.Follower
-
 import com.skydoves.githubfollows.view.viewholder.BaseViewHolder
 import com.skydoves.githubfollows.view.viewholder.GithubUserViewHolder
 

@@ -11,4 +11,5 @@ import com.skydoves.preferenceroom.PreferenceEntity;
 @PreferenceEntity(name = "UserProfile")
 public class Profile {
     @KeyName(name = "name") protected final String userName = "skydoves";
+    @KeyName(name = "menuPosition") protected final int selectedPosition = 0;
 }

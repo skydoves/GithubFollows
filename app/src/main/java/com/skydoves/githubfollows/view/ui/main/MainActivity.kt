@@ -25,7 +25,6 @@ import com.skydoves.powermenu.PowerMenuItem
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_main.*
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import javax.inject.Inject
@@ -49,6 +48,7 @@ class MainActivity : AppCompatActivity(), GithubUserViewHolder.Delegate {
 
     private val onPowerMenuItemClickListener = OnMenuItemClickListener<PowerMenuItem> { position, item ->
         if(!item.isSelected) {
+            viewModel.putPreferenceMenuPosition(position)
             powerMenu.setSelected(position)
             powerMenu.dismiss()
             restPagination()
@@ -75,6 +75,7 @@ class MainActivity : AppCompatActivity(), GithubUserViewHolder.Delegate {
 
     private fun initializeUI() {
         powerMenu = PowerMenuUtils.getOverflowPowerMenu(this, this, onPowerMenuItemClickListener)
+        powerMenu.setSelected(viewModel.getPreferenceMenuPosition())
         toolbar_main_overflow.setOnClickListener { powerMenu.showAsDropDown(it) }
         toolbar_main_search.setOnClickListener { startActivityForResult<SearchActivity>(1000) }
     }
@@ -87,9 +88,9 @@ class MainActivity : AppCompatActivity(), GithubUserViewHolder.Delegate {
     }
 
     private fun loadMore(page: Int) {
-        when(powerMenu.selectedPosition) {
+        when(viewModel.getPreferenceMenuPosition()) {
+            0-> viewModel.fetchFollowing(dummy, page)
             1 -> viewModel.fetchFollowers(dummy, page)
-            else -> viewModel.fetchFollowing(dummy, page)
         }
     }
 
