@@ -2,6 +2,7 @@ package com.skydoves.githubfollows.view.viewholder
 
 import android.view.View
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.skydoves.githubfollows.models.GithubUser
 import kotlinx.android.synthetic.main.layout_detail_header.view.*
 
@@ -30,6 +31,7 @@ class GithubUserHeaderViewHolder(view: View, val delegate: Delegate) : BaseViewH
         itemView.run {
             Glide.with(context)
                     .load(githubUser.avatar_url)
+                    .apply(RequestOptions().circleCrop())
                     .into(detail_header_avatar)
             detail_login.text = githubUser.login
             detail_name.text = githubUser.name
