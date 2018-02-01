@@ -9,6 +9,11 @@
         <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
 
+    <style name="AppTheme.Transparent" parent="AppTheme">
+        <item name="android:windowBackground">@color/background800</item>
+        <item name="android:textCursorDrawable">@android:color/white</item>
+    </style>
+
     <style name="TextStyle" parent="@android:style/Widget.TextView">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:gravity">center</item>
