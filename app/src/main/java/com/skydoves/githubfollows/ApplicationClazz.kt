@@ -21,7 +21,9 @@ class ApplicationClazz : DaggerApplication() {
                 .build()
                 .inject(this)
 
-        Timber.plant(Timber.DebugTree())
+        if(BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
 
         PreferenceComponent_PrefAppComponent.init(this)
     }
