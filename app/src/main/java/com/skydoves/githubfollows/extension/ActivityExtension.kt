@@ -3,6 +3,8 @@ package com.skydoves.githubfollows.extension
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.app.Activity
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.view.View
@@ -25,7 +27,7 @@ fun Activity.circularRevealed(view: View, x: Int, y: Int) {
         circularReveal.interpolator = AccelerateInterpolator()
 
         view.setBackgroundColor(ContextCompat.getColor(this, R.color.background800))
-        view.visibility = View.VISIBLE
+        view.visible()
         circularReveal.start()
     }
 }
@@ -39,7 +41,7 @@ fun Activity.circularUnRevealed(mView: View, revealX: Int, revealY: Int) {
         circularReveal.duration = 350
         circularReveal.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
-                mView.visibility = View.INVISIBLE
+                mView.inVisible()
                 finish()
                 overridePendingTransition(0, 0)
             }
@@ -47,4 +49,8 @@ fun Activity.circularUnRevealed(mView: View, revealX: Int, revealY: Int) {
 
         circularReveal.start()
     }
+}
+
+fun Activity.fromResource(context: Context, layout: Int): Drawable {
+    return ContextCompat.getDrawable(context, layout)!!
 }

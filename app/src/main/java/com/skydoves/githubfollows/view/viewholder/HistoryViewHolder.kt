@@ -1,6 +1,8 @@
 package com.skydoves.githubfollows.view.viewholder
 
+import android.databinding.DataBindingUtil
 import android.view.View
+import com.skydoves.githubfollows.databinding.ItemHistoryBinding
 import com.skydoves.githubfollows.room.History
 import kotlinx.android.synthetic.main.item_history.view.*
 
@@ -17,6 +19,7 @@ class HistoryViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(vie
     }
 
     private lateinit var history: History
+    private val binding by lazy { DataBindingUtil.bind<ItemHistoryBinding>(view) }
 
     @Throws(Exception::class)
     override fun bindData(data: Any) {
@@ -26,9 +29,10 @@ class HistoryViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(vie
         }
     }
 
-    fun drawItemView() {
+    private fun drawItemView() {
         itemView.run {
-            item_history_title.text = history.search
+            binding.history = history
+            binding.executePendingBindings()
             item_history_delete.setOnClickListener { delegate.onDeleteHistory(history) }
         }
     }

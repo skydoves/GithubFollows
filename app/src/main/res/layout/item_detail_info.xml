@@ -1,34 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/background"
-    android:padding="4dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="itemDetail"
+            type="com.skydoves.githubfollows.models.ItemDetail"/>
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="8dp">
+        android:background="@color/background"
+        android:padding="4dp">
 
-        <ImageView
-            android:id="@+id/detail_info_icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_gravity="center_vertical"
-            tools:src="@drawable/ic_people"/>
-
-        <TextView
-            android:id="@+id/detail_info_content"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:layout_gravity="center_vertical"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="15dp"
-            tools:text="company"/>
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/detail_info_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center_vertical"
+                android:src="@{itemDetail.icon}"
+                tools:src="@drawable/ic_people"/>
+
+            <TextView
+                android:id="@+id/detail_info_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center_vertical"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="15dp"
+                android:text="@{itemDetail.content}"
+                tools:text="company"/>
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+</layout>

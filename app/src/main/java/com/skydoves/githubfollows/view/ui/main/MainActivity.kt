@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
 
     private fun loadMore(page: Int) {
         when(viewModel.getPreferenceMenuPosition()) {
-            0-> viewModel.fetchFollowing(dummy, page)
+            0 -> viewModel.fetchFollowing(dummy, page)
             1 -> viewModel.fetchFollowers(dummy, page)
         }
     }
