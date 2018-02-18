@@ -15,6 +15,7 @@ import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.extension.checkIsMaterialVersion
 import com.skydoves.githubfollows.extension.circularRevealed
 import com.skydoves.githubfollows.extension.circularUnRevealed
+import com.skydoves.githubfollows.extension.inVisible
 import com.skydoves.githubfollows.factory.AppViewModelFactory
 import com.skydoves.githubfollows.room.History
 import com.skydoves.githubfollows.view.adapter.HistoryAdapter
@@ -52,7 +53,7 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
 
     private fun startCircularRevealed(savedInstanceState: Bundle?) {
         if (savedInstanceState == null && checkIsMaterialVersion()) {
-            search_layout.visibility = View.INVISIBLE
+            search_layout.inVisible()
 
             val viewTreeObserver = search_layout.viewTreeObserver
             if (viewTreeObserver.isAlive) {

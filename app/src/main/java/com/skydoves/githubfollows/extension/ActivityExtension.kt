@@ -25,7 +25,7 @@ fun Activity.circularRevealed(view: View, x: Int, y: Int) {
         circularReveal.interpolator = AccelerateInterpolator()
 
         view.setBackgroundColor(ContextCompat.getColor(this, R.color.background800))
-        view.visibility = View.VISIBLE
+        view.visible()
         circularReveal.start()
     }
 }
@@ -39,7 +39,7 @@ fun Activity.circularUnRevealed(mView: View, revealX: Int, revealY: Int) {
         circularReveal.duration = 350
         circularReveal.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
-                mView.visibility = View.INVISIBLE
+                mView.inVisible()
                 finish()
                 overridePendingTransition(0, 0)
             }

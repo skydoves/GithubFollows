@@ -3,6 +3,8 @@ package com.skydoves.githubfollows.view.viewholder
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.skydoves.githubfollows.extension.gone
+import com.skydoves.githubfollows.extension.visible
 import com.skydoves.githubfollows.models.GithubUser
 import kotlinx.android.synthetic.main.layout_detail_header.view.*
 
@@ -36,9 +38,9 @@ class GithubUserHeaderViewHolder(view: View, val delegate: Delegate) : BaseViewH
             detail_login.text = githubUser.login
             detail_name.text = githubUser.name
             githubUser.bio?.let {
-                detail_bio.visibility = View.VISIBLE
+                detail_bio.visible()
                 detail_bio.text = it
-            } ?: let { detail_bio.visibility = View.GONE }
+            } ?: let { detail_bio.gone() }
         }
     }
 
