@@ -25,6 +25,9 @@ android {
     kapt {
         correctErrorTypes = true
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -52,6 +55,8 @@ dependencies {
     implementation Dependencies.dagger_android
     implementation Dependencies.dagger_android_support
     kapt Dependencies.dagger_android_compiler
+
+    kapt Dependencies.dataBinding
 
     implementation Dependencies.rxjava
     implementation Dependencies.rxandroid

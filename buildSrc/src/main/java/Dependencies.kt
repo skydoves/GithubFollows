@@ -13,6 +13,7 @@ object Dependencies {
     val support_recyclerview = "com.android.support:recyclerview-v7:${Versions.supportLibrary}"
     val kotlin_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jre7:${Versions.kotlin}"
+    val dataBinding = "com.android.databinding:compiler:${Versions.dataBinding}"
     val anko = "org.jetbrains.anko:anko:${Versions.anko}"
     val arch_lifecycle = "android.arch.lifecycle:extensions:${Versions.archComponent}"
     val arch_room = "android.arch.persistence.room:runtime:${Versions.archComponent}"

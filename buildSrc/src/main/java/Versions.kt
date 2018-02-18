@@ -14,6 +14,7 @@ object Versions {
     const val junit = "4.12"
     const val supportLibrary = "27.0.2"
     const val kotlin = "1.2.21"
+    const val dataBinding = "2.3.1"
     const val anko = "0.10.1"
     const val archComponent = "1.0.0"
     const val dagger ="2.11"
