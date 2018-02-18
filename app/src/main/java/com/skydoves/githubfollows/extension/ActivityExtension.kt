@@ -3,6 +3,8 @@ package com.skydoves.githubfollows.extension
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.app.Activity
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.view.View
@@ -47,4 +49,8 @@ fun Activity.circularUnRevealed(mView: View, revealX: Int, revealY: Int) {
 
         circularReveal.start()
     }
+}
+
+fun Activity.fromResource(context: Context, layout: Int): Drawable {
+    return ContextCompat.getDrawable(context, layout)!!
 }

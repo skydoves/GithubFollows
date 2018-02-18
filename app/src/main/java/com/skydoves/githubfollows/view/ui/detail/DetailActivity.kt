@@ -12,18 +12,17 @@ import android.support.v7.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.databinding.ActivityDetailBinding
+import com.skydoves.githubfollows.extension.fromResource
 import com.skydoves.githubfollows.extension.gone
 import com.skydoves.githubfollows.factory.AppViewModelFactory
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.ItemDetail
-import com.skydoves.githubfollows.utils.GlideApp
-import com.skydoves.githubfollows.utils.SvgSoftwareLayerSetter
+import com.skydoves.githubfollows.utils.GlideUtils
 import com.skydoves.githubfollows.view.adapter.DetailAdapter
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.layout_detail_body.*
@@ -97,18 +96,13 @@ class DetailActivity : AppCompatActivity() {
             binding.detailHeader.githubUser = githubUser
             binding.executePendingBindings()
 
-            adapter.addItemDetail(ItemDetail(R.drawable.ic_person_pin, it.html_url))
-            it.company?.let { adapter.addItemDetail(ItemDetail(R.drawable.ic_people, it)) }
-            it.location?.let { adapter.addItemDetail(ItemDetail(R.drawable.ic_location, it)) }
-            it.blog?.let { if(it.isNotEmpty()) { adapter.addItemDetail(ItemDetail(R.drawable.ic_insert_link, it)) } }
-
-            val requestBuilder = GlideApp.with(this)
-                    .`as`(PictureDrawable::class.java)
-                    .transition(withCrossFade())
-                    .listener(SvgSoftwareLayerSetter())
+            adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_person_pin), it.html_url))
+            it.company?.let { adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_people), it)) }
+            it.location?.let { adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_location), it)) }
+            it.blog?.let { if(it.isNotEmpty()) { adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_insert_link), it)) } }
 
             detail_body_shimmer.startShimmerAnimation()
-            requestBuilder
+            GlideUtils.getSvgRequestBuilder(this)
                     .load("${getString(R.string.ghchart)}${it.login}")
                     .listener(object: RequestListener<PictureDrawable> {
                         override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<PictureDrawable>?, isFirstResource: Boolean): Boolean {

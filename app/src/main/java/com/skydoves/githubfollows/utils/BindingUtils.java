@@ -8,7 +8,7 @@ import android.view.View;
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-public class BindingConversionUtils {
+public class BindingUtils {
     @BindingConversion
     public static int bindingVisibility(boolean visible) {
         return visible ? View.VISIBLE : View.GONE;

@@ -50,10 +50,7 @@ class GithubUserAdapter(val delegate_header: GithubUserHeaderViewHolder.Delegate
 
     override fun viewHolder(layout: Int, view: View): BaseViewHolder {
         when(layout) {
-            R.layout.layout_detail_header -> {
-                
-                return GithubUserHeaderViewHolder(view, delegate_header)
-            }
+            R.layout.layout_detail_header -> return GithubUserHeaderViewHolder(view, delegate_header)
             else -> return GithubUserViewHolder(view, delegate)
         }
     }

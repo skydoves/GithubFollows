@@ -1,10 +1,10 @@
 package com.skydoves.githubfollows.view.viewholder
 
+import android.databinding.DataBindingUtil
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.skydoves.githubfollows.extension.gone
-import com.skydoves.githubfollows.extension.visible
+import com.skydoves.githubfollows.databinding.LayoutDetailHeaderBinding
 import com.skydoves.githubfollows.models.GithubUser
 import kotlinx.android.synthetic.main.layout_detail_header.view.*
 
@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.layout_detail_header.view.*
 class GithubUserHeaderViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(view) {
 
     private lateinit var githubUser: GithubUser
+    val binding by lazy { DataBindingUtil.bind<LayoutDetailHeaderBinding>(view) }
 
     interface Delegate {
         fun onCardClicked(githubUser: GithubUser)
@@ -31,16 +32,13 @@ class GithubUserHeaderViewHolder(view: View, val delegate: Delegate) : BaseViewH
 
     private fun drawUserCard() {
         itemView.run {
+            binding.githubUser = githubUser
+            binding.executePendingBindings()
+
             Glide.with(context)
                     .load(githubUser.avatar_url)
                     .apply(RequestOptions().circleCrop())
                     .into(detail_header_avatar)
-            detail_login.text = githubUser.login
-            detail_name.text = githubUser.name
-            githubUser.bio?.let {
-                detail_bio.visible()
-                detail_bio.text = it
-            } ?: let { detail_bio.gone() }
         }
     }
 

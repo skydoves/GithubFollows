@@ -1,10 +1,12 @@
 package com.skydoves.githubfollows.view.viewholder
 
+import android.databinding.DataBindingUtil
 import android.support.v4.content.ContextCompat
 import android.text.util.Linkify
 import android.util.Patterns
 import android.view.View
 import com.skydoves.githubfollows.R
+import com.skydoves.githubfollows.databinding.ItemDetailInfoBinding
 import com.skydoves.githubfollows.models.ItemDetail
 import kotlinx.android.synthetic.main.item_detail_info.view.*
 import org.jetbrains.anko.image
@@ -18,6 +20,7 @@ import org.jetbrains.anko.textColor
 class DetailViewHolder(view: View) : BaseViewHolder(view) {
 
     private lateinit var itemDetail: ItemDetail
+    private val binding by lazy { DataBindingUtil.bind<ItemDetailInfoBinding>(view) }
 
     @Throws(Exception::class)
     override fun bindData(data: Any) {
@@ -29,8 +32,9 @@ class DetailViewHolder(view: View) : BaseViewHolder(view) {
 
     private fun drawItem() {
         itemView.run {
-            detail_info_icon.image = ContextCompat.getDrawable(context, itemDetail.icon)
-            detail_info_content.text = itemDetail.content
+            binding.itemDetail = itemDetail
+            binding.executePendingBindings()
+
             when(Patterns.WEB_URL.matcher(itemDetail.content).matches()) {
                 true -> {
                     detail_info_content.textColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)

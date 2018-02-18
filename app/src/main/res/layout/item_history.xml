@@ -1,41 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/background800">
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="history" type="com.skydoves.githubfollows.room.History"/>
+    </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground">
+        android:background="@color/background800">
 
-        <ImageView
-            android:id="@+id/item_history_icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_margin="10dp"
-            android:src="@drawable/ic_history"/>
-
-        <TextView
-            android:id="@+id/item_history_title"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:padding="10dp"
-            android:textSize="18sp"
-            android:textColor="@color/HintText"
-            android:singleLine="true"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/item_history_icon"
-            tools:text="skydoves"/>
+            android:background="?attr/selectableItemBackground">
 
-        <ImageView
-            android:id="@+id/item_history_delete"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_margin="10dp"
-            android:src="@drawable/ic_close"
-            android:layout_alignParentRight="true"/>
-    </RelativeLayout>
-</LinearLayout>
+            <ImageView
+                android:id="@+id/item_history_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_history"/>
+
+            <TextView
+                android:id="@+id/item_history_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="10dp"
+                android:textSize="18sp"
+                android:textColor="@color/HintText"
+                android:singleLine="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/item_history_icon"
+                android:text="@{history.search}"
+                tools:text="skydoves"/>
+
+            <ImageView
+                android:id="@+id/item_history_delete"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_close"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</layout>

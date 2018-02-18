@@ -1,5 +1,6 @@
 package com.skydoves.githubfollows.view.viewholder
 
+import android.databinding.DataBindingUtil
 import android.graphics.drawable.Drawable
 import android.view.View
 import com.bumptech.glide.Glide
@@ -9,6 +10,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.skydoves.githubfollows.R
+import com.skydoves.githubfollows.databinding.ItemGithubUserBinding
 import com.skydoves.githubfollows.models.Follower
 import kotlinx.android.synthetic.main.item_github_user.view.*
 
@@ -24,6 +26,7 @@ class GithubUserViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(
     }
 
     private lateinit var githubUser: Follower
+    private val binding by lazy { DataBindingUtil.bind<ItemGithubUserBinding>(view) }
 
     @Throws(Exception::class)
     override fun bindData(data: Any) {
@@ -34,6 +37,8 @@ class GithubUserViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(
     }
 
     private fun drawUI() {
+        binding.follower = githubUser
+        binding.executePendingBindings()
         itemView.run {
             item_user_shimmer.startShimmerAnimation()
             Glide.with(context)
@@ -51,7 +56,6 @@ class GithubUserViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(
                         }
                     })
                     .into(item_user_avatar)
-            item_user_name.text = githubUser.login
         }
     }
 
