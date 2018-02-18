@@ -4,13 +4,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion Versions.compile_sdk
+    compileSdkVersion Versions.compileSdk
     defaultConfig {
         applicationId "com.skydoves.githubfollows"
-        minSdkVersion Versions.min_sdk
-        targetSdkVersion Versions.target_sdk
-        versionCode Versions.version_code
-        versionName Versions.version_name
+        minSdkVersion Versions.minSdk
+        targetSdkVersion Versions.targetSdk
+        versionCode Versions.versionCode
+        versionName Versions.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -28,48 +28,48 @@ android {
 }
 
 dependencies {
-    testCompile Deps.junit
+    testCompile Dependencies.junit
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation Deps.support_appcompat
-    implementation Deps.support_design
-    implementation Deps.support_cardview
-    implementation Deps.support_recyclerview
+    implementation Dependencies.support_appcompat
+    implementation Dependencies.support_design
+    implementation Dependencies.support_cardview
+    implementation Dependencies.support_recyclerview
 
-    implementation Deps.kotlin_stdlib
-    implementation Deps.anko
+    implementation Dependencies.kotlin_stdlib
+    implementation Dependencies.anko
 
-    implementation Deps.arch_lifecycle
-    implementation Deps.arch_room
-    kapt Deps.arch_room_compiler
+    implementation Dependencies.arch_lifecycle
+    implementation Dependencies.arch_room
+    kapt Dependencies.arch_room_compiler
 
-    implementation Deps.dagger
-    kapt Deps.dagger_compiler
+    implementation Dependencies.dagger
+    kapt Dependencies.dagger_compiler
 
-    implementation Deps.dagger_android
-    implementation Deps.dagger_android_support
-    kapt Deps.dagger_android_compiler
+    implementation Dependencies.dagger_android
+    implementation Dependencies.dagger_android_support
+    kapt Dependencies.dagger_android_compiler
 
-    implementation Deps.rxjava
-    implementation Deps.rxandroid
+    implementation Dependencies.rxjava
+    implementation Dependencies.rxandroid
 
-    implementation Deps.preferenceroom
-    kapt Deps.preferenceroom_compiler
+    implementation Dependencies.preferenceroom
+    kapt Dependencies.preferenceroom_compiler
 
-    implementation Deps.gson
+    implementation Dependencies.gson
 
-    implementation Deps.retrofit
-    implementation Deps.retrofit_gson
+    implementation Dependencies.retrofit
+    implementation Dependencies.retrofit_gson
 
-    implementation Deps.timber
+    implementation Dependencies.timber
 
-    implementation Deps.glide
-    kapt Deps.glide_compiler
+    implementation Dependencies.glide
+    kapt Dependencies.glide_compiler
 
-    implementation Deps.powermenu
-    implementation Deps.androidsvg
-    implementation Deps.shimmerlayout
+    implementation Dependencies.powermenu
+    implementation Dependencies.androidsvg
+    implementation Dependencies.shimmerlayout
 }
