@@ -19,6 +19,7 @@ A simple demo project based on MVVM clean architecture and material design & ani
 - [RxJava2 & RxAndroid](https://github.com/ReactiveX/RxAndroid) for async processing Room Persistence
 - [PreferenceRoom](https://github.com/skydoves/PreferenceRoom) for efficient managing SharedPreferences
 - [Glide](https://github.com/bumptech/glide) for loading images
+- [LeakCanary](https://github.com/square/leakcanary) for memory leak detection
 - [AndroidSVG](https://bigbadaboom.github.io/androidsvg/) for transcoding SVG
 - [Shimmerlayout](https://github.com/team-supercharge/ShimmerLayout) for shimmer effect
 - [PowerMenu](https://github.com/skydoves/PowerMenu) for implementing material popup dialog
