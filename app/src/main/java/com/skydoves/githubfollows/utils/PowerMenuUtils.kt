@@ -3,6 +3,7 @@ package com.skydoves.githubfollows.utils
 import android.arch.lifecycle.LifecycleOwner
 import android.content.Context
 import android.graphics.Color
+import android.support.v4.content.ContextCompat
 
 import com.skydoves.githubfollows.R
 import com.skydoves.powermenu.MenuAnimation
@@ -25,9 +26,9 @@ object PowerMenuUtils {
                 .setMenuRadius(10f)
                 .setMenuShadow(10f)
                 .setTextColor(Color.WHITE)
-                .setSelectedTextColor(context.resources.getColor(R.color.colorPrimary))
-                .setMenuColor(context.resources.getColor(R.color.background800))
-                .setSelectedMenuColor(context.resources.getColor(R.color.background800))
+                .setSelectedTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                .setMenuColor(ContextCompat.getColor(context, R.color.background800))
+                .setSelectedMenuColor(ContextCompat.getColor(context, R.color.background800))
                 .setOnMenuItemClickListener(onMenuItemClickListener)
                 .build()
     }
