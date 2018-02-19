@@ -2,6 +2,7 @@ package com.skydoves.githubfollows
 
 import com.skydoves.githubfollows.di.DaggerAppComponent
 import com.skydoves.githubfollows.preference.PreferenceComponent_PrefAppComponent
+import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import timber.log.Timber
@@ -15,6 +16,10 @@ class ApplicationClazz : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
+
+        if (!LeakCanary.isInAnalyzerProcess(this)) {
+            LeakCanary.install(this)
+        }
 
         DaggerAppComponent.builder()
                 .application(this)

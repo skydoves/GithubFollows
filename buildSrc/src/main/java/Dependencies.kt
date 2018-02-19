@@ -31,6 +31,8 @@ object Dependencies {
     val retrofit_gson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
     val gson = "com.google.code.gson:gson:${Versions.gson}"
     val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+    val memoryLeakDebug = "com.squareup.leakcanary:leakcanary-android:${Versions.memoryLeak}"
+    val memoryLeakRelease = "com.squareup.leakcanary:leakcanary-android-no-op:${Versions.memoryLeak}"
     val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     val glide_compiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
     val powermenu = "com.github.skydoves:powermenu:${Versions.powerMenu}"

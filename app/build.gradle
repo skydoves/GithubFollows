@@ -70,6 +70,8 @@ dependencies {
     implementation Dependencies.retrofit_gson
 
     implementation Dependencies.timber
+    debugCompile Dependencies.memoryLeakDebug
+    releaseCompile Dependencies.memoryLeakRelease
 
     implementation Dependencies.glide
     kapt Dependencies.glide_compiler
