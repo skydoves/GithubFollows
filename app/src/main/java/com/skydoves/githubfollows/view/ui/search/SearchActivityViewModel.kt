@@ -2,7 +2,6 @@ package com.skydoves.githubfollows.view.ui.search
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.skydoves.githubfollows.api.ApiResponse
 import com.skydoves.githubfollows.api.GithubService
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.preference.PreferenceComponent_PrefAppComponent
@@ -22,7 +21,7 @@ import javax.inject.Inject
  */
 
 class SearchActivityViewModel @Inject
-constructor(private val githubSerbive: GithubService, private val historyDao: HistoryDao): ViewModel() {
+constructor(private val githubService: GithubService, private val historyDao: HistoryDao): ViewModel() {
 
     @InjectPreference lateinit var profile: Preference_UserProfile
 
@@ -37,7 +36,7 @@ constructor(private val githubSerbive: GithubService, private val historyDao: Hi
     }
 
     fun fetchGithubUser(userName: String) {
-        githubSerbive.fetchGithubUser(userName).observeForever{
+        githubService.fetchGithubUser(userName).observeForever{
             it?.let {
                 when(it.isSuccessful) {
                     true -> githubUserLiveData.postValue(it.body)
