@@ -12,7 +12,7 @@ import timber.log.Timber
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-class ApplicationClazz : DaggerApplication() {
+class GithubFollowsApplication : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
