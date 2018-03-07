@@ -44,8 +44,11 @@ internal constructor() {
                     true -> {
                         response.body?.let {
                             saveFetchData(it)
-                            result.addSource(loadFromDb()) {
-                                newData -> setValue(Resource.success(newData)) }
+                            val loaded = loadFromDb()
+                            result.addSource(loaded) { newData ->
+                                result.removeSource(loaded)
+                                setValue(Resource.success(newData))
+                            }
                         }
                     }
                     false -> {

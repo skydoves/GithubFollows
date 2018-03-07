@@ -1,12 +1,13 @@
 package com.skydoves.githubfollows.view.ui.detail
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
-import com.skydoves.githubfollows.api.GithubService
 import com.skydoves.githubfollows.models.GithubUser
-import com.skydoves.githubfollows.preference.PreferenceComponent_PrefAppComponent
-import com.skydoves.githubfollows.preference.Preference_UserProfile
-import com.skydoves.preferenceroom.InjectPreference
+import com.skydoves.githubfollows.models.Resource
+import com.skydoves.githubfollows.repository.GithubUserRepository
+import com.skydoves.githubfollows.utils.AbsentLiveData
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -16,34 +17,21 @@ import javax.inject.Inject
  */
 
 class DetailActivityViewModel @Inject
-constructor(private val githubService: GithubService): ViewModel() {
+constructor(private val repository: GithubUserRepository): ViewModel() {
 
-    @InjectPreference lateinit var profile: Preference_UserProfile
-
-    val githubUserLiveData: MutableLiveData<GithubUser> = MutableLiveData()
-    val toastMessage: MutableLiveData<String> = MutableLiveData()
+    val login: MutableLiveData<String> = MutableLiveData()
+    var githubUserLiveData: LiveData<Resource<GithubUser>> = MutableLiveData()
 
     init {
         Timber.d("Injection DetailActivityViewModel")
-        PreferenceComponent_PrefAppComponent.getInstance().inject(this)
+
+        githubUserLiveData = Transformations.switchMap(login, {
+            login.value?.let { repository.loadUser(it) }
+                    ?: AbsentLiveData.create()
+        })
     }
 
-    fun fetchGithubUser(user: String) {
-        githubService.fetchGithubUser(user).observeForever {
-            it?.let {
-                when(it.isSuccessful) {
-                    true -> githubUserLiveData.postValue(it.body)
-                    false -> toastMessage.postValue(it.envelope?.message)
-                }
-            }
-        }
-    }
+    fun getUserKeyName() = repository.getUserKeyName()
 
-    fun getPreferenceUserKeyName(): String {
-        return profile.nameKeyName()
-    }
-
-    fun putPreferenceUser(user: String) {
-        profile.putName(user)
-    }
+    fun getRepositoryToast() = repository.toast
 }

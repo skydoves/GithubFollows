@@ -25,8 +25,8 @@ class GithubUserAdapter(val delegate_header: GithubUserHeaderViewHolder.Delegate
         addSection(ArrayList<Follower>())
     }
 
-    fun updateHeader(githubUser: Resource<GithubUser>) {
-        githubUser.data?.let {
+    fun updateHeader(resource: Resource<GithubUser>) {
+        resource.data?.let {
             sections[section_header].clear()
             sections[section_header].add(it)
             notifyDataSetChanged()

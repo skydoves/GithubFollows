@@ -17,8 +17,8 @@ interface GithubUserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertGithubUser(githubUser: GithubUser)
 
-    @Query("SELECT * FROM GithubUser LIMIT 1")
-    fun getGithubUser(): LiveData<GithubUser>
+    @Query("SELECT * FROM GithubUser WHERE login = :user")
+    fun getGithubUser(user: String): LiveData<GithubUser>
 
     @Query("DELETE FROM GithubUser")
     fun truncateGithubUser()

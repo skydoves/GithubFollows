@@ -21,9 +21,9 @@ import javax.inject.Inject
 class MainActivityViewModel @Inject
 constructor(private val service: GithubService, private val repository: GithubUserRepository): ViewModel() {
 
-    val login: MutableLiveData<String> = MutableLiveData()
-
+    private val login: MutableLiveData<String> = MutableLiveData()
     var githubUserLiveData: LiveData<Resource<GithubUser>> = MutableLiveData()
+
     val githubUserListLiveData: MutableLiveData<List<Follower>> = MutableLiveData()
     val toastMessage: MutableLiveData<String> = MutableLiveData()
 
@@ -42,15 +42,11 @@ constructor(private val service: GithubService, private val repository: GithubUs
         })
     }
 
-    fun resetPagination() {
+    fun refresh(user: String) {
         isLoading = false
         isOnLast = false
-        refreshGithubUser()
-    }
-
-    private fun refreshGithubUser() {
-        login.postValue(getUserName())
-        repository.refreshUser()
+        login.postValue(user)
+        repository.refreshUser(user)
     }
 
     fun fetchFollowing(user: String, page: Int) {
@@ -86,6 +82,8 @@ constructor(private val service: GithubService, private val repository: GithubUs
     fun putPreferenceMenuPosition(position: Int) = repository.putPreferenceMenuPosition(position)
 
     fun getUserName() = repository.getUserName()
+
+    fun getUserKeyName() = repository.getUserKeyName()
 
     fun getRepositoryToast() = repository.toast
 }

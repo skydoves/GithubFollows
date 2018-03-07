@@ -98,7 +98,6 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
     }
 
     private fun onChangeUser(userName: String) {
-        viewModel.putPreferenceUserName(userName)
         viewModel.insertHistory(userName)
         setResult(intent_requestCode, Intent().putExtra(viewModel.getPreferenceUserKeyName(), userName))
         onBackPressed()

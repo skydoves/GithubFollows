@@ -28,6 +28,7 @@ import com.skydoves.githubfollows.factory.AppViewModelFactory
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.ItemDetail
+import com.skydoves.githubfollows.models.Resource
 import com.skydoves.githubfollows.utils.GlideUtils
 import com.skydoves.githubfollows.view.adapter.DetailAdapter
 import dagger.android.AndroidInjection
@@ -63,8 +64,7 @@ class DetailActivity : AppCompatActivity() {
     private fun initializeListeners() {
         binding.detailToolbar.toolbar_home.setOnClickListener { onBackPressed() }
         detail_header_cardView.setOnClickListener {
-            viewModel.putPreferenceUser(getLoginFromIntent())
-            setResult(intent_requestCode, Intent().putExtra(viewModel.getPreferenceUserKeyName(), getLoginFromIntent()))
+            setResult(intent_requestCode, Intent().putExtra(viewModel.getUserKeyName(), getLoginFromIntent()))
             onBackPressed()
         }
     }
@@ -94,14 +94,14 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.githubUserLiveData.observe(this, Observer { updateUI(it) })
-        viewModel.toastMessage.observe(this, Observer { toast(it.toString()) })
-        viewModel.fetchGithubUser(getLoginFromIntent())
+        viewModel.login.postValue(getLoginFromIntent())
+        viewModel.githubUserLiveData.observe(this, Observer { it?.let{ updateUI(it) } })
+        viewModel.getRepositoryToast().observe(this, Observer { toast(it.toString()) })
     }
 
-    private fun updateUI(githubUser: GithubUser?) {
-        githubUser?.let {
-            binding.detailHeader.githubUser = githubUser
+    private fun updateUI(resource: Resource<GithubUser>) {
+        resource.data?.let {
+            binding.detailHeader.githubUser = it
             binding.executePendingBindings()
 
             adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_person_pin), it.html_url))

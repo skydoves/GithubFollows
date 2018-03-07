@@ -35,7 +35,8 @@ constructor(val githubUserDao: GithubUserDao, val service: GithubService) {
         PreferenceComponent_PrefAppComponent.getInstance().inject(this)
     }
 
-    fun refreshUser() {
+    fun refreshUser(user: String) {
+        profile.putName(user)
         Observable.just(githubUserDao)
                 .subscribeOn(Schedulers.io())
                 .subscribe { dao ->
@@ -58,7 +59,7 @@ constructor(val githubUserDao: GithubUserDao, val service: GithubService) {
             }
 
             override fun loadFromDb(): LiveData<GithubUser> {
-                return githubUserDao.getGithubUser()
+                return githubUserDao.getGithubUser(user)
             }
 
             override fun fetchService(): LiveData<ApiResponse<GithubUser>> {
@@ -71,6 +72,10 @@ constructor(val githubUserDao: GithubUserDao, val service: GithubService) {
         }.asLiveData()
     }
 
+    fun getUserKeyName(): String {
+        return profile.nameKeyName()
+    }
+
     fun getPreferenceMenuPosition(): Int {
         return profile.menuPosition
     }
@@ -81,5 +86,9 @@ constructor(val githubUserDao: GithubUserDao, val service: GithubService) {
 
     fun getUserName(): String {
         return profile.name
+    }
+
+    fun putPreferenceUser(user: String) {
+        profile.putName(user)
     }
 }

@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
             viewModel.putPreferenceMenuPosition(position)
             powerMenu.setSelected(position)
             powerMenu.dismiss()
-            restPagination()
+            restPagination(viewModel.getUserName())
         }
     }
 
@@ -97,9 +97,9 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
         followers?.let { adapter.addFollowList(it) }
     }
 
-    private fun restPagination() {
+    private fun restPagination(user: String) {
         adapter.clearAll()
-        viewModel.resetPagination()
+        viewModel.refresh(user)
         paginator.resetCurrentPage()
         loadMore(1)
     }
@@ -115,8 +115,9 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when(resultCode) {
-            DetailActivity.intent_requestCode -> data?.let { restPagination() }
-            SearchActivity.intent_requestCode -> data?.let { restPagination() }
+            DetailActivity.intent_requestCode, SearchActivity.intent_requestCode -> data?.let {
+                restPagination(data.getStringExtra(viewModel.getUserKeyName()))
+            }
         }
     }
 
