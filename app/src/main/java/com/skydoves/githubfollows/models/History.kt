@@ -1,4 +1,4 @@
-package com.skydoves.githubfollows.room
+package com.skydoves.githubfollows.models
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey

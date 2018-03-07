@@ -1,14 +1,17 @@
 package com.skydoves.githubfollows.models
 
+import android.arch.persistence.room.Entity
 import android.os.Parcel
 import android.os.Parcelable
+import android.support.annotation.NonNull
 
 /**
  * Developed by skydoves on 2018-01-20.
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-data class Follower(val login: String,
+@Entity(primaryKeys = [("login")])
+data class Follower(@NonNull val login: String,
                     val id: Int,
                     val avatar_url: String,
                     val gravatar_id: String,
