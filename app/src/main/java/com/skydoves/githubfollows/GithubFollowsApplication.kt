@@ -12,7 +12,11 @@ import timber.log.Timber
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-class ApplicationClazz : DaggerApplication() {
+class GithubFollowsApplication : DaggerApplication() {
+
+    private val appComponent = DaggerAppComponent.builder()
+            .application(this)
+            .build()
 
     override fun onCreate() {
         super.onCreate()
@@ -21,12 +25,9 @@ class ApplicationClazz : DaggerApplication() {
             LeakCanary.install(this)
         }
 
-        DaggerAppComponent.builder()
-                .application(this)
-                .build()
-                .inject(this)
+        appComponent.inject(this)
 
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
 
@@ -34,6 +35,6 @@ class ApplicationClazz : DaggerApplication() {
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent.builder().application(this).build()
+        return appComponent
     }
 }

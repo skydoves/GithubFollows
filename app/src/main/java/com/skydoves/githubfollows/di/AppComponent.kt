@@ -16,10 +16,11 @@ import dagger.android.DaggerApplication
  */
 
 @Singleton
-@Component(modules = arrayOf(AndroidInjectionModule::class,
-        ActivityModule::class,
-        ViewModelModule::class,
-        AppModule::class))
+@Component(modules = [
+    (AndroidInjectionModule::class),
+    (ActivityModule::class),
+    (ViewModelModule::class),
+    (AppModule::class)])
 interface AppComponent : AndroidInjector<DaggerApplication> {
     @Component.Builder
     interface Builder {
