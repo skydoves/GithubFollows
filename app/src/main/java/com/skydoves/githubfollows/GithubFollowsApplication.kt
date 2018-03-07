@@ -14,6 +14,10 @@ import timber.log.Timber
 
 class GithubFollowsApplication : DaggerApplication() {
 
+    private val appComponent = DaggerAppComponent.builder()
+            .application(this)
+            .build()
+
     override fun onCreate() {
         super.onCreate()
 
@@ -21,12 +25,9 @@ class GithubFollowsApplication : DaggerApplication() {
             LeakCanary.install(this)
         }
 
-        DaggerAppComponent.builder()
-                .application(this)
-                .build()
-                .inject(this)
+        appComponent.inject(this)
 
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
 
@@ -34,6 +35,6 @@ class GithubFollowsApplication : DaggerApplication() {
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent.builder().application(this).build()
+        return appComponent
     }
 }
