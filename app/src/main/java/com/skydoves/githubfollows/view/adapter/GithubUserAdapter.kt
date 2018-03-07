@@ -4,6 +4,7 @@ import android.view.View
 import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
+import com.skydoves.githubfollows.models.Resource
 import com.skydoves.githubfollows.view.viewholder.BaseViewHolder
 import com.skydoves.githubfollows.view.viewholder.GithubUserHeaderViewHolder
 import com.skydoves.githubfollows.view.viewholder.GithubUserViewHolder
@@ -24,10 +25,12 @@ class GithubUserAdapter(val delegate_header: GithubUserHeaderViewHolder.Delegate
         addSection(ArrayList<Follower>())
     }
 
-    fun updateHeader(githubUser: GithubUser) {
-        sections[section_header].clear()
-        sections[section_header].add(githubUser)
-        notifyDataSetChanged()
+    fun updateHeader(githubUser: Resource<GithubUser>) {
+        githubUser.data?.let {
+            sections[section_header].clear()
+            sections[section_header].add(it)
+            notifyDataSetChanged()
+        }
     }
 
     fun addFollowList(followers: List<Follower>) {

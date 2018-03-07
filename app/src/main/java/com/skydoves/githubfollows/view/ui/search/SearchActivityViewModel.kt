@@ -6,7 +6,7 @@ import com.skydoves.githubfollows.api.GithubService
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.preference.PreferenceComponent_PrefAppComponent
 import com.skydoves.githubfollows.preference.Preference_UserProfile
-import com.skydoves.githubfollows.room.History
+import com.skydoves.githubfollows.models.History
 import com.skydoves.githubfollows.room.HistoryDao
 import com.skydoves.preferenceroom.InjectPreference
 import io.reactivex.Observable

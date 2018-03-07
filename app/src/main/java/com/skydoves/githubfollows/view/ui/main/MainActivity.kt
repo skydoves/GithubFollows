@@ -4,13 +4,10 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.view.ViewCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.skydoves.githubfollows.R
-import com.skydoves.githubfollows.extension.checkIsMaterialVersion
 import com.skydoves.githubfollows.factory.AppViewModelFactory
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
@@ -38,8 +35,6 @@ import javax.inject.Inject
  */
 
 class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, GithubUserViewHolder.Delegate {
-
-    private lateinit var dummy: String
 
     @Inject lateinit var viewModelFactory: AppViewModelFactory
 
@@ -80,22 +75,21 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
         powerMenu = PowerMenuUtils.getOverflowPowerMenu(this, this, onPowerMenuItemClickListener)
         powerMenu.setSelected(viewModel.getPreferenceMenuPosition())
         toolbar_main_overflow.setOnClickListener { powerMenu.showAsDropDown(it) }
-        toolbar_main_search.setOnClickListener { startActivityForResult<SearchActivity>(1000) }
+        toolbar_main_search.setOnClickListener { startActivityForResult<SearchActivity>(SearchActivity.intent_requestCode) }
     }
 
     private fun observeViewModel() {
-        dummy = viewModel.getPreferenceUserName()
         viewModel.githubUserLiveData.observe(this, Observer { it?.let { adapter.updateHeader(it) } })
         viewModel.githubUserListLiveData.observe(this, Observer { updateGithubUserList(it) })
         viewModel.toastMessage.observe(this, Observer { toast(it.toString()) })
-        viewModel.fetchGithubUser(dummy)
+        viewModel.getRepositoryToast().observe(this, Observer { toast(it.toString()) })
         loadMore(1)
     }
 
     private fun loadMore(page: Int) {
         when(viewModel.getPreferenceMenuPosition()) {
-            0 -> viewModel.fetchFollowing(dummy, page)
-            1 -> viewModel.fetchFollowers(dummy, page)
+            0 -> viewModel.fetchFollowing(viewModel.getUserName(), page)
+            1 -> viewModel.fetchFollowers(viewModel.getUserName(), page)
         }
     }
 
@@ -104,44 +98,32 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
     }
 
     private fun restPagination() {
+        adapter.clearAll()
         viewModel.resetPagination()
         paginator.resetCurrentPage()
-        adapter.clearAll()
-        viewModel.fetchGithubUser(dummy)
         loadMore(1)
     }
 
     override fun onCardClicked(githubUser: GithubUser) {
-        startActivity<DetailActivity>("login" to githubUser.login, "avatar_url" to githubUser.avatar_url)
+        startActivity<DetailActivity>(DetailActivity.intent_login to githubUser.login, DetailActivity.intent_avatar to githubUser.avatar_url)
     }
 
-    override fun onItemClick(follower: Follower, view: View) {
-        if (checkIsMaterialVersion()) {
-            val intent = Intent(this, DetailActivity::class.java)
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, view,
-                    ViewCompat.getTransitionName(view))
-            intent.putExtra("login", follower.login)
-            intent.putExtra("avatar_url", follower.avatar_url)
-            startActivityForResult(intent, 1000, options.toBundle())
-        } else {
-            startActivityForResult<DetailActivity>(1000, "login" to follower.login, "avatar_url" to follower.avatar_url)
-        }
+    override fun onItemClick(githubUser: Follower, view: View) {
+        DetailActivity.startActivity(this, githubUser, view)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when(resultCode) {
-            1000 -> data?.let {
-                dummy = it.getStringExtra(viewModel.getPreferenceUserKeyName())
-                restPagination()
-            }
+            DetailActivity.intent_requestCode -> data?.let { restPagination() }
+            SearchActivity.intent_requestCode -> data?.let { restPagination() }
         }
     }
 
     override fun onBackPressed() {
-        if(powerMenu.isShowing)
-            powerMenu.dismiss()
-        else
-            super.onBackPressed()
+       when(powerMenu.isShowing) {
+           true -> powerMenu.dismiss()
+           else -> super.onBackPressed()
+       }
     }
 }

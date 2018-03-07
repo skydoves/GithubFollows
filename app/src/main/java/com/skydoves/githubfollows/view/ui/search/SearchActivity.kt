@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.KeyEvent
-import android.view.View
 import android.view.ViewTreeObserver
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
@@ -17,7 +16,7 @@ import com.skydoves.githubfollows.extension.circularRevealed
 import com.skydoves.githubfollows.extension.circularUnRevealed
 import com.skydoves.githubfollows.extension.inVisible
 import com.skydoves.githubfollows.factory.AppViewModelFactory
-import com.skydoves.githubfollows.room.History
+import com.skydoves.githubfollows.models.History
 import com.skydoves.githubfollows.view.adapter.HistoryAdapter
 import com.skydoves.githubfollows.view.viewholder.HistoryViewHolder
 import dagger.android.AndroidInjection
@@ -101,7 +100,7 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
     private fun onChangeUser(userName: String) {
         viewModel.putPreferenceUserName(userName)
         viewModel.insertHistory(userName)
-        setResult(1000, Intent().putExtra(viewModel.getPreferenceUserKeyName(), userName))
+        setResult(intent_requestCode, Intent().putExtra(viewModel.getPreferenceUserKeyName(), userName))
         onBackPressed()
     }
 
@@ -110,5 +109,9 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
             true -> circularUnRevealed(search_layout , search_layout.width, 0)
             false -> super.onBackPressed()
         }
+    }
+
+    companion object {
+        const val intent_requestCode = 1001
     }
 }

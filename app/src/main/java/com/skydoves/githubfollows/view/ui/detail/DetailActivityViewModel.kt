@@ -42,4 +42,8 @@ constructor(private val githubService: GithubService): ViewModel() {
     fun getPreferenceUserKeyName(): String {
         return profile.nameKeyName()
     }
+
+    fun putPreferenceUser(user: String) {
+        profile.putName(user)
+    }
 }

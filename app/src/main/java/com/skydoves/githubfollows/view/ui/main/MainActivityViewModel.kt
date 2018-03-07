@@ -1,13 +1,15 @@
 package com.skydoves.githubfollows.view.ui.main
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
 import com.skydoves.githubfollows.api.GithubService
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
-import com.skydoves.githubfollows.preference.PreferenceComponent_PrefAppComponent
-import com.skydoves.githubfollows.preference.Preference_UserProfile
-import com.skydoves.preferenceroom.InjectPreference
+import com.skydoves.githubfollows.models.Resource
+import com.skydoves.githubfollows.repository.GithubUserRepository
+import com.skydoves.githubfollows.utils.AbsentLiveData
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -17,11 +19,11 @@ import javax.inject.Inject
  */
 
 class MainActivityViewModel @Inject
-constructor(private val service: GithubService): ViewModel() {
+constructor(private val service: GithubService, private val repository: GithubUserRepository): ViewModel() {
 
-    @InjectPreference lateinit var profile: Preference_UserProfile
+    val login: MutableLiveData<String> = MutableLiveData()
 
-    val githubUserLiveData: MutableLiveData<GithubUser> = MutableLiveData()
+    var githubUserLiveData: LiveData<Resource<GithubUser>> = MutableLiveData()
     val githubUserListLiveData: MutableLiveData<List<Follower>> = MutableLiveData()
     val toastMessage: MutableLiveData<String> = MutableLiveData()
 
@@ -32,23 +34,23 @@ constructor(private val service: GithubService): ViewModel() {
 
     init {
         Timber.d("Injection MainActivityViewModel")
-        PreferenceComponent_PrefAppComponent.getInstance().inject(this)
+
+        login.postValue(getUserName())
+        githubUserLiveData = Transformations.switchMap(login, {
+            login.value?.let { repository.loadUser(it) }
+            ?:AbsentLiveData.create()
+        })
     }
 
     fun resetPagination() {
         isLoading = false
         isOnLast = false
+        refreshGithubUser()
     }
 
-    fun fetchGithubUser(user: String) {
-        service.fetchGithubUser(user).observeForever{
-            it?.let {
-                when(it.isSuccessful) {
-                    true -> githubUserLiveData.postValue(it.body)
-                    false -> toastMessage.postValue(it.envelope?.message)
-                }
-            }
-        }
+    private fun refreshGithubUser() {
+        login.postValue(getUserName())
+        repository.refreshUser()
     }
 
     fun fetchFollowing(user: String, page: Int) {
@@ -79,19 +81,11 @@ constructor(private val service: GithubService): ViewModel() {
         }
     }
 
-    fun getPreferenceUserName(): String {
-        return profile.name
-    }
+    fun getPreferenceMenuPosition() = repository.getPreferenceMenuPosition()
 
-    fun getPreferenceUserKeyName(): String {
-        return profile.nameKeyName()
-    }
+    fun putPreferenceMenuPosition(position: Int) = repository.putPreferenceMenuPosition(position)
 
-    fun getPreferenceMenuPosition(): Int {
-        return profile.menuPosition
-    }
+    fun getUserName() = repository.getUserName()
 
-    fun putPreferenceMenuPosition(position: Int) {
-        profile.putMenuPosition(position)
-    }
+    fun getRepositoryToast() = repository.toast
 }
