@@ -2,7 +2,7 @@ package com.skydoves.githubfollows.view.adapter
 
 import android.view.View
 import com.skydoves.githubfollows.R
-import com.skydoves.githubfollows.room.History
+import com.skydoves.githubfollows.models.History
 
 import com.skydoves.githubfollows.view.viewholder.BaseViewHolder
 import com.skydoves.githubfollows.view.viewholder.HistoryViewHolder

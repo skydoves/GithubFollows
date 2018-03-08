@@ -1,5 +1,6 @@
 package com.skydoves.githubfollows.view.ui.detail
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -7,8 +8,11 @@ import android.databinding.DataBindingUtil
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.PictureDrawable
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.view.ViewCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -17,17 +21,21 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.databinding.ActivityDetailBinding
+import com.skydoves.githubfollows.extension.checkIsMaterialVersion
 import com.skydoves.githubfollows.extension.fromResource
 import com.skydoves.githubfollows.extension.gone
 import com.skydoves.githubfollows.factory.AppViewModelFactory
+import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.ItemDetail
+import com.skydoves.githubfollows.models.Resource
 import com.skydoves.githubfollows.utils.GlideUtils
 import com.skydoves.githubfollows.view.adapter.DetailAdapter
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.layout_detail_body.*
 import kotlinx.android.synthetic.main.layout_detail_header.*
 import kotlinx.android.synthetic.main.toolbar_default.view.*
+import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
@@ -56,7 +64,7 @@ class DetailActivity : AppCompatActivity() {
     private fun initializeListeners() {
         binding.detailToolbar.toolbar_home.setOnClickListener { onBackPressed() }
         detail_header_cardView.setOnClickListener {
-            setResult(1000, Intent().putExtra(viewModel.getPreferenceUserKeyName(), getLoginFromIntent()))
+            setResult(intent_requestCode, Intent().putExtra(viewModel.getUserKeyName(), getLoginFromIntent()))
             onBackPressed()
         }
     }
@@ -86,14 +94,14 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.githubUserLiveData.observe(this, Observer { updateUI(it) })
-        viewModel.toastMessage.observe(this, Observer { toast(it.toString()) })
-        viewModel.fetchGithubUser(getLoginFromIntent())
+        viewModel.login.postValue(getLoginFromIntent())
+        viewModel.githubUserLiveData.observe(this, Observer { it?.let{ updateUI(it) } })
+        viewModel.toast.observe(this, Observer { toast(it.toString()) })
     }
 
-    private fun updateUI(githubUser: GithubUser?) {
-        githubUser?.let {
-            binding.detailHeader.githubUser = githubUser
+    private fun updateUI(resource: Resource<GithubUser>) {
+        resource.data?.let {
+            binding.detailHeader.githubUser = it
             binding.executePendingBindings()
 
             adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_person_pin), it.html_url))
@@ -122,10 +130,29 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun getLoginFromIntent(): String {
-        return intent.getStringExtra("login")
+        return intent.getStringExtra(intent_login)
     }
 
     private fun getAvatarFromIntent(): String {
-        return intent.getStringExtra("avatar_url")
+        return intent.getStringExtra(intent_avatar)
+    }
+
+    companion object {
+        const val intent_login = "login"
+        const val intent_avatar = "avatar_url"
+        const val intent_requestCode = 1000
+
+        fun startActivity(activity: Activity, githubUser: Follower, view: View) {
+            if (activity.checkIsMaterialVersion()) {
+                val intent = Intent(activity, DetailActivity::class.java)
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view,
+                        ViewCompat.getTransitionName(view))
+                intent.putExtra(intent_login, githubUser.login)
+                intent.putExtra(intent_avatar, githubUser.avatar_url)
+                activity.startActivityForResult(intent, intent_requestCode, options.toBundle())
+            } else {
+                activity.startActivityForResult<DetailActivity>(intent_requestCode, intent_login to githubUser.login, intent_avatar to githubUser.avatar_url)
+            }
+        }
     }
 }

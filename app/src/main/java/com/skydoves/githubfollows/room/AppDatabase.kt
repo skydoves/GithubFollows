@@ -2,13 +2,17 @@ package com.skydoves.githubfollows.room
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
+import com.skydoves.githubfollows.models.Follower
+import com.skydoves.githubfollows.models.GithubUser
+import com.skydoves.githubfollows.models.History
 
 /**
  * Developed by skydoves on 2018-01-27.
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-@Database(entities = arrayOf(History::class), version = 1)
+@Database(entities = [(History::class), (Follower::class), (GithubUser::class)], version = 2)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun historyDAO(): HistoryDao
+    abstract fun githubUserDao(): GithubUserDao
 }

@@ -1,13 +1,16 @@
 package com.skydoves.githubfollows.view.ui.main
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
 import com.skydoves.githubfollows.api.GithubService
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
-import com.skydoves.githubfollows.preference.PreferenceComponent_PrefAppComponent
-import com.skydoves.githubfollows.preference.Preference_UserProfile
-import com.skydoves.preferenceroom.InjectPreference
+import com.skydoves.githubfollows.models.Resource
+import com.skydoves.githubfollows.models.Status
+import com.skydoves.githubfollows.repository.GithubUserRepository
+import com.skydoves.githubfollows.utils.AbsentLiveData
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -17,13 +20,13 @@ import javax.inject.Inject
  */
 
 class MainActivityViewModel @Inject
-constructor(private val service: GithubService): ViewModel() {
+constructor(private val service: GithubService, private val githubUserRepository: GithubUserRepository): ViewModel() {
 
-    @InjectPreference lateinit var profile: Preference_UserProfile
+    private val login: MutableLiveData<String> = MutableLiveData()
+    var githubUserLiveData: LiveData<Resource<GithubUser>> = MutableLiveData()
 
-    val githubUserLiveData: MutableLiveData<GithubUser> = MutableLiveData()
     val githubUserListLiveData: MutableLiveData<List<Follower>> = MutableLiveData()
-    val toastMessage: MutableLiveData<String> = MutableLiveData()
+    val toast: MutableLiveData<String> = MutableLiveData()
 
     var isLoading: Boolean = false
     var isOnLast: Boolean = false
@@ -32,23 +35,23 @@ constructor(private val service: GithubService): ViewModel() {
 
     init {
         Timber.d("Injection MainActivityViewModel")
-        PreferenceComponent_PrefAppComponent.getInstance().inject(this)
+
+        login.postValue(getUserName())
+        githubUserLiveData = Transformations.switchMap(login, {
+            login.value?.let { githubUserRepository.loadUser(it) }
+                    ?: AbsentLiveData.create()
+        })
+
+        githubUserLiveData.observeForever {
+            if(it?.status == Status.ERROR) toast.postValue(it.message)
+        }
     }
 
-    fun resetPagination() {
+    fun refresh(user: String) {
         isLoading = false
         isOnLast = false
-    }
-
-    fun fetchGithubUser(user: String) {
-        service.fetchGithubUser(user).observeForever{
-            it?.let {
-                when(it.isSuccessful) {
-                    true -> githubUserLiveData.postValue(it.body)
-                    false -> toastMessage.postValue(it.envelope?.message)
-                }
-            }
-        }
+        login.postValue(user)
+        githubUserRepository.refreshUser(user)
     }
 
     fun fetchFollowing(user: String, page: Int) {
@@ -57,7 +60,7 @@ constructor(private val service: GithubService): ViewModel() {
             it?.let {
                 when(it.isSuccessful) {
                     true -> githubUserListLiveData.postValue(it.body)
-                    false -> toastMessage.postValue(it.envelope?.message)
+                    false -> toast.postValue(it.envelope?.message)
                 }
                 if(it.nextPage == null)
                     isOnLast = true
@@ -72,26 +75,18 @@ constructor(private val service: GithubService): ViewModel() {
             it?.let {
                 when(it.isSuccessful) {
                     true -> githubUserListLiveData.postValue(it.body)
-                    false -> toastMessage.postValue(it.envelope?.message)
+                    false -> toast.postValue(it.envelope?.message)
                 }
                 isLoading = false
             }
         }
     }
 
-    fun getPreferenceUserName(): String {
-        return profile.name
-    }
+    fun getPreferenceMenuPosition() = githubUserRepository.getPreferenceMenuPosition()
 
-    fun getPreferenceUserKeyName(): String {
-        return profile.nameKeyName()
-    }
+    fun putPreferenceMenuPosition(position: Int) = githubUserRepository.putPreferenceMenuPosition(position)
 
-    fun getPreferenceMenuPosition(): Int {
-        return profile.menuPosition
-    }
+    fun getUserName() = githubUserRepository.getUserName()
 
-    fun putPreferenceMenuPosition(position: Int) {
-        profile.putMenuPosition(position)
-    }
+    fun getUserKeyName() = githubUserRepository.getUserKeyName()
 }

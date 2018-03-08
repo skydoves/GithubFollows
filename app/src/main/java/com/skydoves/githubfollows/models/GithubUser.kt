@@ -1,10 +1,13 @@
 package com.skydoves.githubfollows.models
 
+import android.arch.persistence.room.Entity
+
 /**
  * Developed by skydoves on 2018-01-21.
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
+@Entity(primaryKeys = [("login")])
 data class GithubUser(val login: String,
                       val id: Int,
                       val avatar_url: String,
@@ -27,7 +30,7 @@ data class GithubUser(val login: String,
                       val blog: String?,
                       val location: String?,
                       val email: String?,
-                      val hireable: String,
+                      val hireable: String?,
                       val bio: String?,
                       val public_repos: Int,
                       val public_gists: Int,

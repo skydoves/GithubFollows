@@ -3,7 +3,7 @@ package com.skydoves.githubfollows.view.viewholder
 import android.databinding.DataBindingUtil
 import android.view.View
 import com.skydoves.githubfollows.databinding.ItemHistoryBinding
-import com.skydoves.githubfollows.room.History
+import com.skydoves.githubfollows.models.History
 import kotlinx.android.synthetic.main.item_history.view.*
 
 /**
