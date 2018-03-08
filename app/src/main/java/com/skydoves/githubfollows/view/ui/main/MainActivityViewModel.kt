@@ -8,6 +8,7 @@ import com.skydoves.githubfollows.api.GithubService
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.Resource
+import com.skydoves.githubfollows.models.Status
 import com.skydoves.githubfollows.repository.GithubUserRepository
 import com.skydoves.githubfollows.utils.AbsentLiveData
 import timber.log.Timber
@@ -19,13 +20,13 @@ import javax.inject.Inject
  */
 
 class MainActivityViewModel @Inject
-constructor(private val service: GithubService, private val repository: GithubUserRepository): ViewModel() {
+constructor(private val service: GithubService, private val githubUserRepository: GithubUserRepository): ViewModel() {
 
     private val login: MutableLiveData<String> = MutableLiveData()
     var githubUserLiveData: LiveData<Resource<GithubUser>> = MutableLiveData()
 
     val githubUserListLiveData: MutableLiveData<List<Follower>> = MutableLiveData()
-    val toastMessage: MutableLiveData<String> = MutableLiveData()
+    val toast: MutableLiveData<String> = MutableLiveData()
 
     var isLoading: Boolean = false
     var isOnLast: Boolean = false
@@ -37,16 +38,20 @@ constructor(private val service: GithubService, private val repository: GithubUs
 
         login.postValue(getUserName())
         githubUserLiveData = Transformations.switchMap(login, {
-            login.value?.let { repository.loadUser(it) }
-            ?:AbsentLiveData.create()
+            login.value?.let { githubUserRepository.loadUser(it) }
+                    ?: AbsentLiveData.create()
         })
+
+        githubUserLiveData.observeForever {
+            if(it?.status == Status.ERROR) toast.postValue(it.message)
+        }
     }
 
     fun refresh(user: String) {
         isLoading = false
         isOnLast = false
         login.postValue(user)
-        repository.refreshUser(user)
+        githubUserRepository.refreshUser(user)
     }
 
     fun fetchFollowing(user: String, page: Int) {
@@ -55,7 +60,7 @@ constructor(private val service: GithubService, private val repository: GithubUs
             it?.let {
                 when(it.isSuccessful) {
                     true -> githubUserListLiveData.postValue(it.body)
-                    false -> toastMessage.postValue(it.envelope?.message)
+                    false -> toast.postValue(it.envelope?.message)
                 }
                 if(it.nextPage == null)
                     isOnLast = true
@@ -70,20 +75,18 @@ constructor(private val service: GithubService, private val repository: GithubUs
             it?.let {
                 when(it.isSuccessful) {
                     true -> githubUserListLiveData.postValue(it.body)
-                    false -> toastMessage.postValue(it.envelope?.message)
+                    false -> toast.postValue(it.envelope?.message)
                 }
                 isLoading = false
             }
         }
     }
 
-    fun getPreferenceMenuPosition() = repository.getPreferenceMenuPosition()
+    fun getPreferenceMenuPosition() = githubUserRepository.getPreferenceMenuPosition()
 
-    fun putPreferenceMenuPosition(position: Int) = repository.putPreferenceMenuPosition(position)
+    fun putPreferenceMenuPosition(position: Int) = githubUserRepository.putPreferenceMenuPosition(position)
 
-    fun getUserName() = repository.getUserName()
+    fun getUserName() = githubUserRepository.getUserName()
 
-    fun getUserKeyName() = repository.getUserKeyName()
-
-    fun getRepositoryToast() = repository.toast
+    fun getUserKeyName() = githubUserRepository.getUserKeyName()
 }

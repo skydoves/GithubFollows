@@ -68,8 +68,8 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
 
     private fun observeViewModel() {
         viewModel.historiesLiveData.observe(this, Observer { it?.let { adapter.updateItemList(it) } })
-        viewModel.githubUserLiveData.observe(this, Observer { it?.let { onChangeUser(it.login) } })
-        viewModel.toastMessage.observe(this, Observer { toast(it.toString()) })
+        viewModel.githubUserLiveData.observe(this, Observer { it?.let { onChangeUser(it.data?.login) } })
+        viewModel.toast.observe(this, Observer { toast(it.toString()) })
     }
 
     private fun initializeAdapter() {
@@ -82,7 +82,7 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
         val searchKeyword = toolbar_search_input.text
         if(actionId == EditorInfo.IME_ACTION_SEARCH) {
             searchKeyword?.let {
-                viewModel.fetchGithubUser(it.toString())
+                viewModel.login.postValue(it.toString())
                 return true
             }
         }
@@ -97,10 +97,12 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
         viewModel.deleteHistory(history)
     }
 
-    private fun onChangeUser(userName: String) {
-        viewModel.insertHistory(userName)
-        setResult(intent_requestCode, Intent().putExtra(viewModel.getPreferenceUserKeyName(), userName))
-        onBackPressed()
+    private fun onChangeUser(userName: String?) {
+        userName?.let {
+            viewModel.insertHistory(it)
+            setResult(intent_requestCode, Intent().putExtra(viewModel.getPreferenceUserKeyName(), it))
+            onBackPressed()
+        }
     }
 
     override fun onBackPressed() {

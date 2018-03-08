@@ -1,7 +1,6 @@
 package com.skydoves.githubfollows.repository
 
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
 import com.skydoves.githubfollows.api.ApiResponse
 import com.skydoves.githubfollows.api.GithubService
 import com.skydoves.githubfollows.models.Envelope
@@ -27,8 +26,6 @@ class GithubUserRepository @Inject
 constructor(val githubUserDao: GithubUserDao, val service: GithubService) {
 
     @InjectPreference lateinit var profile: Preference_UserProfile
-
-    val toast: MutableLiveData<String> = MutableLiveData()
 
     init {
         Timber.d("Injection GithubUserRepository")
@@ -67,7 +64,7 @@ constructor(val githubUserDao: GithubUserDao, val service: GithubService) {
             }
 
             override fun onFetchFailed(envelope: Envelope?) {
-                toast.postValue(envelope?.message)
+                Timber.d("onFetchFailed : $envelope")
             }
         }.asLiveData()
     }

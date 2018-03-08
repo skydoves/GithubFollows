@@ -96,7 +96,7 @@ class DetailActivity : AppCompatActivity() {
     private fun observeViewModel() {
         viewModel.login.postValue(getLoginFromIntent())
         viewModel.githubUserLiveData.observe(this, Observer { it?.let{ updateUI(it) } })
-        viewModel.getRepositoryToast().observe(this, Observer { toast(it.toString()) })
+        viewModel.toast.observe(this, Observer { toast(it.toString()) })
     }
 
     private fun updateUI(resource: Resource<GithubUser>) {

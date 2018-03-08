@@ -81,8 +81,7 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
     private fun observeViewModel() {
         viewModel.githubUserLiveData.observe(this, Observer { it?.let { adapter.updateHeader(it) } })
         viewModel.githubUserListLiveData.observe(this, Observer { updateGithubUserList(it) })
-        viewModel.toastMessage.observe(this, Observer { toast(it.toString()) })
-        viewModel.getRepositoryToast().observe(this, Observer { toast(it.toString()) })
+        viewModel.toast.observe(this, Observer { toast(it.toString()) })
         loadMore(1)
     }
 

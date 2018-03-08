@@ -1,18 +1,17 @@
 package com.skydoves.githubfollows.view.ui.search
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
-import com.skydoves.githubfollows.api.GithubService
 import com.skydoves.githubfollows.models.GithubUser
-import com.skydoves.githubfollows.preference.PreferenceComponent_PrefAppComponent
-import com.skydoves.githubfollows.preference.Preference_UserProfile
 import com.skydoves.githubfollows.models.History
-import com.skydoves.githubfollows.room.HistoryDao
-import com.skydoves.preferenceroom.InjectPreference
-import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
+import com.skydoves.githubfollows.models.Resource
+import com.skydoves.githubfollows.models.Status
+import com.skydoves.githubfollows.repository.GithubUserRepository
+import com.skydoves.githubfollows.repository.HistoryRepository
+import com.skydoves.githubfollows.utils.AbsentLiveData
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 /**
@@ -21,42 +20,33 @@ import javax.inject.Inject
  */
 
 class SearchActivityViewModel @Inject
-constructor(private val githubService: GithubService, private val historyDao: HistoryDao): ViewModel() {
+constructor(private val githubUserRepository: GithubUserRepository, private val historyRepository: HistoryRepository): ViewModel() {
 
-    @InjectPreference lateinit var profile: Preference_UserProfile
-
-    val githubUserLiveData: MutableLiveData<GithubUser> = MutableLiveData()
+    val login: MutableLiveData<String> = MutableLiveData()
+    var githubUserLiveData: LiveData<Resource<GithubUser>> = MutableLiveData()
     val historiesLiveData: MutableLiveData<List<History>> = MutableLiveData()
 
-    val toastMessage: MutableLiveData<String> = MutableLiveData()
+    val toast: MutableLiveData<String> = MutableLiveData()
 
     init {
         Timber.d("Injection SearchActivityViewModel")
-        PreferenceComponent_PrefAppComponent.getInstance().inject(this)
-    }
 
-    fun fetchGithubUser(userName: String) {
-        githubService.fetchGithubUser(userName).observeForever{
-            it?.let {
-                when(it.isSuccessful) {
-                    true -> githubUserLiveData.postValue(it.body)
-                    false -> toastMessage.postValue(it.envelope?.message)
-                }
-            }
+        githubUserLiveData = Transformations.switchMap(login, {
+            login.value?.let { githubUserRepository.loadUser(it) }
+                    ?: AbsentLiveData.create()
+        })
+
+        githubUserLiveData.observeForever {
+            if(it?.status == Status.ERROR) toast.postValue(it.message)
         }
     }
 
     fun insertHistory(search: String) {
-        Observable.just(historyDao)
-                .subscribeOn(Schedulers.io())
-                .subscribe { dao ->
-                    dao.insertHistory(History(search, Calendar.getInstance().timeInMillis))
-                    Timber.d("Dao insert history : $search")
-                }
+        historyRepository.insertHistory(search)
     }
 
     fun selectHistories() {
-        historyDao.selectRecentHistoryList().observeForever {
+        historyRepository.selectHistories().observeForever {
             it?.let {
                 if(it.isNotEmpty()) historiesLiveData.postValue(it)
             }
@@ -64,19 +54,10 @@ constructor(private val githubService: GithubService, private val historyDao: Hi
     }
 
     fun deleteHistory(history: History) {
-        Observable.just(historyDao)
-                .subscribeOn(Schedulers.io())
-                .subscribe { dao ->
-                    dao.deleteHistory(history.search)
-                    Timber.d("Dao delete history : ${history.search}")
-                }
-    }
-
-    fun putPreferenceUserName(userName: String) {
-        profile.putName(userName)
+        historyRepository.deleteHistory(history)
     }
 
     fun getPreferenceUserKeyName(): String {
-        return profile.nameKeyName()
+        return githubUserRepository.getUserKeyName()
     }
 }

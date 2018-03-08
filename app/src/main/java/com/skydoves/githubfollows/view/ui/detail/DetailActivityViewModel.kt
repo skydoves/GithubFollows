@@ -6,6 +6,7 @@ import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.Resource
+import com.skydoves.githubfollows.models.Status
 import com.skydoves.githubfollows.repository.GithubUserRepository
 import com.skydoves.githubfollows.utils.AbsentLiveData
 import timber.log.Timber
@@ -21,6 +22,7 @@ constructor(private val repository: GithubUserRepository): ViewModel() {
 
     val login: MutableLiveData<String> = MutableLiveData()
     var githubUserLiveData: LiveData<Resource<GithubUser>> = MutableLiveData()
+    val toast: MutableLiveData<String> = MutableLiveData()
 
     init {
         Timber.d("Injection DetailActivityViewModel")
@@ -29,9 +31,11 @@ constructor(private val repository: GithubUserRepository): ViewModel() {
             login.value?.let { repository.loadUser(it) }
                     ?: AbsentLiveData.create()
         })
+
+        githubUserLiveData.observeForever {
+            if(it?.status == Status.ERROR) toast.postValue(it.message)
+        }
     }
 
     fun getUserKeyName() = repository.getUserKeyName()
-
-    fun getRepositoryToast() = repository.toast
 }
