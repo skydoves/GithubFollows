@@ -38,4 +38,6 @@ object Dependencies {
     val powermenu = "com.github.skydoves:powermenu:${Versions.powerMenu}"
     val androidsvg = "com.caverock:androidsvg:${Versions.androidSvg}"
     val shimmerlayout = "io.supercharge:shimmerlayout:${Versions.shimmer}"
+    val mockito = "org.mockito:mockito-core:${Versions.mockito}"
+    val mockitoAndroid = "org.mockito:mockito-android:${Versions.mockito}"
 }
