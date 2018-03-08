@@ -33,4 +33,5 @@ object Versions {
     const val powerMenu = "1.0.9"
     const val androidSvg = "1.2.1"
     const val shimmer = "1.1.0"
+    const val mockito = "2.7.22"
 }
