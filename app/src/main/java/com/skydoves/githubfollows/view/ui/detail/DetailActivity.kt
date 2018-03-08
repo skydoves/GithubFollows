@@ -142,16 +142,16 @@ class DetailActivity : AppCompatActivity() {
         const val intent_avatar = "avatar_url"
         const val intent_requestCode = 1000
 
-        fun startActivity(activity: Activity, follower: Follower, view: View) {
+        fun startActivity(activity: Activity, githubUser: Follower, view: View) {
             if (activity.checkIsMaterialVersion()) {
                 val intent = Intent(activity, DetailActivity::class.java)
                 val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view,
                         ViewCompat.getTransitionName(view))
-                intent.putExtra(intent_login, follower.login)
-                intent.putExtra(intent_avatar, follower.avatar_url)
+                intent.putExtra(intent_login, githubUser.login)
+                intent.putExtra(intent_avatar, githubUser.avatar_url)
                 activity.startActivityForResult(intent, intent_requestCode, options.toBundle())
             } else {
-                activity.startActivityForResult<DetailActivity>(intent_requestCode, intent_login to follower.login, intent_avatar to follower.avatar_url)
+                activity.startActivityForResult<DetailActivity>(intent_requestCode, intent_login to githubUser.login, intent_avatar to githubUser.avatar_url)
             }
         }
     }

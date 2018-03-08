@@ -87,8 +87,4 @@ constructor(val githubUserDao: GithubUserDao, val service: GithubService) {
     fun getUserName(): String {
         return profile.name
     }
-
-    fun putPreferenceUser(user: String) {
-        profile.putName(user)
-    }
 }
