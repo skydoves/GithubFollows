@@ -41,9 +41,7 @@ constructor(private val githubUserRepository: GithubUserRepository, private val 
         }
     }
 
-    fun insertHistory(search: String) {
-        historyRepository.insertHistory(search)
-    }
+    fun insertHistory(search: String) = historyRepository.insertHistory(search)
 
     fun selectHistories() {
         historyRepository.selectHistories().observeForever {
@@ -53,11 +51,7 @@ constructor(private val githubUserRepository: GithubUserRepository, private val 
         }
     }
 
-    fun deleteHistory(history: History) {
-        historyRepository.deleteHistory(history)
-    }
+    fun deleteHistory(history: History) = historyRepository.deleteHistory(history)
 
-    fun getPreferenceUserKeyName(): String {
-        return githubUserRepository.getUserKeyName()
-    }
+    fun getPreferenceUserKeyName() = githubUserRepository.getUserKeyName()
 }

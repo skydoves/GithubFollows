@@ -73,7 +73,7 @@ class DetailActivity : AppCompatActivity() {
         binding.detailToolbar.toolbar_title.text = getLoginFromIntent()
         Glide.with(this)
                 .load(getAvatarFromIntent())
-               .apply(RequestOptions().circleCrop().dontAnimate())
+                .apply(RequestOptions().circleCrop().dontAnimate())
                 .listener(object: RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                         supportStartPostponedEnterTransition()
@@ -94,7 +94,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.login.postValue(getLoginFromIntent())
+        viewModel.setUser(getLoginFromIntent())
         viewModel.githubUserLiveData.observe(this, Observer { it?.let{ updateUI(it) } })
         viewModel.toast.observe(this, Observer { toast(it.toString()) })
     }
@@ -145,8 +145,7 @@ class DetailActivity : AppCompatActivity() {
         fun startActivity(activity: Activity, githubUser: Follower, view: View) {
             if (activity.checkIsMaterialVersion()) {
                 val intent = Intent(activity, DetailActivity::class.java)
-                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view,
-                        ViewCompat.getTransitionName(view))
+                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view, ViewCompat.getTransitionName(view))
                 intent.putExtra(intent_login, githubUser.login)
                 intent.putExtra(intent_avatar, githubUser.avatar_url)
                 activity.startActivityForResult(intent, intent_requestCode, options.toBundle())
