@@ -40,7 +40,8 @@
                         android:layout_width="82dp"
                         android:layout_height="82dp"
                         android:scaleType="fitXY"
-                        android:transitionName="@string/transition_avatar"/>
+                        android:transitionName="@string/transition_avatar"
+                        tools:targetApi="LOLLIPOP"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
