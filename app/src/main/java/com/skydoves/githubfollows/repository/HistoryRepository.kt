@@ -3,8 +3,7 @@ package com.skydoves.githubfollows.repository
 import android.arch.lifecycle.LiveData
 import com.skydoves.githubfollows.models.History
 import com.skydoves.githubfollows.room.HistoryDao
-import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
+import org.jetbrains.anko.doAsync
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -24,12 +23,10 @@ constructor(private val historyDao: HistoryDao) {
     }
 
     fun insertHistory(search: String) {
-        Observable.just(historyDao)
-                .subscribeOn(Schedulers.io())
-                .subscribe { dao ->
-                    dao.insertHistory(History(search, Calendar.getInstance().timeInMillis))
-                    Timber.d("Dao insert history : $search")
-                }
+        doAsync {
+            historyDao.insertHistory(History(search, Calendar.getInstance().timeInMillis))
+            Timber.d("Dao insert history : $search")
+        }
     }
 
     fun selectHistories(): LiveData<List<History>> {
@@ -37,11 +34,9 @@ constructor(private val historyDao: HistoryDao) {
     }
 
     fun deleteHistory(history: History) {
-        Observable.just(historyDao)
-                .subscribeOn(Schedulers.io())
-                .subscribe { dao ->
-                    dao.deleteHistory(history.search)
-                    Timber.d("Dao delete history : ${history.search}")
-                }
+        doAsync {
+            historyDao.deleteHistory(history.search)
+            Timber.d("Dao delete history : ${history.search}")
+        }
     }
 }

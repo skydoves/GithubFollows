@@ -65,7 +65,7 @@ internal constructor() {
 
     @MainThread
     private fun setValue(newValue: Resource<ResultType>) {
-        result.postValue(newValue)
+        result.value = newValue
     }
 
     fun asLiveData(): LiveData<Resource<ResultType>> {

@@ -20,7 +20,7 @@ import javax.inject.Inject
 class DetailActivityViewModel @Inject
 constructor(private val repository: GithubUserRepository): ViewModel() {
 
-    val login: MutableLiveData<String> = MutableLiveData()
+    private val login: MutableLiveData<String> = MutableLiveData()
     var githubUserLiveData: LiveData<Resource<GithubUser>> = MutableLiveData()
     val toast: MutableLiveData<String> = MutableLiveData()
 
@@ -36,6 +36,8 @@ constructor(private val repository: GithubUserRepository): ViewModel() {
             if(it?.status == Status.ERROR) toast.postValue(it.message)
         }
     }
+
+    fun setUser(user: String) { login.value = user }
 
     fun getUserKeyName() = repository.getUserKeyName()
 }

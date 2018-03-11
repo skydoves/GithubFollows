@@ -10,8 +10,7 @@ import com.skydoves.githubfollows.preference.PreferenceComponent_PrefAppComponen
 import com.skydoves.githubfollows.preference.Preference_UserProfile
 import com.skydoves.githubfollows.room.GithubUserDao
 import com.skydoves.preferenceroom.InjectPreference
-import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
+import org.jetbrains.anko.doAsync
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -34,21 +33,13 @@ constructor(val githubUserDao: GithubUserDao, val service: GithubService) {
 
     fun refreshUser(user: String) {
         profile.putName(user)
-        Observable.just(githubUserDao)
-                .subscribeOn(Schedulers.io())
-                .subscribe { dao ->
-                    dao.truncateGithubUser()
-                }
+        doAsync { githubUserDao.truncateGithubUser() }
     }
 
     fun loadUser(user: String): LiveData<Resource<GithubUser>> {
         return object: NetworkBoundRepository<GithubUser, GithubUser>() {
             override fun saveFetchData(item: GithubUser) {
-                Observable.just(githubUserDao)
-                        .subscribeOn(Schedulers.io())
-                        .subscribe { dao ->
-                            dao.insertGithubUser(item)
-                        }
+                doAsync { githubUserDao.insertGithubUser(item) }
             }
 
             override fun shouldFetch(data: GithubUser?): Boolean {
