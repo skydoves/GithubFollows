@@ -11,6 +11,7 @@ import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.factory.AppViewModelFactory
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
+import com.skydoves.githubfollows.models.Resource
 import com.skydoves.githubfollows.utils.PowerMenuUtils
 import com.skydoves.githubfollows.view.RecyclerViewPaginator
 import com.skydoves.githubfollows.view.adapter.GithubUserAdapter
@@ -80,27 +81,22 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
 
     private fun observeViewModel() {
         viewModel.githubUserLiveData.observe(this, Observer { it?.let { adapter.updateHeader(it) } })
-        viewModel.githubUserListLiveData.observe(this, Observer { updateGithubUserList(it) })
+        viewModel.followersLiveData.observe(this, Observer { updateGithubUserList(it) })
         viewModel.toast.observe(this, Observer { toast(it.toString()) })
-        loadMore(1)
     }
 
     private fun loadMore(page: Int) {
-        when(viewModel.getPreferenceMenuPosition()) {
-            0 -> viewModel.fetchFollowing(viewModel.getUserName(), page)
-            1 -> viewModel.fetchFollowers(viewModel.getUserName(), page)
-        }
+        viewModel.postPage(page)
     }
 
-    private fun updateGithubUserList(followers: List<Follower>?) {
-        followers?.let { adapter.addFollowList(it) }
+    private fun updateGithubUserList(resource: Resource<List<Follower>>?) {
+        resource?.data?.let { adapter.addFollowList(it) }
     }
 
     private fun restPagination(user: String) {
         adapter.clearAll()
-        viewModel.refresh(user)
         paginator.resetCurrentPage()
-        loadMore(1)
+        viewModel.refresh(user)
     }
 
     override fun onCardClicked(githubUser: GithubUser) {

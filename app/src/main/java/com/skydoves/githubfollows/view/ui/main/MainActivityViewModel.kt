@@ -4,11 +4,9 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
-import com.skydoves.githubfollows.api.GithubService
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.Resource
-import com.skydoves.githubfollows.models.Status
 import com.skydoves.githubfollows.repository.GithubUserRepository
 import com.skydoves.githubfollows.utils.AbsentLiveData
 import timber.log.Timber
@@ -20,18 +18,18 @@ import javax.inject.Inject
  */
 
 class MainActivityViewModel @Inject
-constructor(private val service: GithubService, private val githubUserRepository: GithubUserRepository): ViewModel() {
+constructor(private val githubUserRepository: GithubUserRepository): ViewModel() {
 
     private val login: MutableLiveData<String> = MutableLiveData()
-    var githubUserLiveData: LiveData<Resource<GithubUser>> = MutableLiveData()
+    private val page: MutableLiveData<Int> = MutableLiveData()
+    private val isFollowers: MutableLiveData<Boolean> = MutableLiveData()
 
-    val githubUserListLiveData: MutableLiveData<List<Follower>> = MutableLiveData()
+    var githubUserLiveData: LiveData<Resource<GithubUser>> = MutableLiveData()
+    var followersLiveData: LiveData<Resource<List<Follower>>> = MutableLiveData()
     val toast: MutableLiveData<String> = MutableLiveData()
 
     var isLoading: Boolean = false
     var isOnLast: Boolean = false
-
-    private val per_page = 10
 
     init {
         Timber.d("Injection MainActivityViewModel")
@@ -43,44 +41,41 @@ constructor(private val service: GithubService, private val githubUserRepository
         })
 
         githubUserLiveData.observeForever {
-            if(it?.status == Status.ERROR) toast.postValue(it.message)
+            it?.let {
+                if(it.isOnError()) toast.postValue(it.message)
+            }
+        }
+
+        isFollowers.value = isFollowers()
+        followersLiveData = Transformations.switchMap(page, {
+            login.value?.let {
+                githubUserRepository.loadFollowers(it, page.value!!, isFollowers.value!!) }
+            ?: AbsentLiveData.create()
+        })
+
+        followersLiveData .observeForever {
+            it?.let {
+                isLoading = it.isOnLoading()
+                isOnLast = it.isOnLast()
+                if(it.isOnError()) toast.postValue(it.message)
+            }
         }
     }
 
     fun refresh(user: String) {
         isLoading = false
         isOnLast = false
-        login.postValue(user)
+        login.value = user
+        isFollowers.value = isFollowers()
         githubUserRepository.refreshUser(user)
     }
 
-    fun fetchFollowing(user: String, page: Int) {
-        isLoading = true
-        service.fetchFollowings(user, page, per_page).observeForever {
-            it?.let {
-                when(it.isSuccessful) {
-                    true -> githubUserListLiveData.postValue(it.body)
-                    false -> toast.postValue(it.envelope?.message)
-                }
-                if(it.nextPage == null)
-                    isOnLast = true
-                isLoading = false
-            }
-        }
+    private fun isFollowers(): Boolean {
+        if(getPreferenceMenuPosition() == 0) return false
+        return true
     }
 
-    fun fetchFollowers(user: String, page: Int) {
-        isLoading = true
-        service.fetchFollowers(user, page, per_page).observeForever {
-            it?.let {
-                when(it.isSuccessful) {
-                    true -> githubUserListLiveData.postValue(it.body)
-                    false -> toast.postValue(it.envelope?.message)
-                }
-                isLoading = false
-            }
-        }
-    }
+    fun postPage(page: Int) { this.page.value = page }
 
     fun getPreferenceMenuPosition() = githubUserRepository.getPreferenceMenuPosition()
 

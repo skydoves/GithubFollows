@@ -15,4 +15,5 @@ import com.skydoves.githubfollows.models.History
 abstract class AppDatabase: RoomDatabase() {
     abstract fun historyDAO(): HistoryDao
     abstract fun githubUserDao(): GithubUserDao
+    abstract fun followersDao(): FollowersDAO
 }

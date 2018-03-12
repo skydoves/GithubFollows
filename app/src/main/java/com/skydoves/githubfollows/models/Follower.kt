@@ -10,7 +10,7 @@ import android.support.annotation.NonNull
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-@Entity(primaryKeys = [("login")])
+@Entity(primaryKeys = [("id")])
 data class Follower(@NonNull val login: String,
                     val id: Int,
                     val avatar_url: String,
@@ -27,7 +27,10 @@ data class Follower(@NonNull val login: String,
                     val events_url: String,
                     val received_events_url: String,
                     val type: String,
-                    val site_admin: Boolean) : Parcelable {
+                    val site_admin: Boolean,
+                    var owner: String,
+                    var page: Int,
+                    var isFollower: Boolean) : Parcelable {
     constructor(source: Parcel) : this(
             source.readString(),
             source.readInt(),
@@ -45,6 +48,9 @@ data class Follower(@NonNull val login: String,
             source.readString(),
             source.readString(),
             source.readString(),
+            1 == source.readInt(),
+            source.readString(),
+            source.readInt(),
             1 == source.readInt()
     )
 
@@ -68,6 +74,9 @@ data class Follower(@NonNull val login: String,
         writeString(received_events_url)
         writeString(type)
         writeInt((if (site_admin) 1 else 0))
+        writeString(owner)
+        writeInt(page)
+        writeInt((if (isFollower) 1 else 0))
     }
 
     companion object {

@@ -21,21 +21,21 @@ internal constructor() {
 
     init {
         Timber.d("Injection NetworkBoundRepository")
-        result.postValue(Resource.loading(null))
+        result.postValue(Resource.loading(null, null))
         val loadedFromDB = loadFromDb()
         result.addSource(loadedFromDB) { data ->
             result.removeSource(loadedFromDB)
             if (shouldFetch(data)) {
                 fetchFromNetwork(loadedFromDB)
             } else {
-                result.addSource<ResultType>(loadedFromDB) { newData -> setValue(Resource.success(newData)) }
+                result.addSource<ResultType>(loadedFromDB) { newData -> setValue(Resource.success(newData, 1)) }
             }
         }
     }
 
     private fun fetchFromNetwork(loadedFromDB: LiveData<ResultType>) {
         val apiResponse = fetchService()
-        result.addSource(loadedFromDB) { newData -> setValue(Resource.loading(newData))}
+        result.addSource(loadedFromDB) { newData -> setValue(Resource.loading(newData, 1))}
         result.addSource(apiResponse) { response ->
             result.removeSource(apiResponse)
             result.removeSource(loadedFromDB)
@@ -47,7 +47,7 @@ internal constructor() {
                             val loaded = loadFromDb()
                             result.addSource(loaded) { newData ->
                                 result.removeSource(loaded)
-                                setValue(Resource.success(newData))
+                                setValue(Resource.success(newData, response.nextPage))
                             }
                         }
                     }
@@ -55,7 +55,7 @@ internal constructor() {
                         onFetchFailed(response.envelope)
                         response.envelope?.let {
                             result.addSource<ResultType>(loadedFromDB) {
-                                newData -> setValue(Resource.error(it.message, newData)) }
+                                newData -> setValue(Resource.error(it.message, newData, null)) }
                         }
                     }
                 }
