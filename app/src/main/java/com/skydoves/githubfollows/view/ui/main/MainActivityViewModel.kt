@@ -46,7 +46,7 @@ constructor(private val githubUserRepository: GithubUserRepository): ViewModel()
             }
         }
 
-        isFollowers.value = isFollowers()
+        isFollowers.postValue(isFollowers())
         followersLiveData = Transformations.switchMap(page, {
             login.value?.let {
                 githubUserRepository.loadFollowers(it, page.value!!, isFollowers.value!!) }
@@ -56,7 +56,7 @@ constructor(private val githubUserRepository: GithubUserRepository): ViewModel()
         followersLiveData .observeForever {
             it?.let {
                 isLoading = it.isOnLoading()
-                isOnLast = it.isOnLast()
+                isOnLast = it.isOnLast() || it.isOnError()
                 if(it.isOnError()) toast.postValue(it.message)
             }
         }
