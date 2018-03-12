@@ -15,7 +15,7 @@ class RecyclerViewPaginator(val recyclerView: RecyclerView,
                             val onLast: () -> Boolean = { true }): RecyclerView.OnScrollListener() {
 
     private val threshold = 10
-    private var currentPage: Int = 1
+    private var currentPage: Int = 0
 
     init {
         recyclerView.addOnScrollListener(this)
@@ -41,6 +41,6 @@ class RecyclerViewPaginator(val recyclerView: RecyclerView,
     }
 
     fun resetCurrentPage() {
-        this.currentPage = 1
+        this.currentPage = 0
     }
 }

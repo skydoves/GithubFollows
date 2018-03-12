@@ -4,10 +4,12 @@ import android.arch.lifecycle.LiveData
 import com.skydoves.githubfollows.api.ApiResponse
 import com.skydoves.githubfollows.api.GithubService
 import com.skydoves.githubfollows.models.Envelope
+import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.Resource
 import com.skydoves.githubfollows.preference.PreferenceComponent_PrefAppComponent
 import com.skydoves.githubfollows.preference.Preference_UserProfile
+import com.skydoves.githubfollows.room.FollowersDAO
 import com.skydoves.githubfollows.room.GithubUserDao
 import com.skydoves.preferenceroom.InjectPreference
 import org.jetbrains.anko.doAsync
@@ -22,7 +24,7 @@ import javax.inject.Singleton
 
 @Singleton
 class GithubUserRepository @Inject
-constructor(val githubUserDao: GithubUserDao, val service: GithubService) {
+constructor(val githubUserDao: GithubUserDao, val followersDAO: FollowersDAO, val service: GithubService) {
 
     @InjectPreference lateinit var profile: Preference_UserProfile
 
@@ -60,19 +62,47 @@ constructor(val githubUserDao: GithubUserDao, val service: GithubService) {
         }.asLiveData()
     }
 
-    fun getUserKeyName(): String {
-        return profile.nameKeyName()
+    fun loadFollowers(user: String, page: Int, isFollowers: Boolean): LiveData<Resource<List<Follower>>> {
+        return object : NetworkBoundRepository<List<Follower>, List<Follower>>() {
+            override fun saveFetchData(items: List<Follower>) {
+                doAsync {
+                    for(item in items) {
+                        item.owner = user
+                        item.page = page
+                        item.isFollower = isFollowers
+                    }
+                    followersDAO.insertFollowers(items)
+                }
+            }
+
+            override fun shouldFetch(data: List<Follower>?): Boolean {
+                return data == null || data.isEmpty()
+            }
+
+            override fun loadFromDb(): LiveData<List<Follower>> {
+                return followersDAO.getFollowers(user, page, isFollowers)
+            }
+
+            override fun fetchService(): LiveData<ApiResponse<List<Follower>>> {
+                if(isFollowers) return service.fetchFollowers(user, page, per_page)
+                return service.fetchFollowings(user, page, per_page)
+            }
+
+            override fun onFetchFailed(envelope: Envelope?) {
+                Timber.d("onFetchFailed : $envelope")
+            }
+        }.asLiveData()
     }
 
-    fun getPreferenceMenuPosition(): Int {
-        return profile.menuPosition
-    }
+    fun getUserKeyName() = profile.nameKeyName()
 
-    fun putPreferenceMenuPosition(position: Int) {
-        profile.putMenuPosition(position)
-    }
+    fun getPreferenceMenuPosition() = profile.menuPosition
 
-    fun getUserName(): String {
-        return profile.name
+    fun putPreferenceMenuPosition(position: Int) { profile.putMenuPosition(position) }
+
+    fun getUserName() = profile.name
+
+    companion object {
+        const val per_page = 10
     }
 }
