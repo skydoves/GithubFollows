@@ -13,7 +13,7 @@ import com.skydoves.githubfollows.models.Follower
  */
 
 @Dao
-interface FollowersDAO {
+interface FollowersDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFollowers(followers: List<Follower>)
 

@@ -13,7 +13,7 @@ import com.skydoves.githubfollows.models.History
 
 @Database(entities = [(History::class), (Follower::class), (GithubUser::class)], version = 2)
 abstract class AppDatabase: RoomDatabase() {
-    abstract fun historyDAO(): HistoryDao
+    abstract fun historyDao(): HistoryDao
     abstract fun githubUserDao(): GithubUserDao
-    abstract fun followersDao(): FollowersDAO
+    abstract fun followersDao(): FollowersDao
 }

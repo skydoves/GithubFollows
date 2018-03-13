@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room
 import com.skydoves.githubfollows.api.GithubService
 import com.skydoves.githubfollows.api.LiveDataCallAdapterFactory
 import com.skydoves.githubfollows.room.AppDatabase
-import com.skydoves.githubfollows.room.FollowersDAO
+import com.skydoves.githubfollows.room.FollowersDao
 import com.skydoves.githubfollows.room.GithubUserDao
 import com.skydoves.githubfollows.room.HistoryDao
 import dagger.Module
@@ -46,7 +46,7 @@ class AppModule {
     @Provides
     @Singleton
     fun provideHistoryDao(database: AppDatabase): HistoryDao {
-        return database.historyDAO()
+        return database.historyDao()
     }
 
     @Provides
@@ -57,7 +57,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideFollowersDao(database: AppDatabase): FollowersDAO {
+    fun provideFollowersDao(database: AppDatabase): FollowersDao {
         return database.followersDao()
     }
 }

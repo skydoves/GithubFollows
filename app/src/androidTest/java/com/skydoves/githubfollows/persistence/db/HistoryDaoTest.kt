@@ -27,19 +27,19 @@ class HistoryDaoTest: DBTest() {
     }
 
     @Test fun insertHistoryTest() {
-        db.historyDAO().insertHistory(history)
+        db.historyDao().insertHistory(history)
 
-        val loaded = LiveDataTestUtil.getValue(db.historyDAO().selectRecentHistoryList())
+        val loaded = LiveDataTestUtil.getValue(db.historyDao().selectRecentHistoryList())
         assertThat(loaded, notNullValue())
         assertThat(loaded[0].search, `is`(search))
         assertThat(loaded[0].history, `is`(MockTestUtil.mockTime))
     }
 
     @Test fun deleteHistoryTest() {
-        db.historyDAO().insertHistory(history)
-        db.historyDAO().deleteHistory(search)
+        db.historyDao().insertHistory(history)
+        db.historyDao().deleteHistory(search)
 
-        val loaded = LiveDataTestUtil.getValue(db.historyDAO().selectRecentHistoryList())
+        val loaded = LiveDataTestUtil.getValue(db.historyDao().selectRecentHistoryList())
         assertThat(loaded.size, `is`(0))
     }
 }
