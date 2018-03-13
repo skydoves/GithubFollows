@@ -14,7 +14,7 @@ import org.junit.runner.RunWith
 
 /**
  * Created by skydoves on 2018. 3. 8.
- * Copyright (c) 2018 battleent All rights reserved.
+ * Copyright (c) 2018 skydoves All rights reserved.
  */
 
 @RunWith(AndroidJUnit4::class)

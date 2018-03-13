@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 /**
  * Created by skydoves on 2018. 3. 8.
- * Copyright (c) 2018 battleent All rights reserved.
+ * Copyright (c) 2018 skydoves All rights reserved.
  */
 
 @Singleton

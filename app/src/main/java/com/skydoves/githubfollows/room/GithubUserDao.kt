@@ -9,7 +9,7 @@ import com.skydoves.githubfollows.models.GithubUser
 
 /**
  * Created by skydoves on 2018. 3. 6.
- * Copyright (c) 2018 battleent All rights reserved.
+ * Copyright (c) 2018 skydoves All rights reserved.
  */
 
 @Dao

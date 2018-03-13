@@ -11,7 +11,7 @@ import timber.log.Timber
 
 /**
  * Created by skydoves on 2018. 3. 6.
- * Copyright (c) 2018 battleent All rights reserved.
+ * Copyright (c) 2018 skydoves All rights reserved.
  */
 
 abstract class NetworkBoundRepository<ResultType, RequestType>

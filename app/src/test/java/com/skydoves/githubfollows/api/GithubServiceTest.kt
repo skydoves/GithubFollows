@@ -22,7 +22,7 @@ import java.nio.charset.StandardCharsets
 
 /**
  * Created by skydoves on 2018. 3. 13.
- * Copyright (c) 2018 battleent All rights reserved.
+ * Copyright (c) 2018 skydoves All rights reserved.
  */
 
 @RunWith(JUnit4::class)
