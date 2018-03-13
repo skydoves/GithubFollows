@@ -8,7 +8,7 @@ A simple demo project based on MVVM clean architecture and material design & ani
 ![gif1](https://user-images.githubusercontent.com/24237865/35482543-85b18864-047a-11e8-81ec-1d351227a5ec.gif)
 
 ## Architecture
-![architecture](https://user-images.githubusercontent.com/24237865/37341748-dd5c6978-2705-11e8-8f9e-cb2fb5399e08.jpg)
+![architecture](https://user-images.githubusercontent.com/24237865/37341868-555a61e6-2706-11e8-828b-8fe11c911436.png)
 
 ## Specs & Open-source libraries
 - Minimum SDK 16
