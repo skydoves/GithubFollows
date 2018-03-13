@@ -9,7 +9,7 @@ import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.Resource
 import com.skydoves.githubfollows.preference.PreferenceComponent_PrefAppComponent
 import com.skydoves.githubfollows.preference.Preference_UserProfile
-import com.skydoves.githubfollows.room.FollowersDAO
+import com.skydoves.githubfollows.room.FollowersDao
 import com.skydoves.githubfollows.room.GithubUserDao
 import com.skydoves.preferenceroom.InjectPreference
 import org.jetbrains.anko.doAsync
@@ -24,7 +24,7 @@ import javax.inject.Singleton
 
 @Singleton
 class GithubUserRepository @Inject
-constructor(val githubUserDao: GithubUserDao, val followersDAO: FollowersDAO, val service: GithubService) {
+constructor(val githubUserDao: GithubUserDao, val followersDao: FollowersDao, val service: GithubService) {
 
     @InjectPreference lateinit var profile: Preference_UserProfile
 
@@ -71,7 +71,7 @@ constructor(val githubUserDao: GithubUserDao, val followersDAO: FollowersDAO, va
                         item.page = page
                         item.isFollower = isFollowers
                     }
-                    followersDAO.insertFollowers(items)
+                    followersDao.insertFollowers(items)
                 }
             }
 
@@ -80,7 +80,7 @@ constructor(val githubUserDao: GithubUserDao, val followersDAO: FollowersDAO, va
             }
 
             override fun loadFromDb(): LiveData<List<Follower>> {
-                return followersDAO.getFollowers(user, page, isFollowers)
+                return followersDao.getFollowers(user, page, isFollowers)
             }
 
             override fun fetchService(): LiveData<ApiResponse<List<Follower>>> {

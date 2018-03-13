@@ -7,7 +7,6 @@ import android.arch.lifecycle.ViewModel
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.History
 import com.skydoves.githubfollows.models.Resource
-import com.skydoves.githubfollows.models.Status
 import com.skydoves.githubfollows.repository.GithubUserRepository
 import com.skydoves.githubfollows.repository.HistoryRepository
 import com.skydoves.githubfollows.utils.AbsentLiveData
@@ -37,7 +36,7 @@ constructor(private val githubUserRepository: GithubUserRepository, private val 
         })
 
         githubUserLiveData.observeForever {
-            if(it?.status == Status.ERROR) toast.postValue(it.message)
+            it?.let { if(it.isOnError()) toast.postValue(it.message) }
         }
     }
 
