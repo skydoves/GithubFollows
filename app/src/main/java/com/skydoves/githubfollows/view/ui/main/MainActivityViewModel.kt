@@ -41,9 +41,7 @@ constructor(private val githubUserRepository: GithubUserRepository): ViewModel()
         })
 
         githubUserLiveData.observeForever {
-            it?.let {
-                if(it.isOnError()) toast.postValue(it.message)
-            }
+            it?.let { if(it.isOnError()) toast.postValue(it.message) }
         }
 
         isFollowers.postValue(isFollowers())
