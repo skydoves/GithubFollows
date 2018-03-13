@@ -16,7 +16,7 @@ import java.util.regex.Pattern
 class ApiResponse<T> {
     val code: Int
     val body: T?
-    private var links: MutableMap<String, String>
+    var links: MutableMap<String, String>
     private val gson: Gson
     val envelope: Envelope?
 
@@ -46,7 +46,7 @@ class ApiResponse<T> {
     constructor(error: Throwable) {
         code = 500
         body = null
-        envelope = null
+        envelope = Envelope(error.message.toString(), "")
     }
 
     constructor(response: Response<T>) {
