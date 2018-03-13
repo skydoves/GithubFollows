@@ -1,5 +1,6 @@
 package com.skydoves.githubfollows.utils
 
+import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.History
 import java.util.*
@@ -23,6 +24,12 @@ class MockTestUtil {
                     "", "","", "", "","", "", false,
                     null, null, null, null, null, null, null, 0, 0, 0,
                     0, "", "")
+        }
+
+        fun mockFollower(): Follower {
+            return Follower(0, "skydoves", 1000, "", "", "", "", "", "",
+                    "", "", "", "", "", "", "", "",
+                    false, "skydoves", 1, false)
         }
     }
 }
