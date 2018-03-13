@@ -18,6 +18,7 @@ object Dependencies {
     val arch_lifecycle = "android.arch.lifecycle:extensions:${Versions.archComponent}"
     val arch_room = "android.arch.persistence.room:runtime:${Versions.archComponent}"
     val arch_room_compiler = "android.arch.persistence.room:compiler:${Versions.archComponent}"
+    val arch_core_testing = "android.arch.core:core-testing:${Versions.archCoreTesting}"
     val dagger = "com.google.dagger:dagger:${Versions.dagger}"
     val dagger_compiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
     val dagger_android = "com.google.dagger:dagger-android:${Versions.dagger}"
@@ -40,4 +41,5 @@ object Dependencies {
     val shimmerlayout = "io.supercharge:shimmerlayout:${Versions.shimmer}"
     val mockito = "org.mockito:mockito-core:${Versions.mockito}"
     val mockitoAndroid = "org.mockito:mockito-android:${Versions.mockito}"
+    val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.mockWebServer}"
 }

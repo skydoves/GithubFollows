@@ -21,6 +21,7 @@ object Versions {
     const val dataBinding = "2.3.1"
     const val anko = "0.10.1"
     const val archComponent = "1.0.0"
+    const val archCoreTesting = "1.1.0"
     const val dagger ="2.11"
     const val rxJava = "2.1.8"
     const val rxAndroid = "2.0.1"
@@ -34,4 +35,5 @@ object Versions {
     const val androidSvg = "1.2.1"
     const val shimmer = "1.1.0"
     const val mockito = "2.7.22"
+    const val mockWebServer = "3.9.0"
 }
