@@ -16,7 +16,10 @@ import com.skydoves.githubfollows.extension.circularRevealed
 import com.skydoves.githubfollows.extension.circularUnRevealed
 import com.skydoves.githubfollows.extension.inVisible
 import com.skydoves.githubfollows.factory.AppViewModelFactory
+import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.History
+import com.skydoves.githubfollows.models.Resource
+import com.skydoves.githubfollows.models.Status
 import com.skydoves.githubfollows.view.adapter.HistoryAdapter
 import com.skydoves.githubfollows.view.viewholder.HistoryViewHolder
 import dagger.android.AndroidInjection
@@ -67,9 +70,8 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
     }
 
     private fun observeViewModel() {
-        viewModel.historiesLiveData.observe(this, Observer { it?.let { adapter.updateItemList(it) } })
-        viewModel.githubUserLiveData.observe(this, Observer { it?.let { onChangeUser(it.data?.login) } })
-        viewModel.toast.observe(this, Observer { toast(it.toString()) })
+        viewModel.selectHistories().observe(this, Observer { it?.let { adapter.updateItemList(it) } })
+        viewModel.githubUserLiveData.observe(this, Observer { it?.let { onChangeUser(it) } })
     }
 
     private fun initializeAdapter() {
@@ -90,19 +92,25 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
     }
 
     override fun onItemClicked(history: History) {
-        onChangeUser(history.search)
+        onSetResult(history.search)
     }
 
     override fun onDeleteHistory(history: History) {
         viewModel.deleteHistory(history)
     }
 
-    private fun onChangeUser(userName: String?) {
-        userName?.let {
-            viewModel.insertHistory(it)
-            setResult(intent_requestCode, Intent().putExtra(viewModel.getPreferenceUserKeyName(), it))
-            onBackPressed()
+    private fun onChangeUser(resource: Resource<GithubUser>) {
+        when(resource.status) {
+            Status.SUCCESS -> onSetResult(resource.data?.login!!)
+            Status.ERROR -> toast(resource.message.toString())
+            Status.LOADING -> {}
         }
+    }
+
+    private fun onSetResult(user: String) {
+        viewModel.insertHistory(user)
+        setResult(intent_requestCode, Intent().putExtra(viewModel.getPreferenceUserKeyName(), user))
+        onBackPressed()
     }
 
     override fun onBackPressed() {
