@@ -25,10 +25,7 @@ import com.skydoves.githubfollows.extension.checkIsMaterialVersion
 import com.skydoves.githubfollows.extension.fromResource
 import com.skydoves.githubfollows.extension.gone
 import com.skydoves.githubfollows.factory.AppViewModelFactory
-import com.skydoves.githubfollows.models.Follower
-import com.skydoves.githubfollows.models.GithubUser
-import com.skydoves.githubfollows.models.ItemDetail
-import com.skydoves.githubfollows.models.Resource
+import com.skydoves.githubfollows.models.*
 import com.skydoves.githubfollows.utils.GlideUtils
 import com.skydoves.githubfollows.view.adapter.DetailAdapter
 import dagger.android.AndroidInjection
@@ -96,36 +93,41 @@ class DetailActivity : AppCompatActivity() {
     private fun observeViewModel() {
         viewModel.setUser(getLoginFromIntent())
         viewModel.githubUserLiveData.observe(this, Observer { it?.let{ updateUI(it) } })
-        viewModel.toast.observe(this, Observer { toast(it.toString()) })
     }
 
     private fun updateUI(resource: Resource<GithubUser>) {
-        resource.data?.let {
-            binding.detailHeader.githubUser = it
-            binding.executePendingBindings()
+        when(resource.status) {
+            Status.SUCCESS -> {
+                resource.data?.let {
+                    binding.detailHeader.githubUser = it
+                    binding.executePendingBindings()
 
-            adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_person_pin), it.html_url))
-            it.company?.let { adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_people), it)) }
-            it.location?.let { adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_location), it)) }
-            it.blog?.let { if(it.isNotEmpty()) { adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_insert_link), it)) } }
+                    adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_person_pin), it.html_url))
+                    it.company?.let { adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_people), it)) }
+                    it.location?.let { adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_location), it)) }
+                    it.blog?.let { if(it.isNotEmpty()) { adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_insert_link), it)) } }
 
-            detail_body_shimmer.startShimmerAnimation()
-            GlideUtils.getSvgRequestBuilder(this)
-                    .load("${getString(R.string.ghchart)}${it.login}")
-                    .listener(object: RequestListener<PictureDrawable> {
-                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<PictureDrawable>?, isFirstResource: Boolean): Boolean {
-                            detail_body_shimmer.stopShimmerAnimation()
-                            detail_body_preview.gone()
-                            return false
-                        }
+                    detail_body_shimmer.startShimmerAnimation()
+                    GlideUtils.getSvgRequestBuilder(this)
+                            .load("${getString(R.string.ghchart)}${it.login}")
+                            .listener(object: RequestListener<PictureDrawable> {
+                                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<PictureDrawable>?, isFirstResource: Boolean): Boolean {
+                                    detail_body_shimmer.stopShimmerAnimation()
+                                    detail_body_preview.gone()
+                                    return false
+                                }
 
-                        override fun onResourceReady(resource: PictureDrawable?, model: Any?, target: Target<PictureDrawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                            detail_body_shimmer.stopShimmerAnimation()
-                            detail_body_preview.gone()
-                            return false
-                        }
-                    })
-                    .into(detail_body_contributes)
+                                override fun onResourceReady(resource: PictureDrawable?, model: Any?, target: Target<PictureDrawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                                    detail_body_shimmer.stopShimmerAnimation()
+                                    detail_body_preview.gone()
+                                    return false
+                                }
+                            })
+                            .into(detail_body_contributes)
+                }
+            }
+            Status.ERROR -> toast(resource.message.toString())
+            Status.LOADING -> {}
         }
     }
 

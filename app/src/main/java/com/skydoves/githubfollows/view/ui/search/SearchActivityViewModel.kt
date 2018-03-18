@@ -23,9 +23,6 @@ constructor(private val githubUserRepository: GithubUserRepository, private val 
 
     val login: MutableLiveData<String> = MutableLiveData()
     var githubUserLiveData: LiveData<Resource<GithubUser>> = MutableLiveData()
-    val historiesLiveData: MutableLiveData<List<History>> = MutableLiveData()
-
-    val toast: MutableLiveData<String> = MutableLiveData()
 
     init {
         Timber.d("Injection SearchActivityViewModel")
@@ -34,23 +31,13 @@ constructor(private val githubUserRepository: GithubUserRepository, private val 
             login.value?.let { githubUserRepository.loadUser(it) }
                     ?: AbsentLiveData.create()
         })
-
-        githubUserLiveData.observeForever {
-            it?.let { if(it.isOnError()) toast.postValue(it.message) }
-        }
     }
 
     fun insertHistory(search: String) = historyRepository.insertHistory(search)
 
-    fun selectHistories() {
-        historyRepository.selectHistories().observeForever {
-            it?.let {
-                if(it.isNotEmpty()) historiesLiveData.postValue(it)
-            }
-        }
-    }
+    fun selectHistories(): LiveData<List<History>> = historyRepository.selectHistories()
 
     fun deleteHistory(history: History) = historyRepository.deleteHistory(history)
 
-    fun getPreferenceUserKeyName() = githubUserRepository.getUserKeyName()
+    fun getPreferenceUserKeyName(): String = githubUserRepository.getUserKeyName()
 }

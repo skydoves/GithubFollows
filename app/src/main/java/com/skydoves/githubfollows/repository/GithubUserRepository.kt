@@ -94,13 +94,13 @@ constructor(val githubUserDao: GithubUserDao, val followersDao: FollowersDao, va
         }.asLiveData()
     }
 
-    fun getUserKeyName() = profile.nameKeyName()
+    fun getUserKeyName(): String = profile.nameKeyName()
 
-    fun getPreferenceMenuPosition() = profile.menuPosition
+    fun getPreferenceMenuPosition(): Int = profile.menuPosition
 
-    fun putPreferenceMenuPosition(position: Int) { profile.putMenuPosition(position) }
+    fun getUserName(): String = profile.name
 
-    fun getUserName() = profile.name
+    fun putPreferenceMenuPosition(position: Int) = profile.putMenuPosition(position)
 
     companion object {
         const val per_page = 10

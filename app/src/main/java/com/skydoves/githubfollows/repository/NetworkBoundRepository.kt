@@ -55,7 +55,7 @@ internal constructor() {
                         onFetchFailed(response.envelope)
                         response.envelope?.let {
                             result.addSource<ResultType>(loadedFromDB) {
-                                newData -> setValue(Resource.error(it.message, newData, null)) }
+                                newData -> setValue(Resource.error(it.message, newData)) }
                         }
                     }
                 }

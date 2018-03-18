@@ -21,7 +21,6 @@ constructor(private val repository: GithubUserRepository): ViewModel() {
 
     private val login: MutableLiveData<String> = MutableLiveData()
     var githubUserLiveData: LiveData<Resource<GithubUser>> = MutableLiveData()
-    val toast: MutableLiveData<String> = MutableLiveData()
 
     init {
         Timber.d("Injection DetailActivityViewModel")
@@ -30,13 +29,9 @@ constructor(private val repository: GithubUserRepository): ViewModel() {
             login.value?.let { repository.loadUser(it) }
                     ?: AbsentLiveData.create()
         })
-
-        githubUserLiveData.observeForever {
-            it?.let { if(it.isOnError()) toast.postValue(it.message) }
-        }
     }
 
     fun setUser(user: String) { login.value = user }
 
-    fun getUserKeyName() = repository.getUserKeyName()
+    fun getUserKeyName(): String = repository.getUserKeyName()
 }

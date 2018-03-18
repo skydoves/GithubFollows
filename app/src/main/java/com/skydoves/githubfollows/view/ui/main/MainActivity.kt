@@ -12,6 +12,7 @@ import com.skydoves.githubfollows.factory.AppViewModelFactory
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.Resource
+import com.skydoves.githubfollows.models.Status
 import com.skydoves.githubfollows.utils.PowerMenuUtils
 import com.skydoves.githubfollows.view.RecyclerViewPaginator
 import com.skydoves.githubfollows.view.adapter.GithubUserAdapter
@@ -63,9 +64,9 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
         main_recyclerView.layoutManager = LinearLayoutManager(this)
         paginator = RecyclerViewPaginator(
                 recyclerView = main_recyclerView,
-                isLoading = { viewModel.isLoading },
+                isLoading = { viewModel.fetchStatus.isOnLoading },
                 loadMore = { loadMore(it) },
-                onLast = { viewModel.isOnLast }
+                onLast = { viewModel.fetchStatus.isOnLast }
         )
 
         initializeUI()
@@ -80,17 +81,29 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
     }
 
     private fun observeViewModel() {
-        viewModel.githubUserLiveData.observe(this, Observer { it?.let { adapter.updateHeader(it) } })
-        viewModel.followersLiveData.observe(this, Observer { updateGithubUserList(it) })
-        viewModel.toast.observe(this, Observer { toast(it.toString()) })
+        viewModel.githubUserLiveData.observe(this, Observer { it?.let { updateGithubUser(it) } })
+        viewModel.followersLiveData.observe(this, Observer { it?.let { updateFollowerList(it) } })
     }
 
     private fun loadMore(page: Int) {
         viewModel.postPage(page)
     }
 
-    private fun updateGithubUserList(resource: Resource<List<Follower>>?) {
-        resource?.data?.let { adapter.addFollowList(it) }
+    private fun updateGithubUser(resource: Resource<GithubUser>) {
+        when(resource.status) {
+            Status.SUCCESS -> adapter.updateHeader(resource)
+            Status.ERROR -> toast(resource.message.toString())
+            Status.LOADING -> {}
+        }
+    }
+
+    private fun updateFollowerList(resource: Resource<List<Follower>>) {
+        viewModel.fetchStatus(resource)
+        when(resource.status) {
+            Status.SUCCESS -> adapter.addFollowList(resource.data!!)
+            Status.ERROR -> toast(resource.message.toString())
+            Status.LOADING -> {}
+        }
     }
 
     private fun restPagination(user: String) {

@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
+import com.skydoves.githubfollows.models.FetchStatus
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.Resource
@@ -26,10 +27,8 @@ constructor(private val githubUserRepository: GithubUserRepository): ViewModel()
 
     var githubUserLiveData: LiveData<Resource<GithubUser>> = MutableLiveData()
     var followersLiveData: LiveData<Resource<List<Follower>>> = MutableLiveData()
-    val toast: MutableLiveData<String> = MutableLiveData()
 
-    var isLoading: Boolean = false
-    var isOnLast: Boolean = false
+    var fetchStatus = FetchStatus()
 
     init {
         Timber.d("Injection MainActivityViewModel")
@@ -40,29 +39,20 @@ constructor(private val githubUserRepository: GithubUserRepository): ViewModel()
                     ?: AbsentLiveData.create()
         })
 
-        githubUserLiveData.observeForever {
-            it?.let { if(it.isOnError()) toast.postValue(it.message) }
-        }
-
         isFollowers.postValue(isFollowers())
         followersLiveData = Transformations.switchMap(page, {
             login.value?.let {
                 githubUserRepository.loadFollowers(it, page.value!!, isFollowers.value!!) }
             ?: AbsentLiveData.create()
         })
+    }
 
-        followersLiveData .observeForever {
-            it?.let {
-                isLoading = it.isOnLoading()
-                isOnLast = it.isOnLast() || it.isOnError()
-                if(it.isOnError()) toast.postValue(it.message)
-            }
-        }
+    fun fetchStatus(resource: Resource<List<Follower>>) {
+        fetchStatus = resource.fetchStatus
     }
 
     fun refresh(user: String) {
-        isLoading = false
-        isOnLast = false
+        fetchStatus = FetchStatus()
         login.value = user
         isFollowers.value = isFollowers()
         githubUserRepository.refreshUser(user)
