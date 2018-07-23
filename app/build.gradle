@@ -39,8 +39,8 @@ android {
 }
 
 dependencies {
-    testCompile Dependencies.junit
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    testImplementation Dependencies.junit
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -66,8 +66,6 @@ dependencies {
     implementation Dependencies.dagger_android_support
     kapt Dependencies.dagger_android_compiler
 
-    kapt Dependencies.dataBinding
-
     implementation Dependencies.rxjava
     implementation Dependencies.rxandroid
 
@@ -80,8 +78,8 @@ dependencies {
     implementation Dependencies.retrofit_gson
 
     implementation Dependencies.timber
-    debugCompile Dependencies.memoryLeakDebug
-    releaseCompile Dependencies.memoryLeakRelease
+    debugImplementation Dependencies.memoryLeakDebug
+    releaseImplementation Dependencies.memoryLeakRelease
 
     implementation Dependencies.glide
     kapt Dependencies.glide_compiler
