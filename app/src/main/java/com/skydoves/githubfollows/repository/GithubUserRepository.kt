@@ -40,8 +40,8 @@ constructor(val githubUserDao: GithubUserDao, val followersDao: FollowersDao, va
 
     fun loadUser(user: String): LiveData<Resource<GithubUser>> {
         return object: NetworkBoundRepository<GithubUser, GithubUser>() {
-            override fun saveFetchData(item: GithubUser) {
-                doAsync { githubUserDao.insertGithubUser(item) }
+            override fun saveFetchData(items: GithubUser) {
+                doAsync { githubUserDao.insertGithubUser(items) }
             }
 
             override fun shouldFetch(data: GithubUser?): Boolean {

@@ -37,8 +37,6 @@ internal constructor() {
         val apiResponse = fetchService()
         result.addSource(loadedFromDB) { newData -> setValue(Resource.loading(newData, 1))}
         result.addSource(apiResponse) { response ->
-            result.removeSource(apiResponse)
-            result.removeSource(loadedFromDB)
             response?.let {
                 when(response.isSuccessful) {
                     true -> {
@@ -46,8 +44,9 @@ internal constructor() {
                             saveFetchData(it)
                             val loaded = loadFromDb()
                             result.addSource(loaded) { newData ->
-                                result.removeSource(loaded)
-                                setValue(Resource.success(newData, response.nextPage))
+                                newData?.let {
+                                    setValue(Resource.success(newData, response.nextPage))
+                                }
                             }
                         }
                     }
