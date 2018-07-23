@@ -37,8 +37,8 @@ class GithubUserViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(
     }
 
     private fun drawUI() {
-        binding.follower = githubUser
-        binding.executePendingBindings()
+        binding?.follower = githubUser
+        binding?.executePendingBindings()
         itemView.run {
             item_user_shimmer.startShimmerAnimation()
             Glide.with(context)

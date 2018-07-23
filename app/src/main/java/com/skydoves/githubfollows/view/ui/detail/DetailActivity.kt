@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.view.ViewCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -59,7 +60,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun initializeListeners() {
-        binding.detailToolbar.toolbar_home.setOnClickListener { onBackPressed() }
+        binding.detailToolbar?.toolbar_home?.setOnClickListener { onBackPressed() }
         detail_header_cardView.setOnClickListener {
             setResult(intent_requestCode, Intent().putExtra(viewModel.getUserKeyName(), getLoginFromIntent()))
             onBackPressed()
@@ -67,7 +68,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun initializeUI() {
-        binding.detailToolbar.toolbar_title.text = getLoginFromIntent()
+        binding.detailToolbar?.toolbar_title?.text = getLoginFromIntent()
         Glide.with(this)
                 .load(getAvatarFromIntent())
                 .apply(RequestOptions().circleCrop().dontAnimate())
@@ -96,10 +97,11 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun updateUI(resource: Resource<GithubUser>) {
+        Log.e("Test", resource.toString())
         when(resource.status) {
             Status.SUCCESS -> {
                 resource.data?.let {
-                    binding.detailHeader.githubUser = it
+                    binding.detailHeader?.githubUser = it
                     binding.executePendingBindings()
 
                     adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_person_pin), it.html_url))

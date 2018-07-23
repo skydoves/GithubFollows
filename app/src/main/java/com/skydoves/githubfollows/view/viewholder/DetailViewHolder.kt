@@ -32,8 +32,8 @@ class DetailViewHolder(view: View) : BaseViewHolder(view) {
 
     private fun drawItem() {
         itemView.run {
-            binding.itemDetail = itemDetail
-            binding.executePendingBindings()
+            binding?.itemDetail = itemDetail
+            binding?.executePendingBindings()
 
             when(Patterns.WEB_URL.matcher(itemDetail.content).matches()) {
                 true -> {

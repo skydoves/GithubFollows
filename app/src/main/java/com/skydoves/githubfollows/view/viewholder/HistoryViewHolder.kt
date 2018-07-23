@@ -31,8 +31,8 @@ class HistoryViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(vie
 
     private fun drawItemView() {
         itemView.run {
-            binding.history = history
-            binding.executePendingBindings()
+            binding?.history = history
+            binding?.executePendingBindings()
             item_history_delete.setOnClickListener { delegate.onDeleteHistory(history) }
         }
     }

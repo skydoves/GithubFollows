@@ -32,8 +32,8 @@ class GithubUserHeaderViewHolder(view: View, val delegate: Delegate) : BaseViewH
 
     private fun drawUserCard() {
         itemView.run {
-            binding.githubUser = githubUser
-            binding.executePendingBindings()
+            binding?.githubUser = githubUser
+            binding?.executePendingBindings()
 
             Glide.with(context)
                     .load(githubUser.avatar_url)

@@ -98,7 +98,7 @@ constructor(val githubUserDao: GithubUserDao, val followersDao: FollowersDao, va
 
     fun getPreferenceMenuPosition(): Int = profile.menuPosition
 
-    fun getUserName(): String = profile.name
+    fun getUserName(): String = profile.name!!
 
     fun putPreferenceMenuPosition(position: Int) = profile.putMenuPosition(position)
 
