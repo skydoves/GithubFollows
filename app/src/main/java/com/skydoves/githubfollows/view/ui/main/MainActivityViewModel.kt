@@ -34,17 +34,17 @@ constructor(private val githubUserRepository: GithubUserRepository): ViewModel()
         Timber.d("Injection MainActivityViewModel")
 
         login.postValue(getUserName())
-        githubUserLiveData = Transformations.switchMap(login, {
+        githubUserLiveData = Transformations.switchMap(login) {
             login.value?.let { githubUserRepository.loadUser(it) }
                     ?: AbsentLiveData.create()
-        })
+        }
 
         isFollowers.postValue(isFollowers())
-        followersLiveData = Transformations.switchMap(page, {
+        followersLiveData = Transformations.switchMap(page) {
             login.value?.let {
                 githubUserRepository.loadFollowers(it, page.value!!, isFollowers.value!!) }
             ?: AbsentLiveData.create()
-        })
+        }
     }
 
     fun fetchStatus(resource: Resource<List<Follower>>) {

@@ -27,10 +27,10 @@ constructor(private val githubUserRepository: GithubUserRepository, private val 
     init {
         Timber.d("Injection SearchActivityViewModel")
 
-        githubUserLiveData = Transformations.switchMap(login, {
+        githubUserLiveData = Transformations.switchMap(login) {
             login.value?.let { githubUserRepository.loadUser(it) }
                     ?: AbsentLiveData.create()
-        })
+        }
     }
 
     fun insertHistory(search: String) = historyRepository.insertHistory(search)

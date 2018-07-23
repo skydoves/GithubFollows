@@ -73,7 +73,7 @@ internal constructor() {
     }
 
     @WorkerThread
-    protected abstract fun saveFetchData(item: RequestType)
+    protected abstract fun saveFetchData(items: RequestType)
 
     @MainThread
     protected abstract fun shouldFetch(data: ResultType?): Boolean
