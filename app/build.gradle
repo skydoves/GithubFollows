@@ -81,6 +81,9 @@ dependencies {
     debugImplementation Dependencies.memoryLeakDebug
     releaseImplementation Dependencies.memoryLeakRelease
 
+    implementation Dependencies.stetho
+    implementation Dependencies.stetho_okhttp
+
     implementation Dependencies.glide
     kapt Dependencies.glide_compiler
 

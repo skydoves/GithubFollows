@@ -97,7 +97,6 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun updateUI(resource: Resource<GithubUser>) {
-        Log.e("Test", resource.toString())
         when(resource.status) {
             Status.SUCCESS -> {
                 resource.data?.let {

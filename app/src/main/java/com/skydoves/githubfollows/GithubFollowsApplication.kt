@@ -1,5 +1,6 @@
 package com.skydoves.githubfollows
 
+import com.facebook.stetho.Stetho
 import com.skydoves.githubfollows.di.DaggerAppComponent
 import com.skydoves.githubfollows.preference.PreferenceComponent_PrefAppComponent
 import com.squareup.leakcanary.LeakCanary
@@ -32,6 +33,7 @@ class GithubFollowsApplication : DaggerApplication() {
         }
 
         PreferenceComponent_PrefAppComponent.init(this)
+        Stetho.initializeWithDefaults(this)
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
