@@ -35,4 +35,5 @@ object Versions {
     const val shimmer = "1.1.0"
     const val mockito = "2.7.22"
     const val mockWebServer = "3.9.0"
+    const val stetho = "1.5.0"
 }

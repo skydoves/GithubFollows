@@ -1,4 +1,3 @@
-
 /**
  * Developed by skydoves on 2018-02-17.
  * Copyright (c) 2018 skydoves rights reserved.
@@ -41,4 +40,6 @@ object Dependencies {
     val mockito = "org.mockito:mockito-core:${Versions.mockito}"
     val mockitoAndroid = "org.mockito:mockito-android:${Versions.mockito}"
     val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.mockWebServer}"
+    val stetho = "com.facebook.stetho:stetho:${Versions.stetho}"
+    val stetho_okhttp = "com.facebook.stetho:stetho-okhttp3:${Versions.stetho}"
 }
