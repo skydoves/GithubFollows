@@ -28,7 +28,7 @@ import java.nio.charset.StandardCharsets
 @RunWith(JUnit4::class)
 class GithubServiceTest {
 
-    @Rule @JvmField val instantExcutorRule: InstantTaskExecutorRule = InstantTaskExecutorRule()
+    @Rule @JvmField val instantExecutorRule: InstantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var service: GithubService
     private lateinit var mockWebServer: MockWebServer
