@@ -19,16 +19,17 @@ import javax.inject.Inject
  */
 
 class MainActivityViewModel @Inject
-constructor(private val githubUserRepository: GithubUserRepository): ViewModel() {
+constructor(private val githubUserRepository: GithubUserRepository) : ViewModel() {
 
     private val login: MutableLiveData<String> = MutableLiveData()
     private val page: MutableLiveData<Int> = MutableLiveData()
     private val isFollowers: MutableLiveData<Boolean> = MutableLiveData()
 
-    var githubUserLiveData: LiveData<Resource<GithubUser>> = MutableLiveData()
-    var followersLiveData: LiveData<Resource<List<Follower>>> = MutableLiveData()
+    val githubUserLiveData: LiveData<Resource<GithubUser>>
+    val followersLiveData: LiveData<Resource<List<Follower>>>
 
     var fetchStatus = FetchStatus()
+        private set
 
     init {
         Timber.d("Injection MainActivityViewModel")
@@ -42,8 +43,9 @@ constructor(private val githubUserRepository: GithubUserRepository): ViewModel()
         isFollowers.postValue(isFollowers())
         followersLiveData = Transformations.switchMap(page) {
             login.value?.let {
-                githubUserRepository.loadFollowers(it, page.value!!, isFollowers.value!!) }
-            ?: AbsentLiveData.create()
+                githubUserRepository.loadFollowers(it, page.value!!, isFollowers.value!!)
+            }
+                    ?: AbsentLiveData.create()
         }
     }
 
@@ -59,11 +61,13 @@ constructor(private val githubUserRepository: GithubUserRepository): ViewModel()
     }
 
     private fun isFollowers(): Boolean {
-        if(getPreferenceMenuPosition() == 0) return false
+        if (getPreferenceMenuPosition() == 0) return false
         return true
     }
 
-    fun postPage(page: Int) { this.page.value = page }
+    fun postPage(page: Int) {
+        this.page.value = page
+    }
 
     fun getPreferenceMenuPosition() = githubUserRepository.getPreferenceMenuPosition()
 

@@ -22,7 +22,7 @@ class SearchActivityViewModel @Inject
 constructor(private val githubUserRepository: GithubUserRepository, private val historyRepository: HistoryRepository): ViewModel() {
 
     val login: MutableLiveData<String> = MutableLiveData()
-    var githubUserLiveData: LiveData<Resource<GithubUser>> = MutableLiveData()
+    val githubUserLiveData: LiveData<Resource<GithubUser>>
 
     init {
         Timber.d("Injection SearchActivityViewModel")

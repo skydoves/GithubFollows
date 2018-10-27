@@ -20,7 +20,7 @@ class DetailActivityViewModel @Inject
 constructor(private val repository: GithubUserRepository): ViewModel() {
 
     private val login: MutableLiveData<String> = MutableLiveData()
-    var githubUserLiveData: LiveData<Resource<GithubUser>> = MutableLiveData()
+    val githubUserLiveData: LiveData<Resource<GithubUser>>
 
     init {
         Timber.d("Injection DetailActivityViewModel")
