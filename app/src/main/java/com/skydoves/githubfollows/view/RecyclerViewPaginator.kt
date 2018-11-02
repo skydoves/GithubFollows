@@ -22,7 +22,7 @@ class RecyclerViewPaginator(val recyclerView: RecyclerView,
     }
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-        super.onScrolled(recyclerView, dx, dy)
+        if (onLast() || isLoading()) return
 
         val layoutManager = recyclerView.layoutManager
         val visibleItemCount = recyclerView.layoutManager.childCount
@@ -32,8 +32,6 @@ class RecyclerViewPaginator(val recyclerView: RecyclerView,
             is GridLayoutManager -> layoutManager.findLastVisibleItemPosition()
             else -> return
         }
-
-        if (onLast() || isLoading()) return
 
         if ((visibleItemCount + firstVisibleItemPosition + threshold) >= totalItemCount) {
             loadMore(++currentPage)
