@@ -24,7 +24,7 @@ A simple demo project based on MVVM clean architecture and material design & ani
 - [Glide](https://github.com/bumptech/glide) for loading images
 - [LeakCanary](https://github.com/square/leakcanary) for memory leak detection
 - [AndroidSVG](https://bigbadaboom.github.io/androidsvg/) for transcoding SVG
-- [Shimmerlayout](https://github.com/team-supercharge/ShimmerLayout) for shimmer effect
+- [AndroidVeil](https://github.com/skydoves/AndroidVeil) for implement skeletons and shimmer effect
 - [PowerMenu](https://github.com/skydoves/PowerMenu) for implementing material popup dialog
 - RecyclerViewPaginator for api paging
 - ripple animation, Circular revealed animation, Shared element transition
