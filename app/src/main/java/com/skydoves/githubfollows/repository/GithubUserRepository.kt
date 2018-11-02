@@ -24,7 +24,7 @@ import javax.inject.Singleton
 
 @Singleton
 class GithubUserRepository @Inject
-constructor(val githubUserDao: GithubUserDao, val followersDao: FollowersDao, val service: GithubService) {
+constructor(private val githubUserDao: GithubUserDao, private val followersDao: FollowersDao, private val service: GithubService) {
 
     @InjectPreference lateinit var profile: Preference_UserProfile
 
@@ -66,7 +66,7 @@ constructor(val githubUserDao: GithubUserDao, val followersDao: FollowersDao, va
         return object : NetworkBoundRepository<List<Follower>, List<Follower>>() {
             override fun saveFetchData(items: List<Follower>) {
                 doAsync {
-                    for(item in items) {
+                    for (item in items) {
                         item.owner = user
                         item.page = page
                         item.isFollower = isFollowers
@@ -84,7 +84,7 @@ constructor(val githubUserDao: GithubUserDao, val followersDao: FollowersDao, va
             }
 
             override fun fetchService(): LiveData<ApiResponse<List<Follower>>> {
-                if(isFollowers) return service.fetchFollowers(user, page, per_page)
+                if (isFollowers) return service.fetchFollowers(user, page, per_page)
                 return service.fetchFollowings(user, page, per_page)
             }
 
