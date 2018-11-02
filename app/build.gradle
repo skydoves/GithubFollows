@@ -89,7 +89,8 @@ dependencies {
 
     implementation Dependencies.powermenu
     implementation Dependencies.androidsvg
-    implementation Dependencies.shimmerlayout
+    implementation Dependencies.baseadapter
+    implementation Dependencies.androidveil
 
     testImplementation Dependencies.mockito
     androidTestImplementation Dependencies.mockitoAndroid
