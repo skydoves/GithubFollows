@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable name="follower" type="com.skydoves.githubfollows.models.Follower"/>
@@ -11,10 +12,12 @@
         android:orientation="horizontal"
         android:foreground="?attr/selectableItemBackground">
 
-        <io.supercharge.shimmerlayout.ShimmerLayout
-            android:id="@+id/item_user_shimmer"
+        <com.skydoves.androidveil.VeilLayout
+            android:id="@+id/item_user_veilLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:veilLayout_veiled="true"
+            app:veilLayout_shimmerEnable="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,9 +38,9 @@
 
                 <TextView
                     android:id="@+id/item_user_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:padding="5dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="15dp"
@@ -45,7 +48,6 @@
                     style="@style/TextStyle"
                     tools:text="username"/>
             </LinearLayout>
-        </io.supercharge.shimmerlayout.ShimmerLayout>
+        </com.skydoves.androidveil.VeilLayout>
     </FrameLayout>
-
 </layout>

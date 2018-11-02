@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.skydoves.baserecyclerviewadapter.RecyclerViewPaginator
 import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.factory.AppViewModelFactory
 import com.skydoves.githubfollows.models.Follower
@@ -14,7 +15,6 @@ import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.Resource
 import com.skydoves.githubfollows.models.Status
 import com.skydoves.githubfollows.utils.PowerMenuUtils
-import com.skydoves.githubfollows.view.RecyclerViewPaginator
 import com.skydoves.githubfollows.view.adapter.GithubUserAdapter
 import com.skydoves.githubfollows.view.ui.detail.DetailActivity
 import com.skydoves.githubfollows.view.ui.search.SearchActivity

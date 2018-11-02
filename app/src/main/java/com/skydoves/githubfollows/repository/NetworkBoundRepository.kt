@@ -53,6 +53,7 @@ internal constructor() {
                     false -> {
                         onFetchFailed(response.envelope)
                         response.envelope?.let {
+                            result.removeSource(loadedFromDB)
                             result.addSource<ResultType>(loadedFromDB) {
                                 newData -> setValue(Resource.error(it.message, newData)) }
                         }

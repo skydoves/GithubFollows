@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.item_github_user.view.*
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-class GithubUserViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(view) {
+class GithubUserViewHolder(view: View, private val delegate: Delegate) : BaseViewHolder(view) {
 
     interface Delegate {
         fun onItemClick(githubUser: Follower, view: View)
@@ -40,18 +40,18 @@ class GithubUserViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(
         binding?.follower = githubUser
         binding?.executePendingBindings()
         itemView.run {
-            item_user_shimmer.startShimmerAnimation()
+            item_user_veilLayout.veil()
             Glide.with(context)
                     .load(githubUser.avatar_url)
                     .apply(RequestOptions().circleCrop().override(100).placeholder(R.drawable.ic_account))
                     .listener(object: RequestListener<Drawable> {
                         override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                            item_user_shimmer.stopShimmerAnimation()
+                            item_user_veilLayout.unVeil()
                             return false
                         }
 
                         override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                            item_user_shimmer.stopShimmerAnimation()
+                            item_user_veilLayout.unVeil()
                             return false
                         }
                     })

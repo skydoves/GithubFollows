@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
     android:padding="8dp">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/detail_body_recyclerView"
+    <com.skydoves.androidveil.VeilRecyclerFrameView
+        android:id="@+id/detail_body_recyclerViewFrame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        tools:listitem="@layout/item_detail_info"
-        tools:itemCount="5"/>
+        app:veilFrame_veiled="true"
+        app:veilFrame_layout="@layout/item_detail_info"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,17 +25,18 @@
         android:layout_marginTop="10dp"
         android:text="Contributions"/>
 
-    <io.supercharge.shimmerlayout.ShimmerLayout
-        android:id="@+id/detail_body_shimmer"
+    <com.skydoves.androidveil.VeilLayout
+        android:id="@+id/detail_body_veilLayout"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="100dp"
+        app:veilLayout_veiled="true"
+        app:veilLayout_shimmerEnable="true">
 
-        <LinearLayout
+        <View
             android:id="@+id/detail_body_preview"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="8dp"
-            android:background="@color/preview"
             android:orientation="vertical"/>
 
         <ImageView
@@ -44,5 +45,5 @@
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
             android:layout_gravity="center_horizontal"/>
-    </io.supercharge.shimmerlayout.ShimmerLayout>
+    </com.skydoves.androidveil.VeilLayout>
 </LinearLayout>
