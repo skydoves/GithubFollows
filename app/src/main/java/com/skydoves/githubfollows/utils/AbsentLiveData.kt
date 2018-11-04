@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-package com.skydoves.githubfollows.utils;
+package com.skydoves.githubfollows.utils
 
-import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.LiveData
 
 /**
- * A LiveData class that has {@code null} value.
+ * Developed by skydoves on 2018-08-09.
+ * Copyright (c) 2018 skydoves rights reserved.
  */
-public class AbsentLiveData extends LiveData {
-    private AbsentLiveData() {
-        postValue(null);
+
+class AbsentLiveData <T> : LiveData<T>() {
+    init {
+        postValue(null)
     }
-    public static <T> LiveData<T> create() {
-        //noinspection unchecked
-        return new AbsentLiveData();
+    companion object {
+        fun <T> create() = AbsentLiveData<T>()
     }
 }
