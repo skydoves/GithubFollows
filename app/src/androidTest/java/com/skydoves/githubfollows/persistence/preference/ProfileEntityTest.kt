@@ -18,7 +18,7 @@ import org.junit.runner.RunWith
  */
 
 @RunWith(AndroidJUnit4::class)
-class ProfileEntityTest: PreferenceTest() {
+class ProfileEntityTest : PreferenceTest() {
 
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -28,18 +28,21 @@ class ProfileEntityTest: PreferenceTest() {
     private val test_name = "test_skydoves"
     private val test_position = 1000
 
-    @Before fun initialize() {
+    @Before
+    fun initialize() {
         component = PreferenceComponent_PrefAppComponent.getInstance()
         profile = Preference_UserProfile.getInstance(context)
         sharedPreferences = context.getSharedPreferences(profile.entityName, Context.MODE_PRIVATE)
     }
 
-    @Test fun initTest() {
+    @Test
+    fun initTest() {
         assertThat(component, notNullValue())
         assertThat(profile, notNullValue())
     }
 
-    @Test fun profileTest() {
+    @Test
+    fun profileTest() {
         profile.clear()
         sharedPreferences.edit().apply {
             putString(profile.nameKeyName(), test_name)

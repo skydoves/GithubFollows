@@ -52,7 +52,7 @@ class AppModule {
     @Provides
     @Singleton
     fun provideDatabase(@NonNull application: Application): AppDatabase {
-        return Room.databaseBuilder(application.applicationContext, AppDatabase::class.java,"GithubFollows.db").allowMainThreadQueries().build()
+        return Room.databaseBuilder(application.applicationContext, AppDatabase::class.java, "GithubFollows.db").allowMainThreadQueries().build()
     }
 
     @Provides

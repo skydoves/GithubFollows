@@ -12,10 +12,10 @@
         android:src="@drawable/ic_reorder_white_24dp" />
 
     <TextView
+        style="@style/TextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        style="@style/TextStyle"/>
+        android:text="@string/app_name" />
 
     <ImageView
         android:id="@+id/toolbar_main_search"

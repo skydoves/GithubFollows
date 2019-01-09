@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <data>
-    </data>
+
+    <data></data>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,12 +16,12 @@
 
             <include
                 android:id="@+id/detail_toolbar"
-                layout="@layout/toolbar_default"/>
+                layout="@layout/toolbar_default" />
         </android.support.design.widget.AppBarLayout>
 
         <include
             android:id="@+id/detail_header"
-            layout="@layout/layout_detail_header"/>
+            layout="@layout/layout_detail_header" />
 
         <include layout="@layout/layout_detail_body" />
 

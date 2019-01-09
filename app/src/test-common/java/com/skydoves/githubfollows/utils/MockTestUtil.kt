@@ -20,8 +20,8 @@ class MockTestUtil {
         }
 
         fun mockGithubUser(): GithubUser {
-            return GithubUser("skydoves", 1000, "", "", "","", "", "","",
-                    "", "","", "", "","", "", false,
+            return GithubUser("skydoves", 1000, "", "", "", "", "", "", "",
+                    "", "", "", "", "", "", "", false,
                     null, null, null, null, null, false, null, 0, 0, 0,
                     0, "", "")
         }

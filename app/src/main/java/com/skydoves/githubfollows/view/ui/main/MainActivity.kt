@@ -38,7 +38,8 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, GithubUserViewHolder.Delegate {
 
-    @Inject lateinit var viewModelFactory: AppViewModelFactory
+    @Inject
+    lateinit var viewModelFactory: AppViewModelFactory
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(MainActivityViewModel::class.java) }
     private val adapter by lazy { GithubUserAdapter(this, this) }
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
     private lateinit var powerMenu: PowerMenu
 
     private val onPowerMenuItemClickListener = OnMenuItemClickListener<PowerMenuItem> { position, item ->
-        if(!item.isSelected) {
+        if (!item.isSelected) {
             viewModel.putPreferenceMenuPosition(position)
             powerMenu.setSelected(position)
             powerMenu.dismiss()
@@ -90,19 +91,21 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
     }
 
     private fun updateGithubUser(resource: Resource<GithubUser>) {
-        when(resource.status) {
+        when (resource.status) {
             Status.SUCCESS -> adapter.updateHeader(resource)
             Status.ERROR -> toast(resource.message.toString())
-            Status.LOADING -> {}
+            Status.LOADING -> {
+            }
         }
     }
 
     private fun updateFollowerList(resource: Resource<List<Follower>>) {
         viewModel.fetchStatus(resource)
-        when(resource.status) {
+        when (resource.status) {
             Status.SUCCESS -> adapter.addFollowList(resource.data!!)
             Status.ERROR -> toast(resource.message.toString())
-            Status.LOADING -> {}
+            Status.LOADING -> {
+            }
         }
     }
 
@@ -122,7 +125,7 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when(resultCode) {
+        when (resultCode) {
             DetailActivity.intent_requestCode, SearchActivity.intent_requestCode -> data?.let {
                 restPagination(data.getStringExtra(viewModel.getUserKeyName()))
             }
@@ -130,9 +133,9 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
     }
 
     override fun onBackPressed() {
-       when(powerMenu.isShowing) {
-           true -> powerMenu.dismiss()
-           else -> super.onBackPressed()
-       }
+        when (powerMenu.isShowing) {
+            true -> powerMenu.dismiss()
+            else -> super.onBackPressed()
+        }
     }
 }

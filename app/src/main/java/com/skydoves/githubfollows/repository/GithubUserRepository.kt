@@ -26,7 +26,8 @@ import javax.inject.Singleton
 class GithubUserRepository @Inject
 constructor(private val githubUserDao: GithubUserDao, private val followersDao: FollowersDao, private val service: GithubService) {
 
-    @InjectPreference lateinit var profile: Preference_UserProfile
+    @InjectPreference
+    lateinit var profile: Preference_UserProfile
 
     init {
         Timber.d("Injection GithubUserRepository")
@@ -39,7 +40,7 @@ constructor(private val githubUserDao: GithubUserDao, private val followersDao: 
     }
 
     fun loadUser(user: String): LiveData<Resource<GithubUser>> {
-        return object: NetworkBoundRepository<GithubUser, GithubUser>() {
+        return object : NetworkBoundRepository<GithubUser, GithubUser>() {
             override fun saveFetchData(items: GithubUser) {
                 doAsync { githubUserDao.insertGithubUser(items) }
             }

@@ -23,11 +23,13 @@ class GithubUserDaoTest : DBTest() {
     private lateinit var githubUser: GithubUser
     private val login = "skydoves"
 
-    @Before fun initMock() {
+    @Before
+    fun initMock() {
         githubUser = MockTestUtil.mockGithubUser()
     }
 
-    @Test fun insertGithubUsetTest() {
+    @Test
+    fun insertGithubUsetTest() {
         db.githubUserDao().insertGithubUser(githubUser)
 
         val loaded = LiveDataTestUtil.getValue(db.githubUserDao().getGithubUser(login))
@@ -35,7 +37,8 @@ class GithubUserDaoTest : DBTest() {
         assertThat(loaded.login, `is`(login))
     }
 
-    @Test fun truncateGithubUserTable() {
+    @Test
+    fun truncateGithubUserTable() {
         db.githubUserDao().truncateGithubUser()
 
         val loaded = LiveDataTestUtil.getValue(db.githubUserDao().getGithubUser(login))

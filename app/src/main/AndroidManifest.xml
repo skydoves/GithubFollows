@@ -23,7 +23,7 @@
             android:name=".view.ui.search.SearchActivity"
             android:theme="@style/AppTheme.Transparent"
             android:windowSoftInputMode="stateVisible" />
-        <activity android:name=".view.ui.detail.DetailActivity"/>
+        <activity android:name=".view.ui.detail.DetailActivity" />
     </application>
 
 </manifest>

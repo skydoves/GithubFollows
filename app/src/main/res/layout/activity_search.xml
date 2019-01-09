@@ -21,6 +21,6 @@
             android:id="@+id/search_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_history"/>
+            tools:listitem="@layout/item_history" />
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

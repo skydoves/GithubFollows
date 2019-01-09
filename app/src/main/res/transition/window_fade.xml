@@ -1,7 +1,7 @@
 <fade xmlns:android="http://schemas.android.com/apk/res/android">
     <targets>
-        <target android:excludeId="@android:id/statusBarBackground"/>
-        <target android:excludeId="@android:id/navigationBarBackground"/>
-        <target android:excludeId="@+id/appBarLayout"/>
+        <target android:excludeId="@android:id/statusBarBackground" />
+        <target android:excludeId="@android:id/navigationBarBackground" />
+        <target android:excludeId="@+id/appBarLayout" />
     </targets>
 </fade>

@@ -14,14 +14,14 @@ object Versions {
     const val versionCode = versionMajor * 100 + versionMinor * 10 + versionPatch
     const val versionName = "$versionMajor.$versionMinor.$versionPatch"
 
-    const val gradle = "3.2.0"
+    const val gradle = "3.2.1"
     const val junit = "4.12"
     const val supportLibrary = "28.0.0"
     const val kotlin = "1.2.70"
     const val anko = "0.10.1"
     const val archComponent = "1.1.1"
     const val archCoreTesting = "1.1.0"
-    const val dagger ="2.16"
+    const val dagger = "2.16"
     const val rxJava = "2.1.8"
     const val rxAndroid = "2.0.1"
     const val preferenceRoom = "1.1.0"

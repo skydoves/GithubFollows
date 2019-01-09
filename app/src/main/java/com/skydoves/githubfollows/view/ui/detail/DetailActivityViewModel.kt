@@ -17,7 +17,7 @@ import javax.inject.Inject
  */
 
 class DetailActivityViewModel @Inject
-constructor(private val repository: GithubUserRepository): ViewModel() {
+constructor(private val repository: GithubUserRepository) : ViewModel() {
 
     private val login: MutableLiveData<String> = MutableLiveData()
     val githubUserLiveData: LiveData<Resource<GithubUser>>
@@ -31,7 +31,9 @@ constructor(private val repository: GithubUserRepository): ViewModel() {
         }
     }
 
-    fun setUser(user: String) { login.value = user }
+    fun setUser(user: String) {
+        login.value = user
+    }
 
     fun getUserKeyName(): String = repository.getUserKeyName()
 }

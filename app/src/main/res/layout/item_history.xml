@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
-        <variable name="history" type="com.skydoves.githubfollows.models.History"/>
+
+        <variable
+            name="history"
+            type="com.skydoves.githubfollows.models.History" />
     </data>
 
     <LinearLayout
@@ -20,29 +24,29 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_margin="10dp"
-                android:src="@drawable/ic_history"/>
+                android:src="@drawable/ic_history" />
 
             <TextView
                 android:id="@+id/item_history_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:padding="10dp"
-                android:textSize="18sp"
-                android:textColor="@color/HintText"
-                android:singleLine="true"
                 android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
                 android:layout_toRightOf="@+id/item_history_icon"
+                android:padding="10dp"
+                android:singleLine="true"
                 android:text="@{history.search}"
-                tools:text="skydoves"/>
+                android:textColor="@color/HintText"
+                android:textSize="18sp"
+                tools:text="skydoves" />
 
             <ImageView
                 android:id="@+id/item_history_delete"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:layout_alignParentRight="true"
                 android:layout_margin="10dp"
-                android:src="@drawable/ic_close"
-                android:layout_alignParentRight="true"/>
+                android:src="@drawable/ic_close" />
         </RelativeLayout>
     </LinearLayout>
 

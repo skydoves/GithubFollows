@@ -2,28 +2,32 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
-        <variable name="follower" type="com.skydoves.githubfollows.models.Follower"/>
+
+        <variable
+            name="follower"
+            type="com.skydoves.githubfollows.models.Follower" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:foreground="?attr/selectableItemBackground">
+        android:foreground="?attr/selectableItemBackground"
+        android:orientation="horizontal">
 
         <com.skydoves.androidveil.VeilLayout
             android:id="@+id/item_user_veilLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:veilLayout_veiled="true"
-            app:veilLayout_shimmerEnable="true">
+            app:veilLayout_shimmerEnable="true"
+            app:veilLayout_veiled="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:background="@color/background"
+                android:orientation="horizontal"
                 android:padding="10dp">
 
                 <ImageView
@@ -34,19 +38,19 @@
                     android:layout_marginBottom="5dp"
                     android:scaleType="fitXY"
                     android:transitionName="@string/transition_avatar"
-                    tools:targetApi="LOLLIPOP"/>
+                    tools:targetApi="LOLLIPOP" />
 
                 <TextView
                     android:id="@+id/item_user_name"
+                    style="@style/TextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:padding="5dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="15dp"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
                     android:text="@{follower.login}"
-                    style="@style/TextStyle"
-                    tools:text="username"/>
+                    tools:text="username" />
             </LinearLayout>
         </com.skydoves.androidveil.VeilLayout>
     </FrameLayout>

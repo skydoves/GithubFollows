@@ -43,7 +43,8 @@ import javax.inject.Inject
 
 class DetailActivity : AppCompatActivity() {
 
-    @Inject lateinit var viewModelFactory: AppViewModelFactory
+    @Inject
+    lateinit var viewModelFactory: AppViewModelFactory
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DetailActivityViewModel::class.java) }
     private val binding by lazy { DataBindingUtil.setContentView<ActivityDetailBinding>(this, R.layout.activity_detail) }
@@ -71,7 +72,7 @@ class DetailActivity : AppCompatActivity() {
         Glide.with(this)
                 .load(getAvatarFromIntent())
                 .apply(RequestOptions().circleCrop().dontAnimate())
-                .listener(object: RequestListener<Drawable> {
+                .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                         supportStartPostponedEnterTransition()
                         observeViewModel()
@@ -93,11 +94,11 @@ class DetailActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.setUser(getLoginFromIntent())
-        viewModel.githubUserLiveData.observe(this, Observer { it?.let{ updateUI(it) } })
+        viewModel.githubUserLiveData.observe(this, Observer { it?.let { updateUI(it) } })
     }
 
     private fun updateUI(resource: Resource<GithubUser>) {
-        when(resource.status) {
+        when (resource.status) {
             Status.SUCCESS -> {
                 resource.data?.let {
                     binding.detailHeader.githubUser = it
@@ -106,11 +107,15 @@ class DetailActivity : AppCompatActivity() {
                     adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_person_pin), it.html_url))
                     it.company?.let { adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_people), it)) }
                     it.location?.let { adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_location), it)) }
-                    it.blog?.let { if(it.isNotEmpty()) { adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_insert_link), it)) } }
+                    it.blog?.let {
+                        if (it.isNotEmpty()) {
+                            adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_insert_link), it))
+                        }
+                    }
 
                     GlideUtils.getSvgRequestBuilder(this)
                             .load("${getString(R.string.ghchart)}${it.login}")
-                            .listener(object: RequestListener<PictureDrawable> {
+                            .listener(object : RequestListener<PictureDrawable> {
                                 override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<PictureDrawable>?, isFirstResource: Boolean): Boolean {
                                     detail_body_recyclerViewFrame.unVeil()
                                     detail_body_veilLayout.unVeil()
@@ -129,7 +134,8 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
             Status.ERROR -> toast(resource.message.toString())
-            Status.LOADING -> {}
+            Status.LOADING -> {
+            }
         }
     }
 

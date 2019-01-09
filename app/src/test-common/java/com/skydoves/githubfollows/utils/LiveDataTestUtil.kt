@@ -1,4 +1,3 @@
-
 /**
  * Developed by skydoves on 2018-03-03.
  * Copyright (c) 2018 skydoves rights reserved.

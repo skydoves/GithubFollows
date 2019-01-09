@@ -16,13 +16,14 @@ import org.junit.runner.RunWith
  */
 
 @RunWith(AndroidJUnit4::class)
-class FollowersDaoTest: DBTest() {
+class FollowersDaoTest : DBTest() {
 
     private lateinit var mockFollowerList: MutableList<Follower>
     private lateinit var follower: Follower
     private val owner = "skydoves"
 
-    @Before fun initMock() {
+    @Before
+    fun initMock() {
         follower = MockTestUtil.mockFollower()
         mockFollowerList = ArrayList()
         mockFollowerList.add(follower)
@@ -30,7 +31,8 @@ class FollowersDaoTest: DBTest() {
         mockFollowerList.add(follower)
     }
 
-    @Test fun insertTest() {
+    @Test
+    fun insertTest() {
         db.followersDao().insertFollowers(mockFollowerList)
 
         val loaded = LiveDataTestUtil.getValue(db.followersDao().getFollowers(owner, 1, false))

@@ -24,7 +24,7 @@ class GithubUserHeaderViewHolder(view: View, val delegate: Delegate) : BaseViewH
 
     @Throws(Exception::class)
     override fun bindData(data: Any) {
-        if(data is GithubUser) {
+        if (data is GithubUser) {
             githubUser = data
             drawUserCard()
         }

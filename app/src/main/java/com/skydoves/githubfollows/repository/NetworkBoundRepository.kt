@@ -35,10 +35,10 @@ internal constructor() {
 
     private fun fetchFromNetwork(loadedFromDB: LiveData<ResultType>) {
         val apiResponse = fetchService()
-        result.addSource(loadedFromDB) { newData -> setValue(Resource.loading(newData, 1))}
+        result.addSource(loadedFromDB) { newData -> setValue(Resource.loading(newData, 1)) }
         result.addSource(apiResponse) { response ->
             response?.let {
-                when(response.isSuccessful) {
+                when (response.isSuccessful) {
                     true -> {
                         response.body?.let {
                             saveFetchData(it)
@@ -54,8 +54,8 @@ internal constructor() {
                         onFetchFailed(response.envelope)
                         response.envelope?.let {
                             result.removeSource(loadedFromDB)
-                            result.addSource<ResultType>(loadedFromDB) {
-                                newData -> setValue(Resource.error(it.message, newData))
+                            result.addSource<ResultType>(loadedFromDB) { newData ->
+                                setValue(Resource.error(it.message, newData))
                             }
                         }
                     }

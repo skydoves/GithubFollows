@@ -35,7 +35,8 @@ import javax.inject.Inject
 
 class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, HistoryViewHolder.Delegate {
 
-    @Inject lateinit var viewModelFactory: AppViewModelFactory
+    @Inject
+    lateinit var viewModelFactory: AppViewModelFactory
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(SearchActivityViewModel::class.java) }
     private val adapter by lazy { HistoryAdapter(this) }
@@ -61,7 +62,7 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
             if (viewTreeObserver.isAlive) {
                 viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
                     override fun onGlobalLayout() {
-                        circularRevealed(search_layout ,search_layout.width, 0)
+                        circularRevealed(search_layout, search_layout.width, 0)
                         search_layout.viewTreeObserver.removeOnGlobalLayoutListener(this)
                     }
                 })
@@ -82,7 +83,7 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
 
     override fun onEditorAction(p0: TextView?, actionId: Int, event: KeyEvent?): Boolean {
         val searchKeyword = toolbar_search_input.text
-        if(actionId == EditorInfo.IME_ACTION_SEARCH) {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             searchKeyword?.let {
                 viewModel.login.postValue(it.toString())
                 return true
@@ -100,10 +101,11 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
     }
 
     private fun onChangeUser(resource: Resource<GithubUser>) {
-        when(resource.status) {
+        when (resource.status) {
             Status.SUCCESS -> onSetResult(resource.data?.login!!)
             Status.ERROR -> toast(resource.message.toString())
-            Status.LOADING -> {}
+            Status.LOADING -> {
+            }
         }
     }
 
@@ -114,8 +116,8 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
     }
 
     override fun onBackPressed() {
-        when(checkIsMaterialVersion()) {
-            true -> circularUnRevealed(search_layout , search_layout.width, 0)
+        when (checkIsMaterialVersion()) {
+            true -> circularUnRevealed(search_layout, search_layout.width, 0)
             false -> super.onBackPressed()
         }
     }

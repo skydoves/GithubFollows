@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_history.view.*
 
 class HistoryViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(view) {
 
-    interface  Delegate {
+    interface Delegate {
         fun onItemClicked(history: History)
         fun onDeleteHistory(history: History)
     }
@@ -23,7 +23,7 @@ class HistoryViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(vie
 
     @Throws(Exception::class)
     override fun bindData(data: Any) {
-        if(data is History) {
+        if (data is History) {
             history = data
             drawItemView()
         }

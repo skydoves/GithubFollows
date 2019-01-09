@@ -19,12 +19,14 @@ import org.junit.runner.RunWith
 abstract class DBTest {
     lateinit var db: AppDatabase
 
-    @Before fun initDB() {
+    @Before
+    fun initDB() {
         db = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getContext(),
                 AppDatabase::class.java).build()
     }
 
-    @After fun closeDB() {
+    @After
+    fun closeDB() {
         db.close()
     }
 }

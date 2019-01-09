@@ -15,7 +15,8 @@ import retrofit2.Response
 @RunWith(JUnit4::class)
 class ApiResponseTest {
 
-    @Test fun exception() {
+    @Test
+    fun exception() {
         val exception = Exception("foo")
         val apiResponse = ApiResponse<String>(exception)
         assertThat<Map<String, String>>(apiResponse.links, notNullValue())
@@ -24,7 +25,8 @@ class ApiResponseTest {
         assertThat(apiResponse.envelope?.message, `is`("foo"))
     }
 
-    @Test fun success() {
+    @Test
+    fun success() {
         val apiResponse = ApiResponse(Response.success("foo"))
         assertThat(apiResponse.envelope?.message, nullValue())
         assertThat(apiResponse.code, `is`(200))
@@ -32,21 +34,24 @@ class ApiResponseTest {
         assertThat<Int>(apiResponse.nextPage, `is`(nullValue()))
     }
 
-    @Test fun link() {
+    @Test
+    fun link() {
         val link = "<https://api.github.com/search/repositories?q=foo&page=2>; rel=\"next\"," + " <https://api.github.com/search/repositories?q=foo&page=34>; rel=\"last\""
         val headers = okhttp3.Headers.of("link", link)
         val response = ApiResponse(Response.success("foo", headers))
         assertThat<Int>(response.nextPage, `is`(2))
     }
 
-    @Test fun badPageNumber() {
+    @Test
+    fun badPageNumber() {
         val link = "<https://api.github.com/search/repositories?q=foo&page=dsa>; rel=\"next\""
         val headers = okhttp3.Headers.of("link", link)
         val response = ApiResponse(Response.success("foo", headers))
         assertThat<Int>(response.nextPage, nullValue())
     }
 
-    @Test fun badLinkHeader() {
+    @Test
+    fun badLinkHeader() {
         val link = "<https://api.github.com/search/repositories?q=foo&page=dsa>; relx=\"next\""
         val headers = okhttp3.Headers.of("link", link)
         val response = ApiResponse(Response.success("foo", headers))

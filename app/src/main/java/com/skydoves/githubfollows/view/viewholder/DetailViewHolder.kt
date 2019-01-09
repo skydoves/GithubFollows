@@ -9,7 +9,6 @@ import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.databinding.ItemDetailInfoBinding
 import com.skydoves.githubfollows.models.ItemDetail
 import kotlinx.android.synthetic.main.item_detail_info.view.*
-import org.jetbrains.anko.image
 import org.jetbrains.anko.textColor
 
 /**
@@ -24,7 +23,7 @@ class DetailViewHolder(view: View) : BaseViewHolder(view) {
 
     @Throws(Exception::class)
     override fun bindData(data: Any) {
-        if(data is ItemDetail) {
+        if (data is ItemDetail) {
             itemDetail = data
             drawItem()
         }
@@ -35,7 +34,7 @@ class DetailViewHolder(view: View) : BaseViewHolder(view) {
             binding?.itemDetail = itemDetail
             binding?.executePendingBindings()
 
-            when(Patterns.WEB_URL.matcher(itemDetail.content).matches()) {
+            when (Patterns.WEB_URL.matcher(itemDetail.content).matches()) {
                 true -> {
                     detail_info_content.textColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
                     Linkify.addLinks(detail_info_content, Linkify.WEB_URLS)

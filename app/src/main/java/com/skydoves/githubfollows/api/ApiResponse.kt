@@ -65,7 +65,7 @@ class ApiResponse<T> {
             }
 
             message?.apply {
-                if(isNullOrEmpty() || trim { it <= ' ' }.isEmpty()) {
+                if (isNullOrEmpty() || trim { it <= ' ' }.isEmpty()) {
                     message = response.message()
                 }
             }

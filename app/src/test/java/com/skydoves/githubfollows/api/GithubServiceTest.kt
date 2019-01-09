@@ -28,13 +28,16 @@ import java.nio.charset.StandardCharsets
 @RunWith(JUnit4::class)
 class GithubServiceTest {
 
-    @Rule @JvmField val instantExecutorRule: InstantTaskExecutorRule = InstantTaskExecutorRule()
+    @Rule
+    @JvmField
+    val instantExecutorRule: InstantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var service: GithubService
     private lateinit var mockWebServer: MockWebServer
 
     @Throws(IOException::class)
-    @Before fun createService() {
+    @Before
+    fun createService() {
         mockWebServer = MockWebServer()
         service = Retrofit.Builder()
                 .baseUrl(mockWebServer.url("/"))
@@ -45,11 +48,13 @@ class GithubServiceTest {
     }
 
     @Throws(IOException::class)
-    @After fun stopService() {
+    @After
+    fun stopService() {
         mockWebServer.shutdown()
     }
 
-    @Test fun getGithubUserTest() {
+    @Test
+    fun getGithubUserTest() {
         enqueueResponse("user-skydoves.json")
         val githubUser = LiveDataTestUtil.getValue(service.fetchGithubUser("skydoves")).body
 
@@ -64,7 +69,8 @@ class GithubServiceTest {
 
     }
 
-    @Test fun getFollowingsTest() {
+    @Test
+    fun getFollowingsTest() {
         enqueueResponse("following-skydoves.json")
         val followers = LiveDataTestUtil.getValue(service.fetchFollowings("skydoves", 1, 10)).body
 
@@ -78,7 +84,8 @@ class GithubServiceTest {
         assertThat(followers?.get(0)?.url, `is`("https://api.github.com/users/JakeWharton"))
     }
 
-    @Test fun getFollowersTest() {
+    @Test
+    fun getFollowersTest() {
         enqueueResponse("followers-skydoves.json")
         val followers = LiveDataTestUtil.getValue(service.fetchFollowers("skydoves", 1, 10)).body
 

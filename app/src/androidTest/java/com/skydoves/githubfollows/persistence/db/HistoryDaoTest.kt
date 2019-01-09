@@ -17,16 +17,18 @@ import org.junit.runner.RunWith
  */
 
 @RunWith(AndroidJUnit4::class)
-class HistoryDaoTest: DBTest() {
+class HistoryDaoTest : DBTest() {
 
     private lateinit var history: History
     private val search = "skydoves"
 
-    @Before fun initMock() {
+    @Before
+    fun initMock() {
         history = MockTestUtil.mockHistory()
     }
 
-    @Test fun insertHistoryTest() {
+    @Test
+    fun insertHistoryTest() {
         db.historyDao().insertHistory(history)
 
         val loaded = LiveDataTestUtil.getValue(db.historyDao().selectRecentHistoryList())
@@ -35,7 +37,8 @@ class HistoryDaoTest: DBTest() {
         assertThat(loaded[0].history, `is`(MockTestUtil.mockTime))
     }
 
-    @Test fun deleteHistoryTest() {
+    @Test
+    fun deleteHistoryTest() {
         db.historyDao().insertHistory(history)
         db.historyDao().deleteHistory(search)
 

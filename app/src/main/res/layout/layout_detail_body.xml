@@ -12,38 +12,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        app:veilFrame_veiled="true"
-        app:veilFrame_layout="@layout/item_detail_info"/>
+        app:veilFrame_layout="@layout/item_detail_info"
+        app:veilFrame_veiled="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="10dp"
+        android:text="Contributions"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
-        android:layout_marginLeft="4dp"
-        android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:text="Contributions"/>
+        android:textStyle="bold" />
 
     <com.skydoves.androidveil.VeilLayout
         android:id="@+id/detail_body_veilLayout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        app:veilLayout_veiled="true"
-        app:veilLayout_shimmerEnable="true">
+        app:veilLayout_shimmerEnable="true"
+        app:veilLayout_veiled="true">
 
         <View
             android:id="@+id/detail_body_preview"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="8dp"
-            android:orientation="vertical"/>
+            android:orientation="vertical" />
 
         <ImageView
             android:id="@+id/detail_body_contributes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:scaleType="fitXY" />
     </com.skydoves.androidveil.VeilLayout>
 </LinearLayout>

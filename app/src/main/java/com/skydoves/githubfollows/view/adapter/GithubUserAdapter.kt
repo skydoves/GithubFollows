@@ -45,14 +45,14 @@ class GithubUserAdapter(val delegate_header: GithubUserHeaderViewHolder.Delegate
     }
 
     override fun layout(sectionRow: BaseAdapter.SectionRow): Int {
-        when(sectionRow.section()) {
+        when (sectionRow.section()) {
             section_header -> return R.layout.layout_detail_header
             else -> return R.layout.item_github_user
         }
     }
 
     override fun viewHolder(layout: Int, view: View): BaseViewHolder {
-        when(layout) {
+        when (layout) {
             R.layout.layout_detail_header -> return GithubUserHeaderViewHolder(view, delegate_header)
             else -> return GithubUserViewHolder(view, delegate)
         }

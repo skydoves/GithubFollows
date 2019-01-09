@@ -1,7 +1,5 @@
 package com.skydoves.githubfollows.factory
 
-import javax.inject.Singleton
-
 /*
  * Copyright (C) 2017 The Android Open Source Project
  *
@@ -20,9 +18,9 @@ import javax.inject.Singleton
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-
 import javax.inject.Inject
 import javax.inject.Provider
+import javax.inject.Singleton
 
 /**
  * Developed by skydoves on 2018-08-07.

@@ -1,4 +1,3 @@
-
 package com.skydoves.githubfollows.models
 
 /**
@@ -44,7 +43,7 @@ class Resource<out T>(val status: Status, val data: T?, val message: String?, va
 
         fun <T> success(data: T?, nextPage: Int?): Resource<T> {
             fetchStatus = FetchStatus(false, true, false, false, nextPage)
-            if(nextPage == null) fetchStatus = FetchStatus(false, true, false, true, nextPage)
+            if (nextPage == null) fetchStatus = FetchStatus(false, true, false, true, nextPage)
             return Resource(Status.SUCCESS, data, null, fetchStatus)
         }
 

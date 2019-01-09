@@ -13,7 +13,8 @@ abstract class PreferenceTest {
 
     lateinit var context: Context
 
-    @Before fun initPreference() {
+    @Before
+    fun initPreference() {
         context = InstrumentationRegistry.getTargetContext()
     }
 }

@@ -10,6 +10,10 @@ import com.skydoves.preferenceroom.PreferenceEntity
 
 @PreferenceEntity(name = "UserProfile")
 open class Profile {
-    @KeyName(name = "name")  @JvmField val userName = "skydoves"
-    @KeyName(name = "menuPosition")  @JvmField val selectedPosition = 0
+    @KeyName(name = "name")
+    @JvmField
+    val userName = "skydoves"
+    @KeyName(name = "menuPosition")
+    @JvmField
+    val selectedPosition = 0
 }
