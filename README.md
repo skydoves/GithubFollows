@@ -30,6 +30,9 @@ A simple demo project based on MVVM clean architecture and material design & ani
 - ripple animation, Circular revealed animation, Shared element transition
 - [Mockito](https://github.com/mockito/mockito) for Junit mock test
 
+## Posting
+[Medium - Android MVVM Architecture Components using Github API](https://medium.com/@skydoves/android-mvvm-architecture-components-using-github-api-f0ab9c2a67a0)
+
 # License
 ```xml
 The MIT License (MIT)
