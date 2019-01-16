@@ -39,12 +39,6 @@ android {
 }
 
 dependencies {
-    testImplementation Dependencies.junit
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation Dependencies.support_appcompat
     implementation Dependencies.support_design
     implementation Dependencies.support_cardview
@@ -92,6 +86,8 @@ dependencies {
     implementation Dependencies.baseadapter
     implementation Dependencies.androidveil
 
+    testImplementation Dependencies.junit
     testImplementation Dependencies.mockito
     androidTestImplementation Dependencies.mockitoAndroid
+    androidTestImplementation Dependencies.espresso
 }

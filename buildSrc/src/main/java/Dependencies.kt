@@ -8,6 +8,7 @@
 @Suppress("unused", "MayBeConstant")
 object Dependencies {
     val gradle = "com.android.tools.build:gradle:${Versions.gradle}"
+    val benManes = "com.github.ben-manes:gradle-versions-plugin:${Versions.benManes}"
     val junit = "junit:junit:${Versions.junit}"
     val support_appcompat = "com.android.support:appcompat-v7:${Versions.supportLibrary}"
     val support_design = "com.android.support:design:${Versions.supportLibrary}"
@@ -44,6 +45,7 @@ object Dependencies {
     val mockito = "org.mockito:mockito-core:${Versions.mockito}"
     val mockitoAndroid = "org.mockito:mockito-android:${Versions.mockito}"
     val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.mockWebServer}"
+    val espresso = "com.android.support.test.espresso:espresso-core:${Versions.espresso}"
     val stetho = "com.facebook.stetho:stetho:${Versions.stetho}"
     val stetho_okhttp = "com.facebook.stetho:stetho-okhttp3:${Versions.stetho}"
 }

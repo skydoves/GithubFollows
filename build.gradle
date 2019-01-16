@@ -1,3 +1,5 @@
+apply from: './versionsPlugin.gradle'
+
 buildscript {
     repositories {
         google()
@@ -7,6 +9,7 @@ buildscript {
     dependencies {
         classpath Dependencies.gradle
         classpath Dependencies.kotlin_plugin
+        classpath Dependencies.benManes
     }
 }
 
