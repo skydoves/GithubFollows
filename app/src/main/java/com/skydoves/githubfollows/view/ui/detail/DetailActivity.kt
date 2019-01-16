@@ -25,7 +25,11 @@ import com.skydoves.githubfollows.extension.checkIsMaterialVersion
 import com.skydoves.githubfollows.extension.fromResource
 import com.skydoves.githubfollows.extension.gone
 import com.skydoves.githubfollows.factory.AppViewModelFactory
-import com.skydoves.githubfollows.models.*
+import com.skydoves.githubfollows.models.Resource
+import com.skydoves.githubfollows.models.GithubUser
+import com.skydoves.githubfollows.models.Status
+import com.skydoves.githubfollows.models.ItemDetail
+import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.utils.GlideUtils
 import com.skydoves.githubfollows.view.adapter.DetailAdapter
 import dagger.android.AndroidInjection

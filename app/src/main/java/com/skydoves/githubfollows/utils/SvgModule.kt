@@ -16,8 +16,11 @@ import java.io.InputStream
 
 @GlideModule
 class SvgModule : AppGlideModule() {
-    override fun registerComponents(context: Context, glide: Glide,
-                                    registry: Registry) {
+    override fun registerComponents(
+      context: Context,
+      glide: Glide,
+      registry: Registry
+    ) {
         registry.register(SVG::class.java, PictureDrawable::class.java, SvgDrawableTranscoder())
                 .append(InputStream::class.java, SVG::class.java, SvgDecoder())
     }

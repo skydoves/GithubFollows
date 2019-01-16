@@ -66,7 +66,6 @@ class GithubServiceTest {
         assertThat(githubUser?.id, `is`(24237865))
         assertThat(githubUser?.avatar_url, `is`("https://avatars2.githubusercontent.com/u/24237865?v=4"))
         assertThat(githubUser?.url, `is`("https://api.github.com/users/skydoves"))
-
     }
 
     @Test

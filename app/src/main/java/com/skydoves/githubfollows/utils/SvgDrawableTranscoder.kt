@@ -13,8 +13,10 @@ import com.caverock.androidsvg.SVG
  */
 
 class SvgDrawableTranscoder : ResourceTranscoder<SVG, PictureDrawable> {
-    override fun transcode(toTranscode: Resource<SVG>,
-                           options: Options): Resource<PictureDrawable>? {
+    override fun transcode(
+      toTranscode: Resource<SVG>,
+      options: Options
+    ): Resource<PictureDrawable>? {
         val svg = toTranscode.get()
         svg.documentWidth = 1000f
         svg.documentHeight = 300f

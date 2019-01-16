@@ -5,7 +5,7 @@ import com.skydoves.githubfollows.models.History
 import com.skydoves.githubfollows.room.HistoryDao
 import org.jetbrains.anko.doAsync
 import timber.log.Timber
-import java.util.*
+import java.util.Calendar
 import javax.inject.Inject
 import javax.inject.Singleton
 

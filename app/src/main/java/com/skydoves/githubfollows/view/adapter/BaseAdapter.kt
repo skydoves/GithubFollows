@@ -1,12 +1,11 @@
 package com.skydoves.githubfollows.view.adapter
 
-import androidx.annotation.LayoutRes
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.recyclerview.widget.RecyclerView
 import com.skydoves.githubfollows.view.viewholder.BaseViewHolder
-import java.util.*
 
 /**
  * Developed by skydoves on 2018-01-21.
@@ -82,7 +81,6 @@ abstract class BaseAdapter : RecyclerView.Adapter<BaseViewHolder>() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
     override fun getItemViewType(position: Int): Int {

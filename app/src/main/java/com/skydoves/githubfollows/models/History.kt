@@ -10,6 +10,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "SearchHistory")
 data class History(
-        @PrimaryKey val search: String,
-        val history: Long
+  @PrimaryKey val search: String,
+  val history: Long
 )

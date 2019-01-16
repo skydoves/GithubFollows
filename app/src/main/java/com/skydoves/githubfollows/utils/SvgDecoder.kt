@@ -1,6 +1,5 @@
 package com.skydoves.githubfollows.utils
 
-
 import com.bumptech.glide.load.Options
 import com.bumptech.glide.load.ResourceDecoder
 import com.bumptech.glide.load.engine.Resource
@@ -17,8 +16,12 @@ class SvgDecoder : ResourceDecoder<InputStream, SVG> {
     }
 
     @Throws(IOException::class)
-    override fun decode(source: InputStream, width: Int, height: Int,
-                        options: Options): Resource<SVG>? {
+    override fun decode(
+      source: InputStream,
+      width: Int,
+      height: Int,
+      options: Options
+    ): Resource<SVG>? {
         try {
             val svg = SVG.getFromInputStream(source)
             return SimpleResource(svg)

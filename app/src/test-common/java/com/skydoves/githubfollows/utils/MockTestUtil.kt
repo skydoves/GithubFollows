@@ -3,7 +3,7 @@ package com.skydoves.githubfollows.utils
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.History
-import java.util.*
+import java.util.Calendar
 
 /**
  * Created by skydoves on 2018. 3. 8.

@@ -14,8 +14,10 @@ import com.skydoves.githubfollows.view.viewholder.GithubUserViewHolder
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-class GithubUserAdapter(val delegate_header: GithubUserHeaderViewHolder.Delegate,
-                        val delegate: GithubUserViewHolder.Delegate) : BaseAdapter() {
+class GithubUserAdapter(
+  val delegate_header: GithubUserHeaderViewHolder.Delegate,
+  val delegate: GithubUserViewHolder.Delegate
+) : BaseAdapter() {
 
     private val section_header = 0
     private val section_follower = 1
