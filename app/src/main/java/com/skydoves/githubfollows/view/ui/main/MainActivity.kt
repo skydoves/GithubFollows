@@ -1,12 +1,12 @@
 package com.skydoves.githubfollows.view.ui.main
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.skydoves.baserecyclerviewadapter.RecyclerViewPaginator
 import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.factory.AppViewModelFactory
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
     private val onPowerMenuItemClickListener = OnMenuItemClickListener<PowerMenuItem> { position, item ->
         if (!item.isSelected) {
             viewModel.putPreferenceMenuPosition(position)
-            powerMenu.setSelected(position)
+            powerMenu.selectedPosition = position
             powerMenu.dismiss()
             restPagination(viewModel.getUserName())
         }
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
 
     private fun initializeUI() {
         powerMenu = PowerMenuUtils.getOverflowPowerMenu(this, this, onPowerMenuItemClickListener)
-        powerMenu.setSelected(viewModel.getPreferenceMenuPosition())
+        powerMenu.selectedPosition = viewModel.getPreferenceMenuPosition()
         toolbar_main_overflow.setOnClickListener { powerMenu.showAsDropDown(it) }
         toolbar_main_search.setOnClickListener { startActivityForResult<SearchActivity>(SearchActivity.intent_requestCode) }
     }

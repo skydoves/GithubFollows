@@ -34,7 +34,7 @@ object Versions {
     const val timber = "4.7.1"
     const val memoryLeak = "1.6.3"
     const val glide = "4.8.0"
-    const val powerMenu = "1.0.9"
+    const val powerMenu = "2.0.6"
     const val androidSvg = "1.3"
     const val baseAdapter = "0.1.2"
     const val androidVeil = "1.0.3"
