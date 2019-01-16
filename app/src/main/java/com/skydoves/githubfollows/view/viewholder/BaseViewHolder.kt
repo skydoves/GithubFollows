@@ -9,6 +9,7 @@ import android.view.View
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
+@Suppress("LeakingThis")
 abstract class BaseViewHolder(private val view: View) : RecyclerView.ViewHolder(view), View.OnClickListener, View.OnLongClickListener {
 
     init {

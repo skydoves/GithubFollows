@@ -14,6 +14,7 @@ import timber.log.Timber
  * Copyright (c) 2018 skydoves All rights reserved.
  */
 
+@Suppress("LeakingThis")
 abstract class NetworkBoundRepository<ResultType, RequestType>
 internal constructor() {
 

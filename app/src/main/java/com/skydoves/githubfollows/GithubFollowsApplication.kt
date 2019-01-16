@@ -13,6 +13,7 @@ import timber.log.Timber
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
+@Suppress("unused")
 class GithubFollowsApplication : DaggerApplication() {
 
     private val appComponent = DaggerAppComponent.builder()

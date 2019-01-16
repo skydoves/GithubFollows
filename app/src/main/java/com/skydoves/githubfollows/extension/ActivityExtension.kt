@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.skydoves.githubfollows.extension
 
 import android.animation.Animator

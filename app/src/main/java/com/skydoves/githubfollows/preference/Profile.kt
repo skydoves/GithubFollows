@@ -8,6 +8,7 @@ import com.skydoves.preferenceroom.PreferenceEntity
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
+@Suppress("unused")
 @PreferenceEntity(name = "UserProfile")
 open class Profile {
     @KeyName(name = "name")

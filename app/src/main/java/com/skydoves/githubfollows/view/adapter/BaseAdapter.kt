@@ -13,6 +13,7 @@ import java.util.*
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
+@Suppress("MemberVisibilityCanBePrivate", "unused", "RedundantOverride")
 abstract class BaseAdapter : RecyclerView.Adapter<BaseViewHolder>() {
     val sections = ArrayList<MutableList<Any>>()
 
@@ -47,7 +48,7 @@ abstract class BaseAdapter : RecyclerView.Adapter<BaseViewHolder>() {
     }
 
     fun <T> sectionOrderChange(location: Int) {
-        Collections.reverse(sections[location])
+        sections[location].reverse()
     }
 
     /**
