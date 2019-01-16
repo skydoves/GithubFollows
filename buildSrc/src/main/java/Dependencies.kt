@@ -9,6 +9,7 @@
 object Dependencies {
     val gradle = "com.android.tools.build:gradle:${Versions.gradle}"
     val benManes = "com.github.ben-manes:gradle-versions-plugin:${Versions.benManes}"
+    val spotless = "com.diffplug.spotless:spotless-plugin-gradle:${Versions.spotless}"
     val junit = "junit:junit:${Versions.junit}"
     val support_appcompat = "androidx.appcompat:appcompat:${Versions.accompat}"
     val support_design = "com.google.android.material:material:${Versions.material}"

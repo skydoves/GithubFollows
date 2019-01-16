@@ -91,3 +91,5 @@ dependencies {
     androidTestImplementation Dependencies.mockitoAndroid
     androidTestImplementation Dependencies.espresso
 }
+
+apply from: '../spotless.gradle'

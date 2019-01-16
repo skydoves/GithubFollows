@@ -17,6 +17,7 @@ object Versions {
 
     const val gradle = "3.3.0"
     const val benManes = "0.20.0"
+    const val spotless = "3.16.0"
     const val junit = "4.12"
     const val androidx = "1.0.0"
     const val accompat = "1.0.2"
