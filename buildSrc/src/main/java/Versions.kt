@@ -3,6 +3,7 @@
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
+@Suppress("unused", "SpellCheckingInspection")
 object Versions {
     private const val versionMajor = 1
     private const val versionMinor = 0
@@ -14,10 +15,10 @@ object Versions {
     const val versionCode = versionMajor * 100 + versionMinor * 10 + versionPatch
     const val versionName = "$versionMajor.$versionMinor.$versionPatch"
 
-    const val gradle = "3.2.1"
+    const val gradle = "3.3.0"
     const val junit = "4.12"
     const val supportLibrary = "28.0.0"
-    const val kotlin = "1.2.70"
+    const val kotlin = "1.3.11"
     const val anko = "0.10.1"
     const val archComponent = "1.1.1"
     const val archCoreTesting = "1.1.0"

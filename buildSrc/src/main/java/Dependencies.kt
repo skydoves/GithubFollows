@@ -1,8 +1,11 @@
+@file:Suppress("SpellCheckingInspection")
+
 /**
  * Developed by skydoves on 2018-02-17.
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
+@Suppress("unused", "MayBeConstant")
 object Dependencies {
     val gradle = "com.android.tools.build:gradle:${Versions.gradle}"
     val junit = "junit:junit:${Versions.junit}"
