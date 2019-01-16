@@ -1,6 +1,6 @@
 package com.skydoves.githubfollows.repository
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import com.skydoves.githubfollows.api.ApiResponse
 import com.skydoves.githubfollows.api.GithubService
 import com.skydoves.githubfollows.models.Envelope

@@ -1,6 +1,6 @@
 package com.skydoves.githubfollows.view.viewholder
 
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.view.View
 import com.skydoves.githubfollows.databinding.ItemHistoryBinding
 import com.skydoves.githubfollows.models.History

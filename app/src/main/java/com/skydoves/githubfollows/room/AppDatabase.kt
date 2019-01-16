@@ -1,7 +1,7 @@
 package com.skydoves.githubfollows.room
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.RoomDatabase
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.History

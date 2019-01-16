@@ -1,9 +1,9 @@
 package com.skydoves.githubfollows.utils
 
-import android.arch.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleOwner
 import android.content.Context
 import android.graphics.Color
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 
 import com.skydoves.githubfollows.R
 import com.skydoves.powermenu.MenuAnimation

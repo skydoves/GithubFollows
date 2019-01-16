@@ -1,7 +1,7 @@
 package com.skydoves.githubfollows.models
 
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 /**
  * Developed by skydoves on 2018-01-27.

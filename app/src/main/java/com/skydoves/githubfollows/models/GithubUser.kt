@@ -1,6 +1,6 @@
 package com.skydoves.githubfollows.models
 
-import android.arch.persistence.room.Entity
+import androidx.room.Entity
 
 /**
  * Developed by skydoves on 2018-01-21.

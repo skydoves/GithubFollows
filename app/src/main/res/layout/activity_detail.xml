@@ -9,7 +9,7 @@
         android:background="@color/background"
         android:orientation="vertical">
 
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -17,7 +17,7 @@
             <include
                 android:id="@+id/detail_toolbar"
                 layout="@layout/toolbar_default" />
-        </android.support.design.widget.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
         <include
             android:id="@+id/detail_header"

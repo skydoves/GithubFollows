@@ -1,6 +1,6 @@
 package com.skydoves.githubfollows.persistence.db
 
-import android.support.test.runner.AndroidJUnit4
+import androidx.test.runner.AndroidJUnit4
 import com.skydoves.githubfollows.models.History
 import com.skydoves.githubfollows.utils.LiveDataTestUtil
 import com.skydoves.githubfollows.utils.MockTestUtil

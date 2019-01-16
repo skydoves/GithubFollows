@@ -1,6 +1,6 @@
 package com.skydoves.githubfollows.utils;
 
-import android.databinding.BindingConversion;
+import androidx.databinding.BindingConversion;
 import android.view.View;
 
 /**

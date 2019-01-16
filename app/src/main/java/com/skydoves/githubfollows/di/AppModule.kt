@@ -1,7 +1,7 @@
 package com.skydoves.githubfollows.di
 
 import android.app.Application
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.skydoves.githubfollows.api.GithubService
 import com.skydoves.githubfollows.api.LiveDataCallAdapterFactory

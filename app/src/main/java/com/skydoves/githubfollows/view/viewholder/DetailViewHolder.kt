@@ -1,7 +1,7 @@
 package com.skydoves.githubfollows.view.viewholder
 
-import android.databinding.DataBindingUtil
-import android.support.v4.content.ContextCompat
+import androidx.databinding.DataBindingUtil
+import androidx.core.content.ContextCompat
 import android.text.util.Linkify
 import android.util.Patterns
 import android.view.View

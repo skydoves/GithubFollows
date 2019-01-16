@@ -1,6 +1,6 @@
 package com.skydoves.githubfollows.repository
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import com.skydoves.githubfollows.models.History
 import com.skydoves.githubfollows.room.HistoryDao
 import org.jetbrains.anko.doAsync

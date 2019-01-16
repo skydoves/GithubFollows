@@ -1,17 +1,17 @@
 package com.skydoves.githubfollows.view.ui.detail
 
 import android.app.Activity
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.PictureDrawable
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.view.ViewCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource

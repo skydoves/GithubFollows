@@ -16,7 +16,7 @@ package com.skydoves.githubfollows.api
  * limitations under the License.
  */
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
 import java.lang.reflect.ParameterizedType

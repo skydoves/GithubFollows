@@ -19,7 +19,7 @@
         android:orientation="horizontal"
         android:padding="8dp">
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/detail_header_cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                     android:visibility="@{githubUser.bio != null}"
                     tools:text="This is user bio" />
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
 </layout>

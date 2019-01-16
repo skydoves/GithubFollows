@@ -1,7 +1,7 @@
 package com.skydoves.githubfollows.di
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.skydoves.githubfollows.factory.AppViewModelFactory
 import com.skydoves.githubfollows.view.ui.detail.DetailActivityViewModel
 import com.skydoves.githubfollows.view.ui.main.MainActivityViewModel

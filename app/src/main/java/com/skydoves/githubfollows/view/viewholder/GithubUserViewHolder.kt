@@ -1,6 +1,6 @@
 package com.skydoves.githubfollows.view.viewholder
 
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.graphics.drawable.Drawable
 import android.view.View
 import com.bumptech.glide.Glide

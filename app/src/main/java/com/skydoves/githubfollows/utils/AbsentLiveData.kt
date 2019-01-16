@@ -16,7 +16,7 @@
 
 package com.skydoves.githubfollows.utils
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 
 /**
  * Developed by skydoves on 2018-08-09.

@@ -1,6 +1,6 @@
 package com.skydoves.githubfollows.api
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
 import retrofit2.http.GET

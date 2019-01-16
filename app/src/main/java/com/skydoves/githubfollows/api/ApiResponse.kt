@@ -1,6 +1,6 @@
 package com.skydoves.githubfollows.api
 
-import android.support.v4.util.ArrayMap
+import androidx.collection.ArrayMap
 import com.google.gson.Gson
 import com.skydoves.githubfollows.models.Envelope
 import retrofit2.Response

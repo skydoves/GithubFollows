@@ -2,7 +2,7 @@ package com.skydoves.githubfollows.persistence.preference
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.support.test.runner.AndroidJUnit4
+import androidx.test.runner.AndroidJUnit4
 import com.skydoves.githubfollows.preference.PreferenceComponent_PrefAppComponent
 import com.skydoves.githubfollows.preference.Preference_UserProfile
 import org.hamcrest.MatcherAssert.assertThat
