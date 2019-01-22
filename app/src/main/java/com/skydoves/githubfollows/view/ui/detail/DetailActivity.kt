@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -24,6 +23,7 @@ import com.skydoves.githubfollows.databinding.ActivityDetailBinding
 import com.skydoves.githubfollows.extension.checkIsMaterialVersion
 import com.skydoves.githubfollows.extension.fromResource
 import com.skydoves.githubfollows.extension.gone
+import com.skydoves.githubfollows.extension.observeLiveData
 import com.skydoves.githubfollows.factory.AppViewModelFactory
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
@@ -98,7 +98,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.setUser(getLoginFromIntent())
-        viewModel.githubUserLiveData.observe(this, Observer { it?.let { updateUI(it) } })
+        observeLiveData(viewModel.githubUserLiveData) { updateUI(it) }
     }
 
     private fun updateUI(resource: Resource<GithubUser>) {

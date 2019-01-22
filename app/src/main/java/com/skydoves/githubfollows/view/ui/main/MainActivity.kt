@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skydoves.baserecyclerviewadapter.RecyclerViewPaginator
 import com.skydoves.githubfollows.R
+import com.skydoves.githubfollows.extension.observeLiveData
 import com.skydoves.githubfollows.factory.AppViewModelFactory
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
@@ -82,8 +82,8 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
     }
 
     private fun observeViewModel() {
-        viewModel.githubUserLiveData.observe(this, Observer { it?.let { updateGithubUser(it) } })
-        viewModel.followersLiveData.observe(this, Observer { it?.let { updateFollowerList(it) } })
+        observeLiveData(viewModel.githubUserLiveData) { updateGithubUser(it) }
+        observeLiveData(viewModel.followersLiveData) { updateFollowerList(it) }
     }
 
     private fun loadMore(page: Int) {

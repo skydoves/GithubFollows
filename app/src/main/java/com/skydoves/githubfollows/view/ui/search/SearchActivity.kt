@@ -7,7 +7,6 @@ import android.view.ViewTreeObserver
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skydoves.githubfollows.R
@@ -15,6 +14,7 @@ import com.skydoves.githubfollows.extension.checkIsMaterialVersion
 import com.skydoves.githubfollows.extension.circularRevealed
 import com.skydoves.githubfollows.extension.circularUnRevealed
 import com.skydoves.githubfollows.extension.inVisible
+import com.skydoves.githubfollows.extension.observeLiveData
 import com.skydoves.githubfollows.factory.AppViewModelFactory
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.History
@@ -71,8 +71,8 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
     }
 
     private fun observeViewModel() {
-        viewModel.selectHistories().observe(this, Observer { it?.let { adapter.updateItemList(it) } })
-        viewModel.githubUserLiveData.observe(this, Observer { it?.let { onChangeUser(it) } })
+        observeLiveData(viewModel.selectHistories()) { adapter.updateItemList(it) }
+        observeLiveData(viewModel.githubUserLiveData) { onChangeUser(it) }
     }
 
     private fun initializeAdapter() {
