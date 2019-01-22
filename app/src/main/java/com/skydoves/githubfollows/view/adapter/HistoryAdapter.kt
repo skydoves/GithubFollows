@@ -12,7 +12,8 @@ import com.skydoves.githubfollows.view.viewholder.HistoryViewHolder
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-class HistoryAdapter(val delegate: HistoryViewHolder.Delegate) : BaseAdapter() {
+@Suppress("PrivatePropertyName")
+class HistoryAdapter(private val delegate: HistoryViewHolder.Delegate) : BaseAdapter() {
 
     private val section_history = 0
 

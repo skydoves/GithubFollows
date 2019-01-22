@@ -94,8 +94,7 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
         when (resource.status) {
             Status.SUCCESS -> adapter.updateHeader(resource)
             Status.ERROR -> toast(resource.message.toString())
-            Status.LOADING -> {
-            }
+            Status.LOADING -> Unit
         }
     }
 
@@ -104,8 +103,7 @@ class MainActivity : AppCompatActivity(), GithubUserHeaderViewHolder.Delegate, G
         when (resource.status) {
             Status.SUCCESS -> adapter.addFollowList(resource.data!!)
             Status.ERROR -> toast(resource.message.toString())
-            Status.LOADING -> {
-            }
+            Status.LOADING -> Unit
         }
     }
 

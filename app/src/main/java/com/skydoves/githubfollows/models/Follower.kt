@@ -10,6 +10,7 @@ import android.os.Parcelable
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "unused")
 @Entity
 data class Follower(
   @PrimaryKey(autoGenerate = true) val number: Int,

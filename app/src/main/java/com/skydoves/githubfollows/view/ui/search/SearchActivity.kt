@@ -1,15 +1,15 @@
 package com.skydoves.githubfollows.view.ui.search
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.KeyEvent
 import android.view.ViewTreeObserver
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.extension.checkIsMaterialVersion
 import com.skydoves.githubfollows.extension.circularRevealed
@@ -104,8 +104,7 @@ class SearchActivity : AppCompatActivity(), TextView.OnEditorActionListener, His
         when (resource.status) {
             Status.SUCCESS -> onSetResult(resource.data?.login!!)
             Status.ERROR -> toast(resource.message.toString())
-            Status.LOADING -> {
-            }
+            Status.LOADING -> Unit
         }
     }
 

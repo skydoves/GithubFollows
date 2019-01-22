@@ -14,6 +14,7 @@ import com.skydoves.githubfollows.view.viewholder.GithubUserViewHolder
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
+@Suppress("PrivatePropertyName", "MemberVisibilityCanBePrivate")
 class GithubUserAdapter(
   val delegate_header: GithubUserHeaderViewHolder.Delegate,
   val delegate: GithubUserViewHolder.Delegate
@@ -47,10 +48,8 @@ class GithubUserAdapter(
     }
 
     override fun layout(sectionRow: BaseAdapter.SectionRow): Int {
-        when (sectionRow.section()) {
-            section_header -> return R.layout.layout_detail_header
-            else -> return R.layout.item_github_user
-        }
+        if (sectionRow.section() == section_header) return R.layout.layout_detail_header
+        return R.layout.item_github_user
     }
 
     override fun viewHolder(layout: Int, view: View): BaseViewHolder {

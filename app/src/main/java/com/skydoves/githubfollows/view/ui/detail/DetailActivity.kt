@@ -138,8 +138,7 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
             Status.ERROR -> toast(resource.message.toString())
-            Status.LOADING -> {
-            }
+            Status.LOADING -> Unit
         }
     }
 

@@ -13,6 +13,7 @@ import javax.inject.Singleton
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
+@Suppress("unused")
 @Singleton
 @Component(modules = [
     (AndroidInjectionModule::class),

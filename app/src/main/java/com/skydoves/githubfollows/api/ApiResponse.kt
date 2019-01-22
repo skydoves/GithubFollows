@@ -13,6 +13,7 @@ import java.util.regex.Pattern
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
+@Suppress("JoinDeclarationAndAssignment")
 class ApiResponse<T> {
     val code: Int
     val body: T?

@@ -9,17 +9,18 @@ package com.skydoves.githubfollows.models
  * A generic class that holds a value with its loading status.
  * @param <T>
 </T> */
+@Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
 class Resource<out T>(val status: Status, val data: T?, val message: String?, val fetchStatus: FetchStatus) {
 
-    override fun equals(o: Any?): Boolean {
-        if (this === o) {
+    override fun equals(obj: Any?): Boolean {
+        if (this === obj) {
             return true
         }
-        if (o == null || javaClass != o.javaClass) {
+        if (obj == null || javaClass != obj.javaClass) {
             return false
         }
 
-        val resource = o as Resource<*>?
+        val resource = obj as Resource<*>?
 
         if (status !== resource!!.status) {
             return false
@@ -36,6 +37,15 @@ class Resource<out T>(val status: Status, val data: T?, val message: String?, va
                 ", message='" + message + '\'' +
                 ", data=" + data +
                 '}'
+    }
+
+    override fun hashCode(): Int {
+        var result = 17
+        result = 31 * result + status.hashCode()
+        result = 31 * result + data.hashCode()
+        result = 31 * result + message.hashCode()
+        result = 31 * result + fetchStatus.hashCode()
+        return result
     }
 
     companion object {
