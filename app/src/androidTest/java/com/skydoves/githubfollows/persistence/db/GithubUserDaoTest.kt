@@ -29,7 +29,7 @@ class GithubUserDaoTest : DBTest() {
     }
 
     @Test
-    fun insertGithubUsetTest() {
+    fun insertGithubUserTest() {
         db.githubUserDao().insertGithubUser(githubUser)
 
         val loaded = LiveDataTestUtil.getValue(db.githubUserDao().getGithubUser(login))

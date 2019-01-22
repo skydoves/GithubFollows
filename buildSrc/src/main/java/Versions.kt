@@ -40,6 +40,7 @@ object Versions {
     const val baseAdapter = "0.1.2"
     const val androidVeil = "1.0.3"
     const val mockito = "2.23.4"
+    const val mockitoKotlin = "2.0.0-RC1"
     const val mockWebServer = "3.12.1"
     const val espresso = "3.0.2"
     const val stetho = "1.5.0"

@@ -88,6 +88,7 @@ dependencies {
 
     testImplementation Dependencies.junit
     testImplementation Dependencies.mockito
+    testImplementation Dependencies.mockitoKotlin
     androidTestImplementation Dependencies.mockitoAndroid
     androidTestImplementation Dependencies.espresso
 }

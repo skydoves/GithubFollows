@@ -44,6 +44,7 @@ object Dependencies {
     val androidsvg = "com.caverock:androidsvg:${Versions.androidSvg}"
     val androidveil = "com.github.skydoves:androidveil:${Versions.androidVeil}"
     val mockito = "org.mockito:mockito-core:${Versions.mockito}"
+    val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockitoKotlin}"
     val mockitoAndroid = "org.mockito:mockito-android:${Versions.mockito}"
     val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.mockWebServer}"
     val espresso = "com.android.support.test.espresso:espresso-core:${Versions.espresso}"

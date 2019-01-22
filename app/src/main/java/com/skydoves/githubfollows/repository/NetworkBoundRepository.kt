@@ -22,11 +22,11 @@ internal constructor() {
 
     init {
         Timber.d("Injection NetworkBoundRepository")
-        result.postValue(Resource.loading(null, null))
         val loadedFromDB = loadFromDb()
         result.addSource(loadedFromDB) { data ->
             result.removeSource(loadedFromDB)
             if (shouldFetch(data)) {
+                result.postValue(Resource.loading(null, null))
                 fetchFromNetwork(loadedFromDB)
             } else {
                 result.addSource<ResultType>(loadedFromDB) { newData -> setValue(Resource.success(newData, 1)) }
@@ -36,7 +36,6 @@ internal constructor() {
 
     private fun fetchFromNetwork(loadedFromDB: LiveData<ResultType>) {
         val apiResponse = fetchService()
-        result.addSource(loadedFromDB) { newData -> setValue(Resource.loading(newData, 1)) }
         result.addSource(apiResponse) { response ->
             response?.let {
                 when (response.isSuccessful) {
@@ -52,12 +51,10 @@ internal constructor() {
                         }
                     }
                     false -> {
+                        result.removeSource(loadedFromDB)
                         onFetchFailed(response.envelope)
                         response.envelope?.let {
-                            result.removeSource(loadedFromDB)
-                            result.addSource<ResultType>(loadedFromDB) { newData ->
-                                setValue(Resource.error(it.message, newData))
-                            }
+                            result.addSource<ResultType>(loadedFromDB) { newData -> setValue(Resource.error(it.message, newData)) }
                         }
                     }
                 }
