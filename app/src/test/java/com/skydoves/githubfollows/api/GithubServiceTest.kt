@@ -1,5 +1,7 @@
 package com.skydoves.githubfollows.api
 
+import androidx.arch.core.executor.ArchTaskExecutor
+import androidx.arch.core.executor.TaskExecutor
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.skydoves.githubfollows.utils.LiveDataTestUtil
 import okhttp3.mockwebserver.MockResponse
@@ -27,11 +29,6 @@ import java.nio.charset.StandardCharsets
 
 @RunWith(JUnit4::class)
 class GithubServiceTest {
-
-    @Rule
-    @JvmField
-    val instantExecutorRule: InstantTaskExecutorRule = InstantTaskExecutorRule()
-
     private lateinit var service: GithubService
     private lateinit var mockWebServer: MockWebServer
 
@@ -45,12 +42,19 @@ class GithubServiceTest {
                 .addCallAdapterFactory(LiveDataCallAdapterFactory())
                 .build()
                 .create(GithubService::class.java)
+
+        ArchTaskExecutor.getInstance().setDelegate(object : TaskExecutor() {
+            override fun executeOnDiskIO(runnable: Runnable) = runnable.run()
+            override fun isMainThread() = true
+            override fun postToMainThread(runnable: Runnable) = runnable.run()
+        })
     }
 
     @Throws(IOException::class)
     @After
     fun stopService() {
         mockWebServer.shutdown()
+        ArchTaskExecutor.getInstance().setDelegate(null)
     }
 
     @Test
