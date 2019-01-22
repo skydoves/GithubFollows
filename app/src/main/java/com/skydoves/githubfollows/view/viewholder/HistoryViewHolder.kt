@@ -12,10 +12,11 @@ import kotlinx.android.synthetic.main.item_history.view.*
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-class HistoryViewHolder(private val view: View,
-                        private val delegate: Delegate)
-    : BaseViewHolder(view)
-{
+class HistoryViewHolder(
+  private val view: View,
+  private val delegate: Delegate
+)
+    : BaseViewHolder(view) {
 
     interface Delegate {
         fun onItemClicked(history: History)

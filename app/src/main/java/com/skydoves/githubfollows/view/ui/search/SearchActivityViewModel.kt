@@ -19,10 +19,11 @@ import javax.inject.Inject
  */
 
 class SearchActivityViewModel @Inject
-constructor(private val githubUserRepository: GithubUserRepository,
-            private val historyRepository: HistoryRepository)
-    : ViewModel()
-{
+constructor(
+  private val githubUserRepository: GithubUserRepository,
+  private val historyRepository: HistoryRepository
+)
+    : ViewModel() {
 
     val login: MutableLiveData<String> = MutableLiveData()
     val githubUserLiveData: LiveData<Resource<GithubUser>>

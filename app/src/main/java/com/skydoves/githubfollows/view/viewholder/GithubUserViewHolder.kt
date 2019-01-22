@@ -20,10 +20,11 @@ import kotlinx.android.synthetic.main.item_github_user.view.*
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-class GithubUserViewHolder(private val view: View,
-                           private val delegate: Delegate)
-    : BaseViewHolder(view)
-{
+class GithubUserViewHolder(
+  private val view: View,
+  private val delegate: Delegate
+)
+    : BaseViewHolder(view) {
 
     interface Delegate {
         fun onItemClick(githubUser: Follower, view: View)
