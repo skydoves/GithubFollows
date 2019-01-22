@@ -4,6 +4,7 @@ import androidx.databinding.DataBindingUtil
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.skydoves.baserecyclerviewadapter.BaseViewHolder
 import com.skydoves.githubfollows.databinding.LayoutDetailHeaderBinding
 import com.skydoves.githubfollows.models.GithubUser
 import kotlinx.android.synthetic.main.layout_detail_header.view.*
@@ -13,7 +14,10 @@ import kotlinx.android.synthetic.main.layout_detail_header.view.*
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-class GithubUserHeaderViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(view) {
+class GithubUserHeaderViewHolder(private val view: View,
+                                 private val delegate: Delegate)
+    : BaseViewHolder(view)
+{
 
     private lateinit var githubUser: GithubUser
     val binding by lazy { DataBindingUtil.bind<LayoutDetailHeaderBinding>(view) }
@@ -46,7 +50,5 @@ class GithubUserHeaderViewHolder(view: View, val delegate: Delegate) : BaseViewH
         delegate.onCardClicked(githubUser)
     }
 
-    override fun onLongClick(view: View): Boolean {
-        return false
-    }
+    override fun onLongClick(view: View) = false
 }

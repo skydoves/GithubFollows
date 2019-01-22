@@ -1,11 +1,13 @@
 package com.skydoves.githubfollows.view.adapter
 
 import android.view.View
+import com.skydoves.baserecyclerviewadapter.BaseAdapter
+import com.skydoves.baserecyclerviewadapter.BaseViewHolder
+import com.skydoves.baserecyclerviewadapter.SectionRow
 import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.Resource
-import com.skydoves.githubfollows.view.viewholder.BaseViewHolder
 import com.skydoves.githubfollows.view.viewholder.GithubUserHeaderViewHolder
 import com.skydoves.githubfollows.view.viewholder.GithubUserViewHolder
 
@@ -16,8 +18,8 @@ import com.skydoves.githubfollows.view.viewholder.GithubUserViewHolder
 
 @Suppress("PrivatePropertyName", "MemberVisibilityCanBePrivate")
 class GithubUserAdapter(
-  val delegate_header: GithubUserHeaderViewHolder.Delegate,
-  val delegate: GithubUserViewHolder.Delegate
+  private val delegate_header: GithubUserHeaderViewHolder.Delegate,
+  private val delegate: GithubUserViewHolder.Delegate
 ) : BaseAdapter() {
 
     private val section_header = 0
@@ -47,7 +49,7 @@ class GithubUserAdapter(
         notifyDataSetChanged()
     }
 
-    override fun layout(sectionRow: BaseAdapter.SectionRow): Int {
+    override fun layout(sectionRow: SectionRow): Int {
         if (sectionRow.section() == section_header) return R.layout.layout_detail_header
         return R.layout.item_github_user
     }

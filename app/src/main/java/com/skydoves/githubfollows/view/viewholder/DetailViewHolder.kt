@@ -1,10 +1,11 @@
 package com.skydoves.githubfollows.view.viewholder
 
-import androidx.databinding.DataBindingUtil
-import androidx.core.content.ContextCompat
 import android.text.util.Linkify
 import android.util.Patterns
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
+import com.skydoves.baserecyclerviewadapter.BaseViewHolder
 import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.databinding.ItemDetailInfoBinding
 import com.skydoves.githubfollows.models.ItemDetail
@@ -16,7 +17,9 @@ import org.jetbrains.anko.textColor
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-class DetailViewHolder(view: View) : BaseViewHolder(view) {
+class DetailViewHolder(view: View)
+    : BaseViewHolder(view)
+{
 
     private lateinit var itemDetail: ItemDetail
     private val binding by lazy { DataBindingUtil.bind<ItemDetailInfoBinding>(view) }
@@ -44,10 +47,7 @@ class DetailViewHolder(view: View) : BaseViewHolder(view) {
         }
     }
 
-    override fun onClick(view: View) {
-    }
+    override fun onClick(view: View) = Unit
 
-    override fun onLongClick(view: View): Boolean {
-        return false
-    }
+    override fun onLongClick(view: View) = false
 }

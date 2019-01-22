@@ -1,14 +1,15 @@
 package com.skydoves.githubfollows.view.viewholder
 
-import androidx.databinding.DataBindingUtil
 import android.graphics.drawable.Drawable
 import android.view.View
+import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.skydoves.baserecyclerviewadapter.BaseViewHolder
 import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.databinding.ItemGithubUserBinding
 import com.skydoves.githubfollows.models.Follower
@@ -19,7 +20,10 @@ import kotlinx.android.synthetic.main.item_github_user.view.*
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-class GithubUserViewHolder(view: View, private val delegate: Delegate) : BaseViewHolder(view) {
+class GithubUserViewHolder(private val view: View,
+                           private val delegate: Delegate)
+    : BaseViewHolder(view)
+{
 
     interface Delegate {
         fun onItemClick(githubUser: Follower, view: View)
@@ -63,7 +67,5 @@ class GithubUserViewHolder(view: View, private val delegate: Delegate) : BaseVie
         delegate.onItemClick(githubUser, itemView.item_user_avatar)
     }
 
-    override fun onLongClick(view: View): Boolean {
-        return false
-    }
+    override fun onLongClick(view: View) = false
 }

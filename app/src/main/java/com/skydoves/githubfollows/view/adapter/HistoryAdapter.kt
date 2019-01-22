@@ -1,10 +1,11 @@
 package com.skydoves.githubfollows.view.adapter
 
 import android.view.View
+import com.skydoves.baserecyclerviewadapter.BaseAdapter
+import com.skydoves.baserecyclerviewadapter.BaseViewHolder
+import com.skydoves.baserecyclerviewadapter.SectionRow
 import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.models.History
-
-import com.skydoves.githubfollows.view.viewholder.BaseViewHolder
 import com.skydoves.githubfollows.view.viewholder.HistoryViewHolder
 
 /**
@@ -13,7 +14,9 @@ import com.skydoves.githubfollows.view.viewholder.HistoryViewHolder
  */
 
 @Suppress("PrivatePropertyName")
-class HistoryAdapter(private val delegate: HistoryViewHolder.Delegate) : BaseAdapter() {
+class HistoryAdapter(private val delegate: HistoryViewHolder.Delegate)
+    : BaseAdapter()
+{
 
     private val section_history = 0
 
@@ -27,7 +30,7 @@ class HistoryAdapter(private val delegate: HistoryViewHolder.Delegate) : BaseAda
         notifyDataSetChanged()
     }
 
-    override fun layout(sectionRow: BaseAdapter.SectionRow): Int {
+    override fun layout(sectionRow: SectionRow): Int {
         return R.layout.item_history
     }
 

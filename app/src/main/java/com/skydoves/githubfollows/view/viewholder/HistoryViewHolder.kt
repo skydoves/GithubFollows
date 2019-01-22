@@ -1,7 +1,8 @@
 package com.skydoves.githubfollows.view.viewholder
 
-import androidx.databinding.DataBindingUtil
 import android.view.View
+import androidx.databinding.DataBindingUtil
+import com.skydoves.baserecyclerviewadapter.BaseViewHolder
 import com.skydoves.githubfollows.databinding.ItemHistoryBinding
 import com.skydoves.githubfollows.models.History
 import kotlinx.android.synthetic.main.item_history.view.*
@@ -11,7 +12,10 @@ import kotlinx.android.synthetic.main.item_history.view.*
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
-class HistoryViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(view) {
+class HistoryViewHolder(private val view: View,
+                        private val delegate: Delegate)
+    : BaseViewHolder(view)
+{
 
     interface Delegate {
         fun onItemClicked(history: History)
@@ -41,7 +45,5 @@ class HistoryViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(vie
         delegate.onItemClicked(history)
     }
 
-    override fun onLongClick(view: View): Boolean {
-        return false
-    }
+    override fun onLongClick(view: View) = false
 }
