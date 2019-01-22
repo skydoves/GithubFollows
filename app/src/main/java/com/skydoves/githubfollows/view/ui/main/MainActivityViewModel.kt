@@ -36,14 +36,14 @@ constructor(private val githubUserRepository: GithubUserRepository) : ViewModel(
 
         login.postValue(getUserName())
         githubUserLiveData = Transformations.switchMap(login) {
-            login.value?.let { githubUserRepository.loadUser(it) }
+            login.value?.let { user -> githubUserRepository.loadUser(user) }
                     ?: AbsentLiveData.create()
         }
 
         isFollowers.postValue(isFollowers())
         followersLiveData = Transformations.switchMap(page) {
-            login.value?.let {
-                githubUserRepository.loadFollowers(it, page.value!!, isFollowers.value!!)
+            login.value?.let { user ->
+                githubUserRepository.loadFollowers(user, page.value!!, isFollowers.value!!)
             }
                     ?: AbsentLiveData.create()
         }

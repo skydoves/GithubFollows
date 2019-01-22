@@ -26,7 +26,7 @@ constructor(private val repository: GithubUserRepository) : ViewModel() {
         Timber.d("Injection DetailActivityViewModel")
 
         githubUserLiveData = Transformations.switchMap(login) {
-            login.value?.let { repository.loadUser(it) }
+            login.value?.let { user -> repository.loadUser(user) }
                     ?: AbsentLiveData.create()
         }
     }

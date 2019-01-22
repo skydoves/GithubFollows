@@ -1,18 +1,18 @@
 package com.skydoves.githubfollows.view.ui.detail
 
 import android.app.Activity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.content.Intent
-import androidx.databinding.DataBindingUtil
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.PictureDrawable
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
-import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -25,11 +25,11 @@ import com.skydoves.githubfollows.extension.checkIsMaterialVersion
 import com.skydoves.githubfollows.extension.fromResource
 import com.skydoves.githubfollows.extension.gone
 import com.skydoves.githubfollows.factory.AppViewModelFactory
-import com.skydoves.githubfollows.models.Resource
-import com.skydoves.githubfollows.models.GithubUser
-import com.skydoves.githubfollows.models.Status
-import com.skydoves.githubfollows.models.ItemDetail
 import com.skydoves.githubfollows.models.Follower
+import com.skydoves.githubfollows.models.GithubUser
+import com.skydoves.githubfollows.models.ItemDetail
+import com.skydoves.githubfollows.models.Resource
+import com.skydoves.githubfollows.models.Status
 import com.skydoves.githubfollows.utils.GlideUtils
 import com.skydoves.githubfollows.view.adapter.DetailAdapter
 import dagger.android.AndroidInjection
@@ -108,14 +108,12 @@ class DetailActivity : AppCompatActivity() {
                     binding.detailHeader.githubUser = it
                     binding.executePendingBindings()
 
-                    adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_person_pin), it.html_url))
-                    it.company?.let { adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_people), it)) }
-                    it.location?.let { adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_location), it)) }
-                    it.blog?.let {
-                        if (it.isNotEmpty()) {
-                            adapter.addItemDetail(ItemDetail(fromResource(this, R.drawable.ic_insert_link), it))
-                        }
-                    }
+                    val itemList = ArrayList<ItemDetail>()
+                    itemList.add(ItemDetail(fromResource(this, R.drawable.ic_person_pin), it.html_url))
+                    it.company?.let { itemList.add(ItemDetail(fromResource(this, R.drawable.ic_people), it)) }
+                    it.location?.let { itemList.add(ItemDetail(fromResource(this, R.drawable.ic_location), it)) }
+                    it.blog?.let { itemList.add(ItemDetail(fromResource(this, R.drawable.ic_insert_link), it)) }
+                    adapter.addItemDetailList(itemList)
 
                     GlideUtils.getSvgRequestBuilder(this)
                             .load("${getString(R.string.ghchart)}${it.login}")

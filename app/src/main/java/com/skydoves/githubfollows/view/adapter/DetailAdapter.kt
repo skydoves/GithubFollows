@@ -18,13 +18,15 @@ class DetailAdapter : BaseAdapter() {
 
     private val section_itemDetail = 0
 
-    init {
+    fun addItemDetailList(itemDetail: List<ItemDetail>) {
+        clearSections()
         addSection(ArrayList<ItemDetail>())
-    }
-
-    fun addItemDetail(itemDetail: ItemDetail) {
-        sections[section_itemDetail].add(itemDetail)
-        notifyItemChanged(sections[section_itemDetail].size)
+        for (item in itemDetail) {
+            if (item.content.isNotEmpty()) {
+                addItemOnSection(section_itemDetail, item)
+            }
+        }
+        notifyDataSetChanged()
     }
 
     override fun layout(sectionRow: SectionRow): Int {
