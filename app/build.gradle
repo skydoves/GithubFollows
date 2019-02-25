@@ -12,6 +12,7 @@ android {
         versionCode Versions.versionCode
         versionName Versions.versionName
         testInstrumentationRunner "com.skydoves.githubfollows.util.JunitTestRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -86,11 +87,14 @@ dependencies {
     implementation Dependencies.baseadapter
     implementation Dependencies.androidveil
 
+    implementation Dependencies.multiDex
+
     testImplementation Dependencies.junit
     testImplementation Dependencies.mockito
     testImplementation Dependencies.mockitoKotlin
     androidTestImplementation Dependencies.mockitoAndroid
     androidTestImplementation Dependencies.espresso
+
 }
 
 apply from: '../spotless.gradle'

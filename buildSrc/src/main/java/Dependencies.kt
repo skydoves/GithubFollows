@@ -50,4 +50,5 @@ object Dependencies {
     val espresso = "com.android.support.test.espresso:espresso-core:${Versions.espresso}"
     val stetho = "com.facebook.stetho:stetho:${Versions.stetho}"
     val stetho_okhttp = "com.facebook.stetho:stetho-okhttp3:${Versions.stetho}"
+    val multiDex = "com.android.support:multidex:${Versions.multiDex}"
 }

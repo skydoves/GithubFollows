@@ -15,14 +15,14 @@ object Versions {
     const val versionCode = versionMajor * 100 + versionMinor * 10 + versionPatch
     const val versionName = "$versionMajor.$versionMinor.$versionPatch"
 
-    const val gradle = "3.3.0"
+    const val gradle = "3.3.1"
     const val benManes = "0.20.0"
     const val spotless = "3.16.0"
     const val junit = "4.12"
     const val androidx = "1.0.0"
     const val accompat = "1.0.2"
     const val material = "1.1.0-alpha01"
-    const val kotlin = "1.3.11"
+    const val kotlin = "1.3.20"
     const val anko = "0.10.8"
     const val archComponent = "1.1.1"
     const val archCoreTesting = "1.1.1"
@@ -44,4 +44,5 @@ object Versions {
     const val mockWebServer = "3.12.1"
     const val espresso = "3.0.2"
     const val stetho = "1.5.0"
+    const val multiDex = "1.0.3"
 }
