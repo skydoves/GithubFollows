@@ -32,32 +32,32 @@ class GithubUserAdapter(
 
     fun updateHeader(resource: Resource<GithubUser>) {
         resource.data?.let {
-            sections[section_header].clear()
-            sections[section_header].add(it)
+            sections()[section_header].clear()
+            sections()[section_header].add(it)
             notifyDataSetChanged()
         }
     }
 
     fun addFollowList(followers: List<Follower>) {
-        sections[section_follower].addAll(followers)
+        sections()[section_follower].addAll(followers)
         notifyDataSetChanged()
     }
 
     fun clearAll() {
-        sections[section_header].clear()
-        sections[section_follower].clear()
+        sections()[section_header].clear()
+        sections()[section_follower].clear()
         notifyDataSetChanged()
     }
 
     override fun layout(sectionRow: SectionRow): Int {
-        if (sectionRow.section() == section_header) return R.layout.layout_detail_header
+        if (sectionRow.section == section_header) return R.layout.layout_detail_header
         return R.layout.item_github_user
     }
 
     override fun viewHolder(layout: Int, view: View): BaseViewHolder {
-        when (layout) {
-            R.layout.layout_detail_header -> return GithubUserHeaderViewHolder(view, delegate_header)
-            else -> return GithubUserViewHolder(view, delegate)
+        return when (layout) {
+            R.layout.layout_detail_header -> GithubUserHeaderViewHolder(view, delegate_header)
+            else -> GithubUserViewHolder(view, delegate)
         }
     }
 }

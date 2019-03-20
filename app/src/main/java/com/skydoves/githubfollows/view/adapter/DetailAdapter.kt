@@ -19,7 +19,7 @@ class DetailAdapter : BaseAdapter() {
     private val section_itemDetail = 0
 
     fun addItemDetailList(itemDetail: List<ItemDetail>) {
-        clearSections()
+        clearAllSections()
         addSection(ArrayList<ItemDetail>())
         for (item in itemDetail) {
             if (item.content.isNotEmpty()) {

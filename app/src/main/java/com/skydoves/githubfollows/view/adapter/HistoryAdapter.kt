@@ -24,8 +24,8 @@ class HistoryAdapter(private val delegate: HistoryViewHolder.Delegate)
     }
 
     fun updateItemList(histories: List<History>) {
-        sections[section_history].clear()
-        sections[section_history].addAll(histories)
+        sections()[section_history].clear()
+        sections()[section_history].addAll(histories)
         notifyDataSetChanged()
     }
 
