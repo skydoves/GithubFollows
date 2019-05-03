@@ -18,21 +18,22 @@ import dagger.multibindings.IntoMap
 @Suppress("unused")
 @Module
 internal abstract class ViewModelModule {
-    @Binds
-    @IntoMap
-    @ViewModelKey(MainActivityViewModel::class)
-    internal abstract fun bindMainActivityViewModel(mainActivityViewModel: MainActivityViewModel): ViewModel
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(SearchActivityViewModel::class)
-    internal abstract fun bindSearchActivityViewModel(searchActivityViewModel: SearchActivityViewModel): ViewModel
+  @Binds
+  @IntoMap
+  @ViewModelKey(MainActivityViewModel::class)
+  internal abstract fun bindMainActivityViewModel(mainActivityViewModel: MainActivityViewModel): ViewModel
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(DetailActivityViewModel::class)
-    internal abstract fun bindDetailActivityViewModel(detailActivityViewModel: DetailActivityViewModel): ViewModel
+  @Binds
+  @IntoMap
+  @ViewModelKey(SearchActivityViewModel::class)
+  internal abstract fun bindSearchActivityViewModel(searchActivityViewModel: SearchActivityViewModel): ViewModel
 
-    @Binds
-    internal abstract fun bindViewModelFactory(appViewModelFactory: AppViewModelFactory): ViewModelProvider.Factory
+  @Binds
+  @IntoMap
+  @ViewModelKey(DetailActivityViewModel::class)
+  internal abstract fun bindDetailActivityViewModel(detailActivityViewModel: DetailActivityViewModel): ViewModel
+
+  @Binds
+  internal abstract fun bindViewModelFactory(appViewModelFactory: AppViewModelFactory): ViewModelProvider.Factory
 }

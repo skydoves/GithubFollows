@@ -19,30 +19,30 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class HistoryDaoTest : DBTest() {
 
-    private lateinit var history: History
-    private val search = "skydoves"
+  private lateinit var history: History
+  private val search = "skydoves"
 
-    @Before
-    fun initMock() {
-        history = MockTestUtil.mockHistory()
-    }
+  @Before
+  fun initMock() {
+    history = MockTestUtil.mockHistory()
+  }
 
-    @Test
-    fun insertHistoryTest() {
-        db.historyDao().insertHistory(history)
+  @Test
+  fun insertHistoryTest() {
+    db.historyDao().insertHistory(history)
 
-        val loaded = LiveDataTestUtil.getValue(db.historyDao().selectRecentHistoryList())
-        assertThat(loaded, notNullValue())
-        assertThat(loaded[0].search, `is`(search))
-        assertThat(loaded[0].history, `is`(MockTestUtil.mockTime))
-    }
+    val loaded = LiveDataTestUtil.getValue(db.historyDao().selectRecentHistoryList())
+    assertThat(loaded, notNullValue())
+    assertThat(loaded[0].search, `is`(search))
+    assertThat(loaded[0].history, `is`(MockTestUtil.mockTime))
+  }
 
-    @Test
-    fun deleteHistoryTest() {
-        db.historyDao().insertHistory(history)
-        db.historyDao().deleteHistory(search)
+  @Test
+  fun deleteHistoryTest() {
+    db.historyDao().insertHistory(history)
+    db.historyDao().deleteHistory(search)
 
-        val loaded = LiveDataTestUtil.getValue(db.historyDao().selectRecentHistoryList())
-        assertThat(loaded.size, `is`(0))
-    }
+    val loaded = LiveDataTestUtil.getValue(db.historyDao().selectRecentHistoryList())
+    assertThat(loaded.size, `is`(0))
+  }
 }

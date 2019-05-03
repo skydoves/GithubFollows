@@ -15,9 +15,9 @@ object Versions {
     const val versionCode = versionMajor * 100 + versionMinor * 10 + versionPatch
     const val versionName = "$versionMajor.$versionMinor.$versionPatch"
 
-    const val gradle = "3.3.2"
+    const val gradle = "3.4.0"
     const val benManes = "0.20.0"
-    const val spotless = "3.20.0"
+    const val spotless = "3.22.0"
     const val junit = "4.12"
     const val androidx = "1.0.0"
     const val accompat = "1.0.2"

@@ -14,12 +14,12 @@ import com.skydoves.githubfollows.models.GithubUser
 
 @Dao
 interface GithubUserDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertGithubUser(githubUser: GithubUser)
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  fun insertGithubUser(githubUser: GithubUser)
 
-    @Query("SELECT * FROM GithubUser WHERE login = :user COLLATE NOCASE LIMIT 1")
-    fun getGithubUser(user: String): LiveData<GithubUser>
+  @Query("SELECT * FROM GithubUser WHERE login = :user COLLATE NOCASE LIMIT 1")
+  fun getGithubUser(user: String): LiveData<GithubUser>
 
-    @Query("DELETE FROM GithubUser")
-    fun truncateGithubUser()
+  @Query("DELETE FROM GithubUser")
+  fun truncateGithubUser()
 }

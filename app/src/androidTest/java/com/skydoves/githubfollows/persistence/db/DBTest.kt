@@ -17,16 +17,16 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 abstract class DBTest {
-    lateinit var db: AppDatabase
+  lateinit var db: AppDatabase
 
-    @Before
-    fun initDB() {
-        db = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getContext(),
-                AppDatabase::class.java).build()
-    }
+  @Before
+  fun initDB() {
+    db = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getContext(),
+        AppDatabase::class.java).build()
+  }
 
-    @After
-    fun closeDB() {
-        db.close()
-    }
+  @After
+  fun closeDB() {
+    db.close()
+  }
 }

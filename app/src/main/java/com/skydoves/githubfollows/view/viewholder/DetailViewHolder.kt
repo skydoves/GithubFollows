@@ -18,35 +18,34 @@ import org.jetbrains.anko.textColor
  */
 
 class DetailViewHolder(view: View)
-    : BaseViewHolder(view) {
+  : BaseViewHolder(view)
+{
 
-    private lateinit var itemDetail: ItemDetail
-    private val binding by lazy { DataBindingUtil.bind<ItemDetailInfoBinding>(view) }
+  private lateinit var itemDetail: ItemDetail
+  private val binding by lazy { DataBindingUtil.bind<ItemDetailInfoBinding>(view) }
 
-    @Throws(Exception::class)
-    override fun bindData(data: Any) {
-        if (data is ItemDetail) {
-            itemDetail = data
-            drawItem()
-        }
+  @Throws(Exception::class)
+  override fun bindData(data: Any) {
+    if (data is ItemDetail) {
+      itemDetail = data
+      drawItem()
     }
+  }
 
-    private fun drawItem() {
-        itemView.run {
-            binding?.itemDetail = itemDetail
-            binding?.executePendingBindings()
-
-            when (Patterns.WEB_URL.matcher(itemDetail.content).matches()) {
-                true -> {
-                    detail_info_content.textColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
-                    Linkify.addLinks(detail_info_content, Linkify.WEB_URLS)
-                }
-                false -> detail_info_content.textColor = ContextCompat.getColor(context, R.color.white)
-            }
-        }
+  private fun drawItem() {
+    itemView.run {
+      binding?.itemDetail = itemDetail
+      binding?.executePendingBindings()
+      if (Patterns.WEB_URL.matcher(itemDetail.content).matches()) {
+        detail_info_content.textColor = ContextCompat.getColor(context, R.color.colorPrimaryDark)
+        Linkify.addLinks(detail_info_content, Linkify.WEB_URLS)
+      } else {
+        detail_info_content.textColor = ContextCompat.getColor(context, R.color.white)
+      }
     }
+  }
 
-    override fun onClick(view: View) = Unit
+  override fun onClick(view: View) = Unit
 
-    override fun onLongClick(view: View) = false
+  override fun onLongClick(view: View) = false
 }

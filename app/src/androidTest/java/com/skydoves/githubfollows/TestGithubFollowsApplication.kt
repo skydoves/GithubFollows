@@ -15,8 +15,8 @@ import com.skydoves.githubfollows.preference.PreferenceComponent_PrefAppComponen
  * See [com.skydoves.githubfollows.util.JunitTestRunner].
  */
 class TestGithubFollowsApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        PreferenceComponent_PrefAppComponent.init(this)
-    }
+  override fun onCreate() {
+    super.onCreate()
+    PreferenceComponent_PrefAppComponent.init(this)
+  }
 }

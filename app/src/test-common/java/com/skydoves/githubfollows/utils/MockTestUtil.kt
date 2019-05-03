@@ -11,25 +11,25 @@ import java.util.Calendar
  */
 
 class MockTestUtil {
-    companion object {
+  companion object {
 
-        val mockTime = Calendar.getInstance().timeInMillis
+    val mockTime = Calendar.getInstance().timeInMillis
 
-        fun mockHistory(): History {
-            return History("skydoves", mockTime)
-        }
-
-        fun mockGithubUser(): GithubUser {
-            return GithubUser("skydoves", 1000, "", "", "", "", "", "", "",
-                    "", "", "", "", "", "", "", false,
-                    null, null, null, null, null, false, null, 0, 0, 0,
-                    0, "", "")
-        }
-
-        fun mockFollower(): Follower {
-            return Follower(0, "skydoves", 1000, "", "", "", "", "", "",
-                    "", "", "", "", "", "", "", "",
-                    false, "skydoves", 1, false)
-        }
+    fun mockHistory(): History {
+      return History("skydoves", mockTime)
     }
+
+    fun mockGithubUser(): GithubUser {
+      return GithubUser("skydoves", 1000, "", "", "", "", "", "", "",
+          "", "", "", "", "", "", "", false,
+          null, null, null, null, null, false, null, 0, 0, 0,
+          0, "", "")
+    }
+
+    fun mockFollower(): Follower {
+      return Follower(0, "skydoves", 1000, "", "", "", "", "", "",
+          "", "", "", "", "", "", "", "",
+          false, "skydoves", 1, false)
+    }
+  }
 }

@@ -14,9 +14,9 @@ import com.skydoves.githubfollows.models.Follower
 
 @Dao
 interface FollowersDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFollowers(followers: List<Follower>)
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  fun insertFollowers(followers: List<Follower>)
 
-    @Query("SELECT * FROM Follower WHERE owner = :owner_ AND page = :page_ AND isFollower = :isFollower_")
-    fun getFollowers(owner_: String, page_: Int, isFollower_: Boolean): LiveData<List<Follower>>
+  @Query("SELECT * FROM Follower WHERE owner = :owner_ AND page = :page_ AND isFollower = :isFollower_")
+  fun getFollowers(owner_: String, page_: Int, isFollower_: Boolean): LiveData<List<Follower>>
 }

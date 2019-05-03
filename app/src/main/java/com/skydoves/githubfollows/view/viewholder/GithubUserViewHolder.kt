@@ -21,52 +21,52 @@ import kotlinx.android.synthetic.main.item_github_user.view.*
  */
 
 class GithubUserViewHolder(
-  private val view: View,
-  private val delegate: Delegate
-)
-    : BaseViewHolder(view) {
+    private val view: View,
+    private val delegate: Delegate
+) : BaseViewHolder(view)
+{
 
-    interface Delegate {
-        fun onItemClick(githubUser: Follower, view: View)
+  interface Delegate {
+    fun onItemClick(githubUser: Follower, view: View)
+  }
+
+  private lateinit var githubUser: Follower
+  private val binding by lazy { DataBindingUtil.bind<ItemGithubUserBinding>(view) }
+
+  @Throws(Exception::class)
+  override fun bindData(data: Any) {
+    if (data is Follower) {
+      githubUser = data
+      drawUI()
     }
+  }
 
-    private lateinit var githubUser: Follower
-    private val binding by lazy { DataBindingUtil.bind<ItemGithubUserBinding>(view) }
+  private fun drawUI() {
+    binding?.follower = githubUser
+    binding?.executePendingBindings()
+    itemView.run {
+      item_user_veilLayout.veil()
+      Glide.with(context)
+          .load(githubUser.avatar_url)
+          .apply(RequestOptions().circleCrop().override(100).placeholder(R.drawable.ic_account))
+          .listener(object : RequestListener<Drawable> {
+            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+              item_user_veilLayout.unVeil()
+              return false
+            }
 
-    @Throws(Exception::class)
-    override fun bindData(data: Any) {
-        if (data is Follower) {
-            githubUser = data
-            drawUI()
-        }
+            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+              item_user_veilLayout.unVeil()
+              return false
+            }
+          })
+          .into(item_user_avatar)
     }
+  }
 
-    private fun drawUI() {
-        binding?.follower = githubUser
-        binding?.executePendingBindings()
-        itemView.run {
-            item_user_veilLayout.veil()
-            Glide.with(context)
-                    .load(githubUser.avatar_url)
-                    .apply(RequestOptions().circleCrop().override(100).placeholder(R.drawable.ic_account))
-                    .listener(object : RequestListener<Drawable> {
-                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                            item_user_veilLayout.unVeil()
-                            return false
-                        }
+  override fun onClick(view: View) {
+    delegate.onItemClick(githubUser, itemView.item_user_avatar)
+  }
 
-                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                            item_user_veilLayout.unVeil()
-                            return false
-                        }
-                    })
-                    .into(item_user_avatar)
-        }
-    }
-
-    override fun onClick(view: View) {
-        delegate.onItemClick(githubUser, itemView.item_user_avatar)
-    }
-
-    override fun onLongClick(view: View) = false
+  override fun onLongClick(view: View) = false
 }

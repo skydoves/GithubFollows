@@ -16,24 +16,20 @@ import com.skydoves.githubfollows.view.viewholder.DetailViewHolder
 @Suppress("PrivatePropertyName")
 class DetailAdapter : BaseAdapter() {
 
-    private val section_itemDetail = 0
+  private val section_itemDetail = 0
 
-    fun addItemDetailList(itemDetail: List<ItemDetail>) {
-        clearAllSections()
-        addSection(ArrayList<ItemDetail>())
-        for (item in itemDetail) {
-            if (item.content.isNotEmpty()) {
-                addItemOnSection(section_itemDetail, item)
-            }
-        }
-        notifyDataSetChanged()
+  fun addItemDetailList(itemDetail: List<ItemDetail>) {
+    clearAllSections()
+    addSection(ArrayList<ItemDetail>())
+    for (item in itemDetail) {
+      if (item.content.isNotEmpty()) {
+        addItemOnSection(section_itemDetail, item)
+      }
     }
+    notifyDataSetChanged()
+  }
 
-    override fun layout(sectionRow: SectionRow): Int {
-        return R.layout.item_detail_info
-    }
+  override fun layout(sectionRow: SectionRow) = R.layout.item_detail_info
 
-    override fun viewHolder(layout: Int, view: View): BaseViewHolder {
-        return DetailViewHolder(view)
-    }
+  override fun viewHolder(layout: Int, view: View) = DetailViewHolder(view)
 }

@@ -47,122 +47,122 @@ import javax.inject.Inject
 
 class DetailActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var viewModelFactory: AppViewModelFactory
+  @Inject
+  lateinit var viewModelFactory: AppViewModelFactory
 
-    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DetailActivityViewModel::class.java) }
-    private val binding by lazy { DataBindingUtil.setContentView<ActivityDetailBinding>(this, R.layout.activity_detail) }
-    private val adapter by lazy { DetailAdapter() }
+  private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DetailActivityViewModel::class.java) }
+  private val binding by lazy { DataBindingUtil.setContentView<ActivityDetailBinding>(this, R.layout.activity_detail) }
+  private val adapter by lazy { DetailAdapter() }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
-        super.onCreate(savedInstanceState)
-        supportPostponeEnterTransition()
+  override fun onCreate(savedInstanceState: Bundle?) {
+    AndroidInjection.inject(this)
+    super.onCreate(savedInstanceState)
+    supportPostponeEnterTransition()
 
-        initializeListeners()
-        initializeUI()
+    initializeListeners()
+    initializeUI()
+  }
+
+  private fun initializeListeners() {
+    binding.detailToolbar.toolbar_home?.setOnClickListener { onBackPressed() }
+    detail_header_cardView.setOnClickListener {
+      setResult(intent_requestCode, Intent().putExtra(viewModel.getUserKeyName(), getLoginFromIntent()))
+      onBackPressed()
     }
+  }
 
-    private fun initializeListeners() {
-        binding.detailToolbar.toolbar_home?.setOnClickListener { onBackPressed() }
-        detail_header_cardView.setOnClickListener {
-            setResult(intent_requestCode, Intent().putExtra(viewModel.getUserKeyName(), getLoginFromIntent()))
-            onBackPressed()
-        }
-    }
+  private fun initializeUI() {
+    binding.detailToolbar.toolbar_title?.text = getLoginFromIntent()
+    Glide.with(this)
+        .load(getAvatarFromIntent())
+        .apply(RequestOptions().circleCrop().dontAnimate())
+        .listener(object : RequestListener<Drawable> {
+          override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+            supportStartPostponedEnterTransition()
+            observeViewModel()
+            return false
+          }
 
-    private fun initializeUI() {
-        binding.detailToolbar.toolbar_title?.text = getLoginFromIntent()
-        Glide.with(this)
-                .load(getAvatarFromIntent())
-                .apply(RequestOptions().circleCrop().dontAnimate())
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        supportStartPostponedEnterTransition()
-                        observeViewModel()
-                        return false
-                    }
+          override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+            supportStartPostponedEnterTransition()
+            observeViewModel()
+            return false
+          }
+        })
+        .into(detail_header_avatar)
 
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        supportStartPostponedEnterTransition()
-                        observeViewModel()
-                        return false
-                    }
-                })
-                .into(detail_header_avatar)
+    detail_body_recyclerViewFrame.setLayoutManager(LinearLayoutManager(this))
+    detail_body_recyclerViewFrame.setAdapter(adapter)
+    detail_body_recyclerViewFrame.addVeiledItems(3)
+  }
 
-        detail_body_recyclerViewFrame.setLayoutManager(LinearLayoutManager(this))
-        detail_body_recyclerViewFrame.setAdapter(adapter)
-        detail_body_recyclerViewFrame.addVeiledItems(3)
-    }
+  private fun observeViewModel() {
+    viewModel.setUser(getLoginFromIntent())
+    observeLiveData(viewModel.githubUserLiveData) { updateUI(it) }
+  }
 
-    private fun observeViewModel() {
-        viewModel.setUser(getLoginFromIntent())
-        observeLiveData(viewModel.githubUserLiveData) { updateUI(it) }
-    }
+  private fun updateUI(resource: Resource<GithubUser>) {
+    when (resource.status) {
+      Status.SUCCESS -> {
+        resource.data?.let {
+          binding.detailHeader.githubUser = it
+          binding.executePendingBindings()
 
-    private fun updateUI(resource: Resource<GithubUser>) {
-        when (resource.status) {
-            Status.SUCCESS -> {
-                resource.data?.let {
-                    binding.detailHeader.githubUser = it
-                    binding.executePendingBindings()
+          val itemList = ArrayList<ItemDetail>()
+          itemList.add(ItemDetail(fromResource(this, R.drawable.ic_person_pin), it.html_url))
+          it.company?.let { itemList.add(ItemDetail(fromResource(this, R.drawable.ic_people), it)) }
+          it.location?.let { itemList.add(ItemDetail(fromResource(this, R.drawable.ic_location), it)) }
+          it.blog?.let { itemList.add(ItemDetail(fromResource(this, R.drawable.ic_insert_link), it)) }
+          adapter.addItemDetailList(itemList)
 
-                    val itemList = ArrayList<ItemDetail>()
-                    itemList.add(ItemDetail(fromResource(this, R.drawable.ic_person_pin), it.html_url))
-                    it.company?.let { itemList.add(ItemDetail(fromResource(this, R.drawable.ic_people), it)) }
-                    it.location?.let { itemList.add(ItemDetail(fromResource(this, R.drawable.ic_location), it)) }
-                    it.blog?.let { itemList.add(ItemDetail(fromResource(this, R.drawable.ic_insert_link), it)) }
-                    adapter.addItemDetailList(itemList)
-
-                    GlideUtils.getSvgRequestBuilder(this)
-                            .load("${getString(R.string.ghchart)}${it.login}")
-                            .listener(object : RequestListener<PictureDrawable> {
-                                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<PictureDrawable>?, isFirstResource: Boolean): Boolean {
-                                    detail_body_recyclerViewFrame.unVeil()
-                                    detail_body_veilLayout.unVeil()
-                                    detail_body_preview.gone()
-                                    return false
-                                }
-
-                                override fun onResourceReady(resource: PictureDrawable?, model: Any?, target: Target<PictureDrawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                                    detail_body_recyclerViewFrame.unVeil()
-                                    detail_body_veilLayout.unVeil()
-                                    detail_body_preview.gone()
-                                    return false
-                                }
-                            })
-                            .into(detail_body_contributes)
+          GlideUtils.getSvgRequestBuilder(this)
+              .load("${getString(R.string.ghchart)}${it.login}")
+              .listener(object : RequestListener<PictureDrawable> {
+                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<PictureDrawable>?, isFirstResource: Boolean): Boolean {
+                  detail_body_recyclerViewFrame.unVeil()
+                  detail_body_veilLayout.unVeil()
+                  detail_body_preview.gone()
+                  return false
                 }
-            }
-            Status.ERROR -> toast(resource.message.toString())
-            Status.LOADING -> Unit
+
+                override fun onResourceReady(resource: PictureDrawable?, model: Any?, target: Target<PictureDrawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                  detail_body_recyclerViewFrame.unVeil()
+                  detail_body_veilLayout.unVeil()
+                  detail_body_preview.gone()
+                  return false
+                }
+              })
+              .into(detail_body_contributes)
         }
+      }
+      Status.ERROR -> toast(resource.message.toString())
+      Status.LOADING -> Unit
     }
+  }
 
-    private fun getLoginFromIntent(): String {
-        return intent.getStringExtra(intent_login)
+  private fun getLoginFromIntent(): String {
+    return intent.getStringExtra(intent_login)
+  }
+
+  private fun getAvatarFromIntent(): String {
+    return intent.getStringExtra(intent_avatar)
+  }
+
+  companion object {
+    const val intent_login = "login"
+    const val intent_avatar = "avatar_url"
+    const val intent_requestCode = 1000
+
+    fun startActivity(activity: Activity, githubUser: Follower, view: View) {
+      if (activity.checkIsMaterialVersion()) {
+        val intent = Intent(activity, DetailActivity::class.java)
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view, ViewCompat.getTransitionName(view)!!)
+        intent.putExtra(intent_login, githubUser.login)
+        intent.putExtra(intent_avatar, githubUser.avatar_url)
+        activity.startActivityForResult(intent, intent_requestCode, options.toBundle())
+      } else {
+        activity.startActivityForResult<DetailActivity>(intent_requestCode, intent_login to githubUser.login, intent_avatar to githubUser.avatar_url)
+      }
     }
-
-    private fun getAvatarFromIntent(): String {
-        return intent.getStringExtra(intent_avatar)
-    }
-
-    companion object {
-        const val intent_login = "login"
-        const val intent_avatar = "avatar_url"
-        const val intent_requestCode = 1000
-
-        fun startActivity(activity: Activity, githubUser: Follower, view: View) {
-            if (activity.checkIsMaterialVersion()) {
-                val intent = Intent(activity, DetailActivity::class.java)
-                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, view, ViewCompat.getTransitionName(view)!!)
-                intent.putExtra(intent_login, githubUser.login)
-                intent.putExtra(intent_avatar, githubUser.avatar_url)
-                activity.startActivityForResult(intent, intent_requestCode, options.toBundle())
-            } else {
-                activity.startActivityForResult<DetailActivity>(intent_requestCode, intent_login to githubUser.login, intent_avatar to githubUser.avatar_url)
-            }
-        }
-    }
+  }
 }

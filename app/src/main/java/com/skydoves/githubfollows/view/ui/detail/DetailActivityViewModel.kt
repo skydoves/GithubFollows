@@ -19,21 +19,19 @@ import javax.inject.Inject
 class DetailActivityViewModel @Inject
 constructor(private val repository: GithubUserRepository) : ViewModel() {
 
-    private val login: MutableLiveData<String> = MutableLiveData()
-    val githubUserLiveData: LiveData<Resource<GithubUser>>
+  private val login: MutableLiveData<String> = MutableLiveData()
+  val githubUserLiveData: LiveData<Resource<GithubUser>>
 
-    init {
-        Timber.d("Injection DetailActivityViewModel")
+  init {
+    Timber.d("Injection DetailActivityViewModel")
 
-        githubUserLiveData = Transformations.switchMap(login) {
-            login.value?.let { user -> repository.loadUser(user) }
-                    ?: AbsentLiveData.create()
-        }
+    githubUserLiveData = Transformations.switchMap(login) {
+      login.value?.let { user -> repository.loadUser(user) }
+          ?: AbsentLiveData.create()
     }
+  }
 
-    fun setUser(user: String) {
-        login.value = user
-    }
+  fun setUser(user: String): () -> Unit = { login.value = user }
 
-    fun getUserKeyName(): String = repository.getUserKeyName()
+  fun getUserKeyName(): String = repository.getUserKeyName()
 }

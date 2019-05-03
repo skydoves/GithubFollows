@@ -14,12 +14,12 @@ import com.skydoves.githubfollows.models.History
 
 @Dao
 interface HistoryDao {
-    @Query("SELECT* FROM SearchHistory ORDER BY history DESC LIMIT 20")
-    fun selectRecentHistoryList(): LiveData<List<History>>
+  @Query("SELECT* FROM SearchHistory ORDER BY history DESC LIMIT 20")
+  fun selectRecentHistoryList(): LiveData<List<History>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertHistory(history: History)
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  fun insertHistory(history: History)
 
-    @Query("DELETE FROM SearchHistory WHERE search = :search")
-    fun deleteHistory(search: String)
+  @Query("DELETE FROM SearchHistory WHERE search = :search")
+  fun deleteHistory(search: String)
 }

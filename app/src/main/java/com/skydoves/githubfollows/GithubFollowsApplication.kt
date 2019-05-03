@@ -16,28 +16,27 @@ import timber.log.Timber
 @Suppress("unused")
 class GithubFollowsApplication : DaggerApplication() {
 
-    private val appComponent = DaggerAppComponent.builder()
-            .application(this)
-            .build()
+  private val appComponent = DaggerAppComponent.builder()
+      .application(this)
+      .build()
 
-    override fun onCreate() {
-        super.onCreate()
+  override fun onCreate() {
+    super.onCreate()
+    appComponent.inject(this)
 
-        if (!LeakCanary.isInAnalyzerProcess(this)) {
-            LeakCanary.install(this)
-        }
-
-        appComponent.inject(this)
-
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
-
-        PreferenceComponent_PrefAppComponent.init(this)
-        Stetho.initializeWithDefaults(this)
+    if (!LeakCanary.isInAnalyzerProcess(this)) {
+      LeakCanary.install(this)
     }
 
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return appComponent
+    if (BuildConfig.DEBUG) {
+      Timber.plant(Timber.DebugTree())
     }
+
+    PreferenceComponent_PrefAppComponent.init(this)
+    Stetho.initializeWithDefaults(this)
+  }
+
+  override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+    return appComponent
+  }
 }

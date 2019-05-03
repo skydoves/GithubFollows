@@ -20,28 +20,28 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class GithubUserDaoTest : DBTest() {
 
-    private lateinit var githubUser: GithubUser
-    private val login = "skydoves"
+  private lateinit var githubUser: GithubUser
+  private val login = "skydoves"
 
-    @Before
-    fun initMock() {
-        githubUser = MockTestUtil.mockGithubUser()
-    }
+  @Before
+  fun initMock() {
+    githubUser = MockTestUtil.mockGithubUser()
+  }
 
-    @Test
-    fun insertGithubUserTest() {
-        db.githubUserDao().insertGithubUser(githubUser)
+  @Test
+  fun insertGithubUserTest() {
+    db.githubUserDao().insertGithubUser(githubUser)
 
-        val loaded = LiveDataTestUtil.getValue(db.githubUserDao().getGithubUser(login))
-        assertThat(loaded, notNullValue())
-        assertThat(loaded.login, `is`(login))
-    }
+    val loaded = LiveDataTestUtil.getValue(db.githubUserDao().getGithubUser(login))
+    assertThat(loaded, notNullValue())
+    assertThat(loaded.login, `is`(login))
+  }
 
-    @Test
-    fun truncateGithubUserTable() {
-        db.githubUserDao().truncateGithubUser()
+  @Test
+  fun truncateGithubUserTable() {
+    db.githubUserDao().truncateGithubUser()
 
-        val loaded = LiveDataTestUtil.getValue(db.githubUserDao().getGithubUser(login))
-        Assert.assertNull(loaded)
-    }
+    val loaded = LiveDataTestUtil.getValue(db.githubUserDao().getGithubUser(login))
+    Assert.assertNull(loaded)
+  }
 }

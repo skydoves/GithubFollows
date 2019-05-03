@@ -12,7 +12,7 @@ import com.skydoves.preferenceroom.PreferenceComponent
 
 @PreferenceComponent(entities = [(Profile::class)])
 interface PrefAppComponent {
-    fun inject(target: SearchActivityViewModel)
-    fun inject(target: DetailActivityViewModel)
-    fun inject(target: GithubUserRepository)
+  fun inject(target: SearchActivityViewModel)
+  fun inject(target: DetailActivityViewModel)
+  fun inject(target: GithubUserRepository)
 }

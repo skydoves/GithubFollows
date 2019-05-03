@@ -11,10 +11,10 @@ import org.junit.Before
 
 abstract class PreferenceTest {
 
-    lateinit var context: Context
+  lateinit var context: Context
 
-    @Before
-    fun initPreference() {
-        context = InstrumentationRegistry.getTargetContext()
-    }
+  @Before
+  fun initPreference() {
+    context = InstrumentationRegistry.getTargetContext()
+  }
 }

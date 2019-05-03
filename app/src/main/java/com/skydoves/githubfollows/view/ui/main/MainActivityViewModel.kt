@@ -19,61 +19,64 @@ import javax.inject.Inject
  */
 
 class MainActivityViewModel @Inject
-constructor(private val githubUserRepository: GithubUserRepository) : ViewModel() {
+constructor(
+    private val githubUserRepository: GithubUserRepository)
+  : ViewModel()
+{
 
-    private val login: MutableLiveData<String> = MutableLiveData()
-    private val page: MutableLiveData<Int> = MutableLiveData()
-    private val isFollowers: MutableLiveData<Boolean> = MutableLiveData()
+  private val login: MutableLiveData<String> = MutableLiveData()
+  private val page: MutableLiveData<Int> = MutableLiveData()
+  private val isFollowers: MutableLiveData<Boolean> = MutableLiveData()
 
-    val githubUserLiveData: LiveData<Resource<GithubUser>>
-    val followersLiveData: LiveData<Resource<List<Follower>>>
+  val githubUserLiveData: LiveData<Resource<GithubUser>>
+  val followersLiveData: LiveData<Resource<List<Follower>>>
 
-    var fetchStatus = FetchStatus()
-        private set
+  var fetchStatus = FetchStatus()
+    private set
 
-    init {
-        Timber.d("Injection MainActivityViewModel")
+  init {
+    Timber.d("Injection MainActivityViewModel")
 
-        login.postValue(getUserName())
-        githubUserLiveData = Transformations.switchMap(login) {
-            login.value?.let { user -> githubUserRepository.loadUser(user) }
-                    ?: AbsentLiveData.create()
-        }
-
-        isFollowers.postValue(isFollowers())
-        followersLiveData = Transformations.switchMap(page) {
-            login.value?.let { user ->
-                githubUserRepository.loadFollowers(user, page.value!!, isFollowers.value!!)
-            }
-                    ?: AbsentLiveData.create()
-        }
+    login.postValue(getUserName())
+    githubUserLiveData = Transformations.switchMap(login) {
+      login.value?.let { user -> githubUserRepository.loadUser(user) }
+          ?: AbsentLiveData.create()
     }
 
-    fun fetchStatus(resource: Resource<List<Follower>>) {
-        fetchStatus = resource.fetchStatus
+    isFollowers.postValue(isFollowers())
+    followersLiveData = Transformations.switchMap(page) {
+      login.value?.let { user ->
+        githubUserRepository.loadFollowers(user, page.value!!, isFollowers.value!!)
+      }
+          ?: AbsentLiveData.create()
     }
+  }
 
-    fun refresh(user: String) {
-        fetchStatus = FetchStatus()
-        login.value = user
-        isFollowers.value = isFollowers()
-        githubUserRepository.refreshUser(user)
-    }
+  fun fetchStatus(resource: Resource<List<Follower>>) {
+    fetchStatus = resource.fetchStatus
+  }
 
-    private fun isFollowers(): Boolean {
-        if (getPreferenceMenuPosition() == 0) return false
-        return true
-    }
+  fun refresh(user: String) {
+    fetchStatus = FetchStatus()
+    login.value = user
+    isFollowers.value = isFollowers()
+    githubUserRepository.refreshUser(user)
+  }
 
-    fun postPage(page: Int) {
-        this.page.value = page
-    }
+  private fun isFollowers(): Boolean {
+    if (getPreferenceMenuPosition() == 0) return false
+    return true
+  }
 
-    fun getPreferenceMenuPosition() = githubUserRepository.getPreferenceMenuPosition()
+  fun postPage(page: Int) {
+    this.page.value = page
+  }
 
-    fun putPreferenceMenuPosition(position: Int) = githubUserRepository.putPreferenceMenuPosition(position)
+  fun getPreferenceMenuPosition() = githubUserRepository.getPreferenceMenuPosition()
 
-    fun getUserName() = githubUserRepository.getUserName()
+  fun putPreferenceMenuPosition(position: Int) = githubUserRepository.putPreferenceMenuPosition(position)
 
-    fun getUserKeyName() = githubUserRepository.getUserKeyName()
+  fun getUserName() = githubUserRepository.getUserName()
+
+  fun getUserKeyName() = githubUserRepository.getUserKeyName()
 }

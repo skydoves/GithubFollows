@@ -18,27 +18,27 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class FollowersDaoTest : DBTest() {
 
-    private lateinit var mockFollowerList: MutableList<Follower>
-    private lateinit var follower: Follower
-    private val owner = "skydoves"
+  private lateinit var mockFollowerList: MutableList<Follower>
+  private lateinit var follower: Follower
+  private val owner = "skydoves"
 
-    @Before
-    fun initMock() {
-        follower = MockTestUtil.mockFollower()
-        mockFollowerList = ArrayList()
-        mockFollowerList.add(follower)
-        mockFollowerList.add(follower)
-        mockFollowerList.add(follower)
-    }
+  @Before
+  fun initMock() {
+    follower = MockTestUtil.mockFollower()
+    mockFollowerList = ArrayList()
+    mockFollowerList.add(follower)
+    mockFollowerList.add(follower)
+    mockFollowerList.add(follower)
+  }
 
-    @Test
-    fun insertTest() {
-        db.followersDao().insertFollowers(mockFollowerList)
+  @Test
+  fun insertTest() {
+    db.followersDao().insertFollowers(mockFollowerList)
 
-        val loaded = LiveDataTestUtil.getValue(db.followersDao().getFollowers(owner, 1, false))
-        assertThat(loaded.size, `is`(3))
-        assertThat(loaded[0].owner, `is`(owner))
-        assertThat(loaded[0].page, `is`(1))
-        assertThat(loaded[0].isFollower, `is`(false))
-    }
+    val loaded = LiveDataTestUtil.getValue(db.followersDao().getFollowers(owner, 1, false))
+    assertThat(loaded.size, `is`(3))
+    assertThat(loaded[0].owner, `is`(owner))
+    assertThat(loaded[0].page, `is`(1))
+    assertThat(loaded[0].isFollower, `is`(false))
+  }
 }

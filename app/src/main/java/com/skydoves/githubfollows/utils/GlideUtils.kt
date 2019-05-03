@@ -11,12 +11,12 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
  */
 
 class GlideUtils {
-    companion object {
-        fun getSvgRequestBuilder(context: Context): RequestBuilder<PictureDrawable> {
-            return GlideApp.with(context)
-                    .`as`(PictureDrawable::class.java)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .listener(SvgSoftwareLayerSetter())
-        }
+  companion object {
+    fun getSvgRequestBuilder(context: Context): RequestBuilder<PictureDrawable> {
+      return GlideApp.with(context)
+          .`as`(PictureDrawable::class.java)
+          .transition(DrawableTransitionOptions.withCrossFade())
+          .listener(SvgSoftwareLayerSetter())
     }
+  }
 }

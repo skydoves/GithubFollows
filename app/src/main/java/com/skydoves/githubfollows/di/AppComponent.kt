@@ -16,18 +16,18 @@ import javax.inject.Singleton
 @Suppress("unused")
 @Singleton
 @Component(modules = [
-    (AndroidInjectionModule::class),
-    (ActivityModule::class),
-    (ViewModelModule::class),
-    (AppModule::class)])
+  (AndroidInjectionModule::class),
+  (ActivityModule::class),
+  (ViewModelModule::class),
+  (AppModule::class)])
 interface AppComponent : AndroidInjector<DaggerApplication> {
-    @Component.Builder
-    interface Builder {
-        @BindsInstance
-        fun application(application: Application): AppComponent.Builder
+  @Component.Builder
+  interface Builder {
+    @BindsInstance
+    fun application(application: Application): Builder
 
-        fun build(): AppComponent
-    }
+    fun build(): AppComponent
+  }
 
-    override fun inject(instance: DaggerApplication)
+  override fun inject(instance: DaggerApplication)
 }

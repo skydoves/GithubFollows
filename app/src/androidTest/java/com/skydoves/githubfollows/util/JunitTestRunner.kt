@@ -12,8 +12,8 @@ import com.skydoves.githubfollows.TestGithubFollowsApplication
  */
 
 class JunitTestRunner : AndroidJUnitRunner() {
-    @Throws(InstantiationException::class, IllegalAccessException::class, ClassNotFoundException::class)
-    override fun newApplication(cl: ClassLoader, className: String, context: Context): Application {
-        return super.newApplication(cl, TestGithubFollowsApplication::class.java.name, context)
-    }
+  @Throws(InstantiationException::class, IllegalAccessException::class, ClassNotFoundException::class)
+  override fun newApplication(cl: ClassLoader, className: String, context: Context): Application {
+    return super.newApplication(cl, TestGithubFollowsApplication::class.java.name, context)
+  }
 }

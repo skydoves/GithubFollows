@@ -25,89 +25,89 @@ import javax.inject.Singleton
 @Singleton
 class GithubUserRepository @Inject
 constructor(
-  private val githubUserDao: GithubUserDao,
-  private val followersDao: FollowersDao,
-  private val service: GithubService
+    private val githubUserDao: GithubUserDao,
+    private val followersDao: FollowersDao,
+    private val service: GithubService
 ) {
 
-    @InjectPreference
-    lateinit var profile: Preference_UserProfile
+  @InjectPreference
+  lateinit var profile: Preference_UserProfile
 
-    init {
-        Timber.d("Injection GithubUserRepository")
-        PreferenceComponent_PrefAppComponent.getInstance().inject(this)
-    }
+  init {
+    Timber.d("Injection GithubUserRepository")
+    PreferenceComponent_PrefAppComponent.getInstance().inject(this)
+  }
 
-    fun refreshUser(user: String) {
-        profile.putName(user)
-        doAsync { githubUserDao.truncateGithubUser() }
-    }
+  fun refreshUser(user: String) {
+    profile.putName(user)
+    doAsync { githubUserDao.truncateGithubUser() }
+  }
 
-    fun loadUser(user: String): LiveData<Resource<GithubUser>> {
-        return object : NetworkBoundRepository<GithubUser, GithubUser>() {
-            override fun saveFetchData(items: GithubUser) {
-                doAsync { githubUserDao.insertGithubUser(items) }
-            }
+  fun loadUser(user: String): LiveData<Resource<GithubUser>> {
+    return object : NetworkBoundRepository<GithubUser, GithubUser>() {
+      override fun saveFetchData(items: GithubUser) {
+        doAsync { githubUserDao.insertGithubUser(items) }
+      }
 
-            override fun shouldFetch(data: GithubUser?): Boolean {
-                return data == null
-            }
+      override fun shouldFetch(data: GithubUser?): Boolean {
+        return data == null
+      }
 
-            override fun loadFromDb(): LiveData<GithubUser> {
-                return githubUserDao.getGithubUser(user)
-            }
+      override fun loadFromDb(): LiveData<GithubUser> {
+        return githubUserDao.getGithubUser(user)
+      }
 
-            override fun fetchService(): LiveData<ApiResponse<GithubUser>> {
-                return service.fetchGithubUser(user)
-            }
+      override fun fetchService(): LiveData<ApiResponse<GithubUser>> {
+        return service.fetchGithubUser(user)
+      }
 
-            override fun onFetchFailed(envelope: Envelope?) {
-                Timber.d("onFetchFailed : $envelope")
-            }
-        }.asLiveData()
-    }
+      override fun onFetchFailed(envelope: Envelope?) {
+        Timber.d("onFetchFailed : $envelope")
+      }
+    }.asLiveData()
+  }
 
-    fun loadFollowers(user: String, page: Int, isFollowers: Boolean): LiveData<Resource<List<Follower>>> {
-        return object : NetworkBoundRepository<List<Follower>, List<Follower>>() {
-            override fun saveFetchData(items: List<Follower>) {
-                doAsync {
-                    for (item in items) {
-                        item.owner = user
-                        item.page = page
-                        item.isFollower = isFollowers
-                    }
-                    followersDao.insertFollowers(items)
-                }
-            }
+  fun loadFollowers(user: String, page: Int, isFollowers: Boolean): LiveData<Resource<List<Follower>>> {
+    return object : NetworkBoundRepository<List<Follower>, List<Follower>>() {
+      override fun saveFetchData(items: List<Follower>) {
+        doAsync {
+          for (item in items) {
+            item.owner = user
+            item.page = page
+            item.isFollower = isFollowers
+          }
+          followersDao.insertFollowers(items)
+        }
+      }
 
-            override fun shouldFetch(data: List<Follower>?): Boolean {
-                return data == null || data.isEmpty()
-            }
+      override fun shouldFetch(data: List<Follower>?): Boolean {
+        return data == null || data.isEmpty()
+      }
 
-            override fun loadFromDb(): LiveData<List<Follower>> {
-                return followersDao.getFollowers(user, page, isFollowers)
-            }
+      override fun loadFromDb(): LiveData<List<Follower>> {
+        return followersDao.getFollowers(user, page, isFollowers)
+      }
 
-            override fun fetchService(): LiveData<ApiResponse<List<Follower>>> {
-                if (isFollowers) return service.fetchFollowers(user, page, per_page)
-                return service.fetchFollowings(user, page, per_page)
-            }
+      override fun fetchService(): LiveData<ApiResponse<List<Follower>>> {
+        if (isFollowers) return service.fetchFollowers(user, page, per_page)
+        return service.fetchFollowings(user, page, per_page)
+      }
 
-            override fun onFetchFailed(envelope: Envelope?) {
-                Timber.d("onFetchFailed : $envelope")
-            }
-        }.asLiveData()
-    }
+      override fun onFetchFailed(envelope: Envelope?) {
+        Timber.d("onFetchFailed : $envelope")
+      }
+    }.asLiveData()
+  }
 
-    fun getUserKeyName(): String = profile.nameKeyName()
+  fun getUserKeyName(): String = profile.nameKeyName()
 
-    fun getPreferenceMenuPosition(): Int = profile.menuPosition
+  fun getPreferenceMenuPosition(): Int = profile.menuPosition
 
-    fun getUserName(): String = profile.name!!
+  fun getUserName(): String = profile.name!!
 
-    fun putPreferenceMenuPosition(position: Int) = profile.putMenuPosition(position)
+  fun putPreferenceMenuPosition(position: Int) = profile.putMenuPosition(position)
 
-    companion object {
-        const val per_page = 10
-    }
+  companion object {
+    const val per_page = 10
+  }
 }

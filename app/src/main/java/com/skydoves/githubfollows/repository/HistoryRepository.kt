@@ -18,25 +18,25 @@ import javax.inject.Singleton
 class HistoryRepository @Inject
 constructor(private val historyDao: HistoryDao) {
 
-    init {
-        Timber.d("Injection HistoryRepository")
-    }
+  init {
+    Timber.d("Injection HistoryRepository")
+  }
 
-    fun insertHistory(search: String) {
-        doAsync {
-            historyDao.insertHistory(History(search, Calendar.getInstance().timeInMillis))
-            Timber.d("Dao insert history : $search")
-        }
+  fun insertHistory(search: String) {
+    doAsync {
+      historyDao.insertHistory(History(search, Calendar.getInstance().timeInMillis))
+      Timber.d("Dao insert history : $search")
     }
+  }
 
-    fun selectHistories(): LiveData<List<History>> {
-        return historyDao.selectRecentHistoryList()
-    }
+  fun selectHistories(): LiveData<List<History>> {
+    return historyDao.selectRecentHistoryList()
+  }
 
-    fun deleteHistory(history: History) {
-        doAsync {
-            historyDao.deleteHistory(history.search)
-            Timber.d("Dao delete history : ${history.search}")
-        }
+  fun deleteHistory(history: History) {
+    doAsync {
+      historyDao.deleteHistory(history.search)
+      Timber.d("Dao delete history : ${history.search}")
     }
+  }
 }

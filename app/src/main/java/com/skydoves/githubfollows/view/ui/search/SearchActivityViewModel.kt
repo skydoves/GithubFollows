@@ -20,28 +20,28 @@ import javax.inject.Inject
 
 class SearchActivityViewModel @Inject
 constructor(
-  private val githubUserRepository: GithubUserRepository,
-  private val historyRepository: HistoryRepository
-)
-    : ViewModel() {
+    private val githubUserRepository: GithubUserRepository,
+    private val historyRepository: HistoryRepository
+) : ViewModel()
+{
 
-    val login: MutableLiveData<String> = MutableLiveData()
-    val githubUserLiveData: LiveData<Resource<GithubUser>>
+  val login: MutableLiveData<String> = MutableLiveData()
+  val githubUserLiveData: LiveData<Resource<GithubUser>>
 
-    init {
-        Timber.d("Injection SearchActivityViewModel")
+  init {
+    Timber.d("Injection SearchActivityViewModel")
 
-        githubUserLiveData = Transformations.switchMap(login) { user ->
-            login.value?.let { githubUserRepository.loadUser(user) }
-                    ?: AbsentLiveData.create()
-        }
+    githubUserLiveData = Transformations.switchMap(login) { user ->
+      login.value?.let { githubUserRepository.loadUser(user) }
+          ?: AbsentLiveData.create()
     }
+  }
 
-    fun insertHistory(search: String) = historyRepository.insertHistory(search)
+  fun insertHistory(search: String) = historyRepository.insertHistory(search)
 
-    fun selectHistories(): LiveData<List<History>> = historyRepository.selectHistories()
+  fun selectHistories(): LiveData<List<History>> = historyRepository.selectHistories()
 
-    fun deleteHistory(history: History) = historyRepository.deleteHistory(history)
+  fun deleteHistory(history: History) = historyRepository.deleteHistory(history)
 
-    fun getPreferenceUserKeyName(): String = githubUserRepository.getUserKeyName()
+  fun getPreferenceUserKeyName(): String = githubUserRepository.getUserKeyName()
 }
