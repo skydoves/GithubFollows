@@ -93,7 +93,6 @@ class DetailActivity : AppCompatActivity() {
 
     detail_body_recyclerViewFrame.setLayoutManager(LinearLayoutManager(this))
     detail_body_recyclerViewFrame.setAdapter(adapter)
-    detail_body_recyclerViewFrame.addVeiledItems(3)
   }
 
   private fun observeViewModel() {

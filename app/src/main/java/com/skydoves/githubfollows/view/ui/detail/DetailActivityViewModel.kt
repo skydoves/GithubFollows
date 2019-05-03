@@ -31,7 +31,9 @@ constructor(private val repository: GithubUserRepository) : ViewModel() {
     }
   }
 
-  fun setUser(user: String): () -> Unit = { login.value = user }
+  fun setUser(user: String) {
+    login.value = user
+  }
 
   fun getUserKeyName(): String = repository.getUserKeyName()
 }
