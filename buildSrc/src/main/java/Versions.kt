@@ -38,7 +38,7 @@ object Versions {
   const val powerMenu = "2.0.8"
   const val androidSvg = "1.3"
   const val baseAdapter = "0.1.3"
-  const val androidVeil = "1.0.4"
+  const val androidVeil = "1.0.5"
   const val mockito = "2.25.1"
   const val mockitoKotlin = "2.1.0"
   const val mockWebServer = "3.14.0"

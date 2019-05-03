@@ -113,6 +113,7 @@ class DetailActivity : AppCompatActivity() {
           it.location?.let { itemList.add(ItemDetail(fromResource(this, R.drawable.ic_location), it)) }
           it.blog?.let { itemList.add(ItemDetail(fromResource(this, R.drawable.ic_insert_link), it)) }
           adapter.addItemDetailList(itemList)
+          detail_body_recyclerViewFrame.addVeiledItems(itemList.size)
 
           GlideUtils.getSvgRequestBuilder(this)
               .load("${getString(R.string.ghchart)}${it.login}")
