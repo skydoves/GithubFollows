@@ -38,8 +38,7 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(),
     GithubUserHeaderViewHolder.Delegate,
-    GithubUserViewHolder.Delegate
-{
+    GithubUserViewHolder.Delegate {
 
   @Inject
   lateinit var viewModelFactory: AppViewModelFactory

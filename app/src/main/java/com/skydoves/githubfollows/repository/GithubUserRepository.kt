@@ -25,9 +25,9 @@ import javax.inject.Singleton
 @Singleton
 class GithubUserRepository @Inject
 constructor(
-    private val githubUserDao: GithubUserDao,
-    private val followersDao: FollowersDao,
-    private val service: GithubService
+  private val githubUserDao: GithubUserDao,
+  private val followersDao: FollowersDao,
+  private val service: GithubService
 ) {
 
   @InjectPreference

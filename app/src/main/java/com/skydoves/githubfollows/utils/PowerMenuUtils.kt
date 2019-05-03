@@ -17,9 +17,10 @@ import com.skydoves.powermenu.PowerMenuItem
 
 object PowerMenuUtils {
   fun getOverflowPowerMenu(
-      context: Context,
-      lifecycleOwner: LifecycleOwner,
-      onMenuItemClickListener: OnMenuItemClickListener<PowerMenuItem>): PowerMenu {
+    context: Context,
+    lifecycleOwner: LifecycleOwner,
+    onMenuItemClickListener: OnMenuItemClickListener<PowerMenuItem>
+  ): PowerMenu {
     return PowerMenu.Builder(context)
         .addItem(PowerMenuItem("Following", true))
         .addItem(PowerMenuItem("Followers", false))

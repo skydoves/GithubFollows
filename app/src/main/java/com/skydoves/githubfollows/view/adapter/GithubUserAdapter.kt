@@ -18,10 +18,9 @@ import com.skydoves.githubfollows.view.viewholder.GithubUserViewHolder
 
 @Suppress("PrivatePropertyName", "MemberVisibilityCanBePrivate")
 class GithubUserAdapter(
-    private val delegate_header: GithubUserHeaderViewHolder.Delegate,
-    private val delegate: GithubUserViewHolder.Delegate
-) : BaseAdapter()
-{
+  private val delegate_header: GithubUserHeaderViewHolder.Delegate,
+  private val delegate: GithubUserViewHolder.Delegate
+) : BaseAdapter() {
 
   private val section_header = 0
   private val section_follower = 1

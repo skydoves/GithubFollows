@@ -31,8 +31,7 @@ import javax.inject.Singleton
 @Singleton
 class AppViewModelFactory @Inject
 constructor(private val viewModels: MutableMap<Class<out ViewModel>, Provider<ViewModel>>)
-  : ViewModelProvider.Factory
-{
+  : ViewModelProvider.Factory {
 
   override fun <T : ViewModel> create(modelClass: Class<T>): T {
     val creator = viewModels[modelClass]

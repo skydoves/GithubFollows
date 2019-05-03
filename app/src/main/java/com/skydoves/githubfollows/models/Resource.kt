@@ -11,11 +11,11 @@ package com.skydoves.githubfollows.models
 </T> */
 @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
 class Resource<out T>(
-    val status: Status,
-    val data: T?,
-    val message: String?,
-    val fetchStatus: FetchStatus)
-{
+  val status: Status,
+  val data: T?,
+  val message: String?,
+  val fetchStatus: FetchStatus
+) {
 
   override fun equals(obj: Any?): Boolean {
     if (this === obj) {

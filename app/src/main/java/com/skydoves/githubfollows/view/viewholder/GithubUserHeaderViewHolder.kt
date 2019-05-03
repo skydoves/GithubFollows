@@ -15,10 +15,9 @@ import kotlinx.android.synthetic.main.layout_detail_header.view.*
  */
 
 class GithubUserHeaderViewHolder(
-    private val view: View,
-    private val delegate: Delegate
-) : BaseViewHolder(view)
-{
+  private val view: View,
+  private val delegate: Delegate
+) : BaseViewHolder(view) {
 
   private lateinit var githubUser: GithubUser
   val binding by lazy { DataBindingUtil.bind<LayoutDetailHeaderBinding>(view) }

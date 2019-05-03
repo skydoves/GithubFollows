@@ -20,9 +20,9 @@ import javax.inject.Inject
 
 class MainActivityViewModel @Inject
 constructor(
-    private val githubUserRepository: GithubUserRepository)
-  : ViewModel()
-{
+  private val githubUserRepository: GithubUserRepository
+)
+  : ViewModel() {
 
   private val login: MutableLiveData<String> = MutableLiveData()
   private val page: MutableLiveData<Int> = MutableLiveData()

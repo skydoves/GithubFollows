@@ -18,8 +18,7 @@ import org.jetbrains.anko.textColor
  */
 
 class DetailViewHolder(view: View)
-  : BaseViewHolder(view)
-{
+  : BaseViewHolder(view) {
 
   private lateinit var itemDetail: ItemDetail
   private val binding by lazy { DataBindingUtil.bind<ItemDetailInfoBinding>(view) }
