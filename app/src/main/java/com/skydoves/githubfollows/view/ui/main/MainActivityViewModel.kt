@@ -2,8 +2,8 @@ package com.skydoves.githubfollows.view.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import com.skydoves.githubfollows.models.FetchStatus
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
@@ -38,13 +38,13 @@ constructor(
     Timber.d("Injection MainActivityViewModel")
 
     login.postValue(getUserName())
-    githubUserLiveData = Transformations.switchMap(login) {
+    githubUserLiveData = login.switchMap {
       login.value?.let { user -> githubUserRepository.loadUser(user) }
           ?: AbsentLiveData.create()
     }
 
     isFollowers.postValue(isFollowers())
-    followersLiveData = Transformations.switchMap(page) {
+    followersLiveData = page.switchMap {
       login.value?.let { user ->
         githubUserRepository.loadFollowers(user, page.value!!, isFollowers.value!!)
       }

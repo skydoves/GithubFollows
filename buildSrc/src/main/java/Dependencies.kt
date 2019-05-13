@@ -12,6 +12,7 @@ object Dependencies {
   val spotless = "com.diffplug.spotless:spotless-plugin-gradle:${Versions.spotless}"
   val junit = "junit:junit:${Versions.junit}"
   val support_appcompat = "androidx.appcompat:appcompat:${Versions.accompat}"
+  val livedata_ktx = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.livedataKtx}"
   val support_design = "com.google.android.material:material:${Versions.material}"
   val support_cardview = "androidx.cardview:cardview:${Versions.androidx}"
   val support_recyclerview = "androidx.recyclerview:recyclerview:${Versions.androidx}"

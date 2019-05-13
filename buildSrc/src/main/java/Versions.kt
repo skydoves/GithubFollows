@@ -21,6 +21,7 @@ object Versions {
   const val junit = "4.12"
   const val androidx = "1.0.0"
   const val accompat = "1.0.2"
+  const val livedataKtx = "2.1.0-beta01"
   const val material = "1.1.0-alpha01"
   const val kotlin = "1.3.21"
   const val anko = "0.10.8"

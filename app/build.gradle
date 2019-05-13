@@ -49,6 +49,7 @@ dependencies {
     implementation Dependencies.anko
 
     implementation Dependencies.arch_lifecycle
+    implementation Dependencies.livedata_ktx
     implementation Dependencies.arch_room
     kapt Dependencies.arch_room_compiler
     testImplementation Dependencies.arch_core_testing

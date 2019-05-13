@@ -2,8 +2,8 @@ package com.skydoves.githubfollows.view.ui.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.Resource
 import com.skydoves.githubfollows.repository.GithubUserRepository
@@ -25,7 +25,7 @@ constructor(private val repository: GithubUserRepository) : ViewModel() {
   init {
     Timber.d("Injection DetailActivityViewModel")
 
-    githubUserLiveData = Transformations.switchMap(login) {
+    githubUserLiveData = login.switchMap {
       login.value?.let { user -> repository.loadUser(user) }
           ?: AbsentLiveData.create()
     }

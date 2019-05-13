@@ -2,8 +2,8 @@ package com.skydoves.githubfollows.view.ui.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.History
 import com.skydoves.githubfollows.models.Resource
@@ -30,7 +30,7 @@ constructor(
   init {
     Timber.d("Injection SearchActivityViewModel")
 
-    githubUserLiveData = Transformations.switchMap(login) { user ->
+    githubUserLiveData = login.switchMap { user ->
       login.value?.let { githubUserRepository.loadUser(user) }
           ?: AbsentLiveData.create()
     }
