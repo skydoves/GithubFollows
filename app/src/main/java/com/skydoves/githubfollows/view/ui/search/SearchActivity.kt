@@ -7,14 +7,16 @@ import android.view.ViewTreeObserver
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skydoves.githubfollows.R
+import com.skydoves.githubfollows.databinding.ActivitySearchBinding
 import com.skydoves.githubfollows.extension.checkIsMaterialVersion
 import com.skydoves.githubfollows.extension.circularRevealed
 import com.skydoves.githubfollows.extension.circularUnRevealed
 import com.skydoves.githubfollows.extension.inVisible
 import com.skydoves.githubfollows.extension.observeLiveData
+import com.skydoves.githubfollows.extension.vm
 import com.skydoves.githubfollows.factory.AppViewModelFactory
 import com.skydoves.githubfollows.models.GithubUser
 import com.skydoves.githubfollows.models.History
@@ -39,21 +41,19 @@ class SearchActivity : AppCompatActivity(),
 
   @Inject
   lateinit var viewModelFactory: AppViewModelFactory
-
-  private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(SearchActivityViewModel::class.java) }
-  private val adapter by lazy { HistoryAdapter(this) }
+  private val viewModel by lazy { vm(viewModelFactory, SearchActivityViewModel::class) }
+  private lateinit var binding: ActivitySearchBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_search)
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
+    binding.viewModel = viewModel
+    binding.lifecycleOwner = this
+
+    initializeUI()
     startCircularRevealed(savedInstanceState)
-
-    observeViewModel()
-    initializeAdapter()
-
-    toolbar_search_home.setOnClickListener { onBackPressed() }
-    toolbar_search_input.setOnEditorActionListener(this)
+    observeLiveData(viewModel.githubUserLiveData) { onChangeUser(it) }
   }
 
   private fun startCircularRevealed(savedInstanceState: Bundle?) {
@@ -72,15 +72,11 @@ class SearchActivity : AppCompatActivity(),
     }
   }
 
-  private fun observeViewModel() {
-    observeLiveData(viewModel.selectHistories()) { adapter.updateItemList(it) }
-    observeLiveData(viewModel.githubUserLiveData) { onChangeUser(it) }
-  }
-
-  private fun initializeAdapter() {
+  private fun initializeUI() {
     search_recyclerView.layoutManager = LinearLayoutManager(this)
-    search_recyclerView.adapter = adapter
-    viewModel.selectHistories()
+    search_recyclerView.adapter = HistoryAdapter(this)
+    toolbar_search_home.setOnClickListener { onBackPressed() }
+    toolbar_search_input.setOnEditorActionListener(this)
   }
 
   override fun onEditorAction(p0: TextView?, actionId: Int, event: KeyEvent?): Boolean {

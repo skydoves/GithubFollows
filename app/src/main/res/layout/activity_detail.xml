@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data></data>
+  <data>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background"
-        android:orientation="vertical">
+    <variable
+      name="viewModel"
+      type="com.skydoves.githubfollows.view.ui.detail.DetailActivityViewModel" />
+  </data>
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
 
-            <include
-                android:id="@+id/detail_toolbar"
-                layout="@layout/toolbar_default" />
-        </com.google.android.material.appbar.AppBarLayout>
+    <com.google.android.material.appbar.AppBarLayout
+      android:id="@+id/appBarLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
 
-        <include
-            android:id="@+id/detail_header"
-            layout="@layout/layout_detail_header" />
+      <include
+        android:id="@+id/detail_toolbar"
+        layout="@layout/toolbar_default" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <include layout="@layout/layout_detail_body" />
+    <include
+      android:id="@+id/detail_header"
+      layout="@layout/layout_detail_header" />
 
-    </LinearLayout>
+    <include layout="@layout/layout_detail_body" />
+
+  </LinearLayout>
 </layout>

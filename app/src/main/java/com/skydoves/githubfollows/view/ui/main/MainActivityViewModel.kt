@@ -38,7 +38,9 @@ constructor(
 
     login.postValue(getUserName())
     githubUserLiveData = login.switchMap {
-      login.value?.let { user -> githubUserRepository.loadUser(user) }
+      login.value?.let { user ->
+        githubUserRepository.loadUser(user)
+      }
         ?: AbsentLiveData.create()
     }
 

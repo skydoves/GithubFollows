@@ -4,16 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.skydoves.baserecyclerviewadapter.RecyclerViewPaginator
 import com.skydoves.githubfollows.R
-import com.skydoves.githubfollows.extension.observeLiveData
+import com.skydoves.githubfollows.databinding.ActivityMainBinding
+import com.skydoves.githubfollows.extension.vm
 import com.skydoves.githubfollows.factory.AppViewModelFactory
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
-import com.skydoves.githubfollows.models.Resource
-import com.skydoves.githubfollows.models.Status
 import com.skydoves.githubfollows.utils.PowerMenuUtils
 import com.skydoves.githubfollows.view.adapter.GithubUserAdapter
 import com.skydoves.githubfollows.view.ui.detail.DetailActivity
@@ -28,7 +27,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_main.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
-import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 /**
@@ -36,16 +34,16 @@ import javax.inject.Inject
  * Copyright (c) 2018 skydoves rights reserved.
  */
 
+@Suppress("SpellCheckingInspection")
 class MainActivity : AppCompatActivity(),
   GithubUserHeaderViewHolder.Delegate,
   GithubUserViewHolder.Delegate {
 
   @Inject
   lateinit var viewModelFactory: AppViewModelFactory
-
-  private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(MainActivityViewModel::class.java) }
+  private val viewModel by lazy { vm(viewModelFactory, MainActivityViewModel::class) }
+  private lateinit var binding: ActivityMainBinding
   private val adapter by lazy { GithubUserAdapter(this, this) }
-
   private lateinit var paginator: RecyclerViewPaginator
   private lateinit var powerMenu: PowerMenu
 
@@ -61,7 +59,9 @@ class MainActivity : AppCompatActivity(),
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+    binding.viewModel = viewModel
+    binding.lifecycleOwner = this
 
     main_recyclerView.adapter = adapter
     main_recyclerView.layoutManager = LinearLayoutManager(this)
@@ -73,7 +73,6 @@ class MainActivity : AppCompatActivity(),
     )
 
     initializeUI()
-    observeViewModel()
   }
 
   private fun initializeUI() {
@@ -83,30 +82,8 @@ class MainActivity : AppCompatActivity(),
     toolbar_main_search.setOnClickListener { startActivityForResult<SearchActivity>(SearchActivity.intent_requestCode) }
   }
 
-  private fun observeViewModel() {
-    observeLiveData(viewModel.githubUserLiveData) { updateGithubUser(it) }
-    observeLiveData(viewModel.followersLiveData) { updateFollowerList(it) }
-  }
-
   private fun loadMore(page: Int) {
     viewModel.postPage(page)
-  }
-
-  private fun updateGithubUser(resource: Resource<GithubUser>) {
-    when (resource.status) {
-      Status.SUCCESS -> adapter.updateHeader(resource)
-      Status.ERROR -> toast(resource.message.toString())
-      Status.LOADING -> Unit
-    }
-  }
-
-  private fun updateFollowerList(resource: Resource<List<Follower>>) {
-    viewModel.fetchStatus(resource)
-    when (resource.status) {
-      Status.SUCCESS -> adapter.addFollowList(resource.data!!)
-      Status.ERROR -> toast(resource.message.toString())
-      Status.LOADING -> Unit
-    }
   }
 
   private fun restPagination(user: String) {

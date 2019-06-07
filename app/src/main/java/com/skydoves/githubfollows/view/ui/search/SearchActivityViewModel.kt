@@ -26,9 +26,12 @@ constructor(
 
   val login: MutableLiveData<String> = MutableLiveData()
   val githubUserLiveData: LiveData<Resource<GithubUser>>
+  val historyLiveData: LiveData<List<History>>
 
   init {
     Timber.d("Injection SearchActivityViewModel")
+
+    historyLiveData = historyRepository.selectHistories()
 
     githubUserLiveData = login.switchMap { user ->
       login.value?.let { githubUserRepository.loadUser(user) }
@@ -37,8 +40,6 @@ constructor(
   }
 
   fun insertHistory(search: String) = historyRepository.insertHistory(search)
-
-  fun selectHistories(): LiveData<List<History>> = historyRepository.selectHistories()
 
   fun deleteHistory(history: History) = historyRepository.deleteHistory(history)
 
