@@ -21,8 +21,7 @@ import javax.inject.Inject
 class MainActivityViewModel @Inject
 constructor(
   private val githubUserRepository: GithubUserRepository
-)
-  : ViewModel() {
+) : ViewModel() {
 
   private val login: MutableLiveData<String> = MutableLiveData()
   private val page: MutableLiveData<Int> = MutableLiveData()
@@ -40,7 +39,7 @@ constructor(
     login.postValue(getUserName())
     githubUserLiveData = login.switchMap {
       login.value?.let { user -> githubUserRepository.loadUser(user) }
-          ?: AbsentLiveData.create()
+        ?: AbsentLiveData.create()
     }
 
     isFollowers.postValue(isFollowers())
@@ -48,7 +47,7 @@ constructor(
       login.value?.let { user ->
         githubUserRepository.loadFollowers(user, page.value!!, isFollowers.value!!)
       }
-          ?: AbsentLiveData.create()
+        ?: AbsentLiveData.create()
     }
   }
 

@@ -32,7 +32,7 @@ constructor(
 
     githubUserLiveData = login.switchMap { user ->
       login.value?.let { githubUserRepository.loadUser(user) }
-          ?: AbsentLiveData.create()
+        ?: AbsentLiveData.create()
     }
   }
 

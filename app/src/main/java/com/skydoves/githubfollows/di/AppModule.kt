@@ -24,52 +24,52 @@ import javax.inject.Singleton
 
 @Module
 class AppModule {
-    @Provides
-    @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
-                .addNetworkInterceptor(StethoInterceptor())
-                .build()
-    }
+  @Provides
+  @Singleton
+  fun provideOkHttpClient(): OkHttpClient {
+    return OkHttpClient.Builder()
+      .addNetworkInterceptor(StethoInterceptor())
+      .build()
+  }
 
-    @Provides
-    @Singleton
-    fun provideRetrofit(@NonNull okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder()
-                .client(okHttpClient)
-                .baseUrl("https://api.github.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(LiveDataCallAdapterFactory())
-                .build()
-    }
+  @Provides
+  @Singleton
+  fun provideRetrofit(@NonNull okHttpClient: OkHttpClient): Retrofit {
+    return Retrofit.Builder()
+      .client(okHttpClient)
+      .baseUrl("https://api.github.com")
+      .addConverterFactory(GsonConverterFactory.create())
+      .addCallAdapterFactory(LiveDataCallAdapterFactory())
+      .build()
+  }
 
-    @Provides
-    @Singleton
-    fun provideGithubService(@NonNull retrofit: Retrofit): GithubService {
-        return retrofit.create(GithubService::class.java)
-    }
+  @Provides
+  @Singleton
+  fun provideGithubService(@NonNull retrofit: Retrofit): GithubService {
+    return retrofit.create(GithubService::class.java)
+  }
 
-    @Provides
-    @Singleton
-    fun provideDatabase(@NonNull application: Application): AppDatabase {
-        return Room.databaseBuilder(application.applicationContext, AppDatabase::class.java, "GithubFollows.db").allowMainThreadQueries().build()
-    }
+  @Provides
+  @Singleton
+  fun provideDatabase(@NonNull application: Application): AppDatabase {
+    return Room.databaseBuilder(application.applicationContext, AppDatabase::class.java, "GithubFollows.db").allowMainThreadQueries().build()
+  }
 
-    @Provides
-    @Singleton
-    fun provideHistoryDao(@NonNull database: AppDatabase): HistoryDao {
-        return database.historyDao()
-    }
+  @Provides
+  @Singleton
+  fun provideHistoryDao(@NonNull database: AppDatabase): HistoryDao {
+    return database.historyDao()
+  }
 
-    @Provides
-    @Singleton
-    fun provideGithubUserDao(@NonNull database: AppDatabase): GithubUserDao {
-        return database.githubUserDao()
-    }
+  @Provides
+  @Singleton
+  fun provideGithubUserDao(@NonNull database: AppDatabase): GithubUserDao {
+    return database.githubUserDao()
+  }
 
-    @Provides
-    @Singleton
-    fun provideFollowersDao(@NonNull database: AppDatabase): FollowersDao {
-        return database.followersDao()
-    }
+  @Provides
+  @Singleton
+  fun provideFollowersDao(@NonNull database: AppDatabase): FollowersDao {
+    return database.followersDao()
+  }
 }

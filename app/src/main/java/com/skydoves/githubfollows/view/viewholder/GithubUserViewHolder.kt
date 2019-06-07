@@ -46,20 +46,20 @@ class GithubUserViewHolder(
     itemView.run {
       item_user_veilLayout.veil()
       Glide.with(context)
-          .load(githubUser.avatar_url)
-          .apply(RequestOptions().circleCrop().override(100).placeholder(R.drawable.ic_account))
-          .listener(object : RequestListener<Drawable> {
-            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-              item_user_veilLayout.unVeil()
-              return false
-            }
+        .load(githubUser.avatar_url)
+        .apply(RequestOptions().circleCrop().override(100).placeholder(R.drawable.ic_account))
+        .listener(object : RequestListener<Drawable> {
+          override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+            item_user_veilLayout.unVeil()
+            return false
+          }
 
-            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-              item_user_veilLayout.unVeil()
-              return false
-            }
-          })
-          .into(item_user_avatar)
+          override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+            item_user_veilLayout.unVeil()
+            return false
+          }
+        })
+        .into(item_user_avatar)
     }
   }
 

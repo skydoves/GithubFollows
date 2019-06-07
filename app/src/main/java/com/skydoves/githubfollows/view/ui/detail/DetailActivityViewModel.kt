@@ -27,7 +27,7 @@ constructor(private val repository: GithubUserRepository) : ViewModel() {
 
     githubUserLiveData = login.switchMap {
       login.value?.let { user -> repository.loadUser(user) }
-          ?: AbsentLiveData.create()
+        ?: AbsentLiveData.create()
     }
   }
 

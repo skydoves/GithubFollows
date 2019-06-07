@@ -38,7 +38,7 @@ fun Activity.circularUnRevealed(mView: View, revealX: Int, revealY: Int) {
   if (checkIsMaterialVersion()) {
     val finalRadius = (Math.max(mView.width, mView.height) * 1.1)
     val circularReveal = ViewAnimationUtils.createCircularReveal(
-        mView, revealX, revealY, finalRadius.toFloat(), 0f)
+      mView, revealX, revealY, finalRadius.toFloat(), 0f)
 
     circularReveal.duration = 350
     circularReveal.addListener(object : AnimatorListenerAdapter() {

@@ -1,9 +1,9 @@
 package com.skydoves.githubfollows.models
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 /**
  * Developed by skydoves on 2018-01-20.
@@ -35,61 +35,61 @@ data class Follower(
   var page: Int,
   var isFollower: Boolean
 ) : Parcelable {
-    constructor(source: Parcel) : this(
-            source.readInt(),
-            source.readString(),
-            source.readInt(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            1 == source.readInt(),
-            source.readString(),
-            source.readInt(),
-            1 == source.readInt()
-    )
+  constructor(source: Parcel) : this(
+    source.readInt(),
+    source.readString(),
+    source.readInt(),
+    source.readString(),
+    source.readString(),
+    source.readString(),
+    source.readString(),
+    source.readString(),
+    source.readString(),
+    source.readString(),
+    source.readString(),
+    source.readString(),
+    source.readString(),
+    source.readString(),
+    source.readString(),
+    source.readString(),
+    source.readString(),
+    1 == source.readInt(),
+    source.readString(),
+    source.readInt(),
+    1 == source.readInt()
+  )
 
-    override fun describeContents() = 0
+  override fun describeContents() = 0
 
-    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeInt(number)
-        writeString(login)
-        writeInt(id)
-        writeString(avatar_url)
-        writeString(gravatar_id)
-        writeString(url)
-        writeString(html_url)
-        writeString(followers_url)
-        writeString(following_url)
-        writeString(gists_url)
-        writeString(starred_url)
-        writeString(subscriptions_url)
-        writeString(organizations_url)
-        writeString(repos_url)
-        writeString(events_url)
-        writeString(received_events_url)
-        writeString(type)
-        writeInt((if (site_admin) 1 else 0))
-        writeString(owner)
-        writeInt(page)
-        writeInt((if (isFollower) 1 else 0))
+  override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+    writeInt(number)
+    writeString(login)
+    writeInt(id)
+    writeString(avatar_url)
+    writeString(gravatar_id)
+    writeString(url)
+    writeString(html_url)
+    writeString(followers_url)
+    writeString(following_url)
+    writeString(gists_url)
+    writeString(starred_url)
+    writeString(subscriptions_url)
+    writeString(organizations_url)
+    writeString(repos_url)
+    writeString(events_url)
+    writeString(received_events_url)
+    writeString(type)
+    writeInt((if (site_admin) 1 else 0))
+    writeString(owner)
+    writeInt(page)
+    writeInt((if (isFollower) 1 else 0))
+  }
+
+  companion object {
+    @JvmField
+    val CREATOR: Parcelable.Creator<Follower> = object : Parcelable.Creator<Follower> {
+      override fun createFromParcel(source: Parcel): Follower = Follower(source)
+      override fun newArray(size: Int): Array<Follower?> = arrayOfNulls(size)
     }
-
-    companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<Follower> = object : Parcelable.Creator<Follower> {
-            override fun createFromParcel(source: Parcel): Follower = Follower(source)
-            override fun newArray(size: Int): Array<Follower?> = arrayOfNulls(size)
-        }
-    }
+  }
 }

@@ -37,8 +37,8 @@ import javax.inject.Inject
  */
 
 class MainActivity : AppCompatActivity(),
-    GithubUserHeaderViewHolder.Delegate,
-    GithubUserViewHolder.Delegate {
+  GithubUserHeaderViewHolder.Delegate,
+  GithubUserViewHolder.Delegate {
 
   @Inject
   lateinit var viewModelFactory: AppViewModelFactory
@@ -66,10 +66,10 @@ class MainActivity : AppCompatActivity(),
     main_recyclerView.adapter = adapter
     main_recyclerView.layoutManager = LinearLayoutManager(this)
     paginator = RecyclerViewPaginator(
-        recyclerView = main_recyclerView,
-        isLoading = { viewModel.fetchStatus.isOnLoading },
-        loadMore = { loadMore(it) },
-        onLast = { viewModel.fetchStatus.isOnLast }
+      recyclerView = main_recyclerView,
+      isLoading = { viewModel.fetchStatus.isOnLoading },
+      loadMore = { loadMore(it) },
+      onLast = { viewModel.fetchStatus.isOnLast }
     )
 
     initializeUI()

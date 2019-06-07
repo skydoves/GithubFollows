@@ -34,8 +34,8 @@ import javax.inject.Inject
  */
 
 class SearchActivity : AppCompatActivity(),
-    TextView.OnEditorActionListener,
-    HistoryViewHolder.Delegate {
+  TextView.OnEditorActionListener,
+  HistoryViewHolder.Delegate {
 
   @Inject
   lateinit var viewModelFactory: AppViewModelFactory

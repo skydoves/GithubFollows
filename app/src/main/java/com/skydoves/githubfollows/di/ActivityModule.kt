@@ -16,12 +16,12 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class ActivityModule {
 
-    @ContributesAndroidInjector
-    internal abstract fun contributeMainActivity(): MainActivity
+  @ContributesAndroidInjector
+  internal abstract fun contributeMainActivity(): MainActivity
 
-    @ContributesAndroidInjector
-    internal abstract fun contributeSearchActivity(): SearchActivity
+  @ContributesAndroidInjector
+  internal abstract fun contributeSearchActivity(): SearchActivity
 
-    @ContributesAndroidInjector
-    internal abstract fun contributeDetailActivity(): DetailActivity
+  @ContributesAndroidInjector
+  internal abstract fun contributeDetailActivity(): DetailActivity
 }

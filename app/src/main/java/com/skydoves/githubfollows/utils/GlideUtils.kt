@@ -14,9 +14,9 @@ class GlideUtils {
   companion object {
     fun getSvgRequestBuilder(context: Context): RequestBuilder<PictureDrawable> {
       return GlideApp.with(context)
-          .`as`(PictureDrawable::class.java)
-          .transition(DrawableTransitionOptions.withCrossFade())
-          .listener(SvgSoftwareLayerSetter())
+        .`as`(PictureDrawable::class.java)
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .listener(SvgSoftwareLayerSetter())
     }
   }
 }

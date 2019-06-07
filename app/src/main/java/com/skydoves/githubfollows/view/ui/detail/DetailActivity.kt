@@ -74,22 +74,22 @@ class DetailActivity : AppCompatActivity() {
   private fun initializeUI() {
     binding.detailToolbar.toolbar_title?.text = getLoginFromIntent()
     Glide.with(this)
-        .load(getAvatarFromIntent())
-        .apply(RequestOptions().circleCrop().dontAnimate())
-        .listener(object : RequestListener<Drawable> {
-          override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-            supportStartPostponedEnterTransition()
-            observeViewModel()
-            return false
-          }
+      .load(getAvatarFromIntent())
+      .apply(RequestOptions().circleCrop().dontAnimate())
+      .listener(object : RequestListener<Drawable> {
+        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+          supportStartPostponedEnterTransition()
+          observeViewModel()
+          return false
+        }
 
-          override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-            supportStartPostponedEnterTransition()
-            observeViewModel()
-            return false
-          }
-        })
-        .into(detail_header_avatar)
+        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+          supportStartPostponedEnterTransition()
+          observeViewModel()
+          return false
+        }
+      })
+      .into(detail_header_avatar)
 
     detail_body_recyclerViewFrame.setLayoutManager(LinearLayoutManager(this))
     detail_body_recyclerViewFrame.setAdapter(adapter)
@@ -116,23 +116,23 @@ class DetailActivity : AppCompatActivity() {
           detail_body_recyclerViewFrame.addVeiledItems(itemList.size)
 
           GlideUtils.getSvgRequestBuilder(this)
-              .load("${getString(R.string.ghchart)}${it.login}")
-              .listener(object : RequestListener<PictureDrawable> {
-                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<PictureDrawable>?, isFirstResource: Boolean): Boolean {
-                  detail_body_recyclerViewFrame.unVeil()
-                  detail_body_veilLayout.unVeil()
-                  detail_body_preview.gone()
-                  return false
-                }
+            .load("${getString(R.string.ghchart)}${it.login}")
+            .listener(object : RequestListener<PictureDrawable> {
+              override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<PictureDrawable>?, isFirstResource: Boolean): Boolean {
+                detail_body_recyclerViewFrame.unVeil()
+                detail_body_veilLayout.unVeil()
+                detail_body_preview.gone()
+                return false
+              }
 
-                override fun onResourceReady(resource: PictureDrawable?, model: Any?, target: Target<PictureDrawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                  detail_body_recyclerViewFrame.unVeil()
-                  detail_body_veilLayout.unVeil()
-                  detail_body_preview.gone()
-                  return false
-                }
-              })
-              .into(detail_body_contributes)
+              override fun onResourceReady(resource: PictureDrawable?, model: Any?, target: Target<PictureDrawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                detail_body_recyclerViewFrame.unVeil()
+                detail_body_veilLayout.unVeil()
+                detail_body_preview.gone()
+                return false
+              }
+            })
+            .into(detail_body_contributes)
         }
       }
       Status.ERROR -> toast(resource.message.toString())

@@ -38,10 +38,10 @@ class Resource<out T>(
 
   override fun toString(): String {
     return "Resource{" +
-        "status=" + status +
-        ", message='" + message + '\'' +
-        ", data=" + data +
-        '}'
+      "status=" + status +
+      ", message='" + message + '\'' +
+      ", data=" + data +
+      '}'
   }
 
   override fun hashCode(): Int {

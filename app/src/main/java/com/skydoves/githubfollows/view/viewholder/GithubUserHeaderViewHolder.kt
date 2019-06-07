@@ -40,9 +40,9 @@ class GithubUserHeaderViewHolder(
       binding?.executePendingBindings()
 
       Glide.with(context)
-          .load(githubUser.avatar_url)
-          .apply(RequestOptions().circleCrop())
-          .into(detail_header_avatar)
+        .load(githubUser.avatar_url)
+        .apply(RequestOptions().circleCrop())
+        .into(detail_header_avatar)
     }
   }
 

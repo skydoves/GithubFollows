@@ -17,8 +17,8 @@ import timber.log.Timber
 class GithubFollowsApplication : DaggerApplication() {
 
   private val appComponent = DaggerAppComponent.builder()
-      .application(this)
-      .build()
+    .application(this)
+    .build()
 
   override fun onCreate() {
     super.onCreate()
