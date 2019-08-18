@@ -34,7 +34,7 @@ object Versions {
   const val retrofit = "2.5.0"
   const val gson = "2.8.5"
   const val timber = "4.7.1"
-  const val memoryLeak = "1.6.3"
+  const val memoryLeak = "2.0-beta-2"
   const val glide = "4.9.0"
   const val powerMenu = "2.1.1"
   const val androidSvg = "1.4"

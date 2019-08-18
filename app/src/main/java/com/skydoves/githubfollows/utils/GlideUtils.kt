@@ -27,6 +27,7 @@ import android.content.Context
 import android.graphics.drawable.PictureDrawable
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.skydoves.githubfollows.R
 
 /**
  * Developed by skydoves on 2018-02-18.
@@ -39,6 +40,7 @@ class GlideUtils {
       return GlideApp.with(context)
         .`as`(PictureDrawable::class.java)
         .transition(DrawableTransitionOptions.withCrossFade())
+        .error(R.drawable.rectangle)
         .listener(SvgSoftwareLayerSetter())
     }
   }

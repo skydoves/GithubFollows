@@ -72,7 +72,6 @@ dependencies {
 
     implementation Dependencies.timber
     debugImplementation Dependencies.memoryLeakDebug
-    releaseImplementation Dependencies.memoryLeakRelease
 
     implementation Dependencies.stetho
     implementation Dependencies.stetho_okhttp

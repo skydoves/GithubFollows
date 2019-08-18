@@ -45,7 +45,6 @@ import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.databinding.ActivityDetailBinding
 import com.skydoves.githubfollows.extension.checkIsMaterialVersion
 import com.skydoves.githubfollows.extension.fromResource
-import com.skydoves.githubfollows.extension.gone
 import com.skydoves.githubfollows.extension.observeLiveData
 import com.skydoves.githubfollows.factory.AppViewModelFactory
 import com.skydoves.githubfollows.models.Follower
@@ -144,14 +143,12 @@ class DetailActivity : AppCompatActivity() {
               override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<PictureDrawable>?, isFirstResource: Boolean): Boolean {
                 detail_body_recyclerViewFrame.unVeil()
                 detail_body_veilLayout.unVeil()
-                detail_body_preview.gone()
                 return false
               }
 
               override fun onResourceReady(resource: PictureDrawable?, model: Any?, target: Target<PictureDrawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                 detail_body_recyclerViewFrame.unVeil()
                 detail_body_veilLayout.unVeil()
-                detail_body_preview.gone()
                 return false
               }
             })

@@ -26,7 +26,6 @@ package com.skydoves.githubfollows
 import com.facebook.stetho.Stetho
 import com.skydoves.githubfollows.di.DaggerAppComponent
 import com.skydoves.githubfollows.preference.PreferenceComponent_PrefAppComponent
-import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import timber.log.Timber
@@ -46,10 +45,6 @@ class GithubFollowsApplication : DaggerApplication() {
   override fun onCreate() {
     super.onCreate()
     appComponent.inject(this)
-
-    if (!LeakCanary.isInAnalyzerProcess(this)) {
-      LeakCanary.install(this)
-    }
 
     if (BuildConfig.DEBUG) {
       Timber.plant(Timber.DebugTree())
