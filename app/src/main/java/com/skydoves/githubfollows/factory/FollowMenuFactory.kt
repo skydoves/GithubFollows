@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.skydoves.githubfollows.utils
+package com.skydoves.githubfollows.factory
 
 import android.content.Context
 import android.graphics.Color
@@ -29,25 +29,16 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.skydoves.githubfollows.R
 import com.skydoves.powermenu.MenuAnimation
-import com.skydoves.powermenu.OnMenuItemClickListener
 import com.skydoves.powermenu.PowerMenu
 import com.skydoves.powermenu.PowerMenuItem
 
-/**
- * Developed by skydoves on 2018-01-24.
- * Copyright (c) 2018 skydoves rights reserved.
- */
+class FollowMenuFactory : PowerMenu.Factory() {
 
-object PowerMenuUtils {
-  fun getOverflowPowerMenu(
-    context: Context,
-    lifecycleOwner: LifecycleOwner,
-    onMenuItemClickListener: OnMenuItemClickListener<PowerMenuItem>
-  ): PowerMenu {
+  override fun create(context: Context, lifecycle: LifecycleOwner): PowerMenu {
     return PowerMenu.Builder(context)
       .addItem(PowerMenuItem("Following", true))
       .addItem(PowerMenuItem("Followers", false))
-      .setLifecycleOwner(lifecycleOwner)
+      .setLifecycleOwner(lifecycle)
       .setAnimation(MenuAnimation.SHOWUP_TOP_LEFT)
       .setMenuRadius(10f)
       .setMenuShadow(10f)
@@ -55,7 +46,6 @@ object PowerMenuUtils {
       .setSelectedTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
       .setMenuColor(ContextCompat.getColor(context, R.color.background800))
       .setSelectedMenuColor(ContextCompat.getColor(context, R.color.background800))
-      .setOnMenuItemClickListener(onMenuItemClickListener)
       .build()
   }
 }

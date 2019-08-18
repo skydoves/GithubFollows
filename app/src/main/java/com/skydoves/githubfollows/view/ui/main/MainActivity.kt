@@ -34,17 +34,17 @@ import com.skydoves.githubfollows.R
 import com.skydoves.githubfollows.databinding.ActivityMainBinding
 import com.skydoves.githubfollows.extension.vm
 import com.skydoves.githubfollows.factory.AppViewModelFactory
+import com.skydoves.githubfollows.factory.FollowMenuFactory
 import com.skydoves.githubfollows.models.Follower
 import com.skydoves.githubfollows.models.GithubUser
-import com.skydoves.githubfollows.utils.PowerMenuUtils
 import com.skydoves.githubfollows.view.adapter.GithubUserAdapter
 import com.skydoves.githubfollows.view.ui.detail.DetailActivity
 import com.skydoves.githubfollows.view.ui.search.SearchActivity
 import com.skydoves.githubfollows.view.viewholder.GithubUserHeaderViewHolder
 import com.skydoves.githubfollows.view.viewholder.GithubUserViewHolder
 import com.skydoves.powermenu.OnMenuItemClickListener
-import com.skydoves.powermenu.PowerMenu
 import com.skydoves.powermenu.PowerMenuItem
+import com.skydoves.powermenu.kotlin.powerMenu
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_main.*
@@ -66,15 +66,15 @@ class MainActivity : AppCompatActivity(),
   lateinit var viewModelFactory: AppViewModelFactory
   private val viewModel by lazy { vm(viewModelFactory, MainActivityViewModel::class) }
   private lateinit var binding: ActivityMainBinding
-  private val adapter by lazy { GithubUserAdapter(this, this) }
   private lateinit var paginator: RecyclerViewPaginator
-  private lateinit var powerMenu: PowerMenu
+  private val adapter by lazy { GithubUserAdapter(this, this) }
+  private val followMenu by powerMenu(FollowMenuFactory::class)
 
   private val onPowerMenuItemClickListener = OnMenuItemClickListener<PowerMenuItem> { position, item ->
     if (!item.isSelected) {
       viewModel.putPreferenceMenuPosition(position)
-      powerMenu.selectedPosition = position
-      powerMenu.dismiss()
+      followMenu.selectedPosition = position
+      followMenu.dismiss()
       restPagination(viewModel.getUserName())
     }
   }
@@ -99,9 +99,9 @@ class MainActivity : AppCompatActivity(),
   }
 
   private fun initializeUI() {
-    powerMenu = PowerMenuUtils.getOverflowPowerMenu(this, this, onPowerMenuItemClickListener)
-    powerMenu.selectedPosition = viewModel.getPreferenceMenuPosition()
-    toolbar_main_overflow.setOnClickListener { powerMenu.showAsDropDown(it) }
+    followMenu.onMenuItemClickListener = onPowerMenuItemClickListener
+    followMenu.selectedPosition = viewModel.getPreferenceMenuPosition()
+    toolbar_main_overflow.setOnClickListener { followMenu.showAsDropDown(it) }
     toolbar_main_search.setOnClickListener { startActivityForResult<SearchActivity>(SearchActivity.intent_requestCode) }
   }
 
@@ -133,8 +133,8 @@ class MainActivity : AppCompatActivity(),
   }
 
   override fun onBackPressed() {
-    when (powerMenu.isShowing) {
-      true -> powerMenu.dismiss()
+    when (followMenu.isShowing) {
+      true -> followMenu.dismiss()
       else -> super.onBackPressed()
     }
   }
