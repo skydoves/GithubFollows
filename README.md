@@ -33,6 +33,13 @@ A simple demo project based on MVVM clean architecture and material design & ani
 ## Posting
 [Medium - Android MVVM Architecture Components using Github API](https://medium.com/@skydoves/android-mvvm-architecture-components-using-github-api-f0ab9c2a67a0)
 
+## Find this library useful? :heart:
+Support it by joining __[stargazers](https://github.com/skydoves/GithubFollows/stargazers)__ for this repository. :star:
+
+## Supports :coffee:
+If you feel like support me a coffee for my efforts, I would greatly appreciate it. <br><br>
+<a href="https://www.buymeacoffee.com/skydoves" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/purple_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+
 # License
 ```xml
 The MIT License (MIT)
