@@ -5,7 +5,6 @@ buildscript {
         google()
         jcenter()
     }
-
     dependencies {
         classpath Dependencies.gradle
         classpath Dependencies.kotlin_plugin
